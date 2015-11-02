@@ -1,0 +1,91 @@
+/* CSS Personnalisée - Cyril Gallitre @2015 */
+
+/* Menu onglet principal */
+#rt-header .gf-menu.l1 > li > .item {font-size: 16px; line-height: inherit; font-variant: small-caps;}
+#rt-header .gf-menu .item {text-shadow: inherit;}
+
+/* mise en forme commune*/
+body {background-color: white;}
+h1 {font-size: xx-large; color: #3465a4;}
+h2 {font-size: x-large; color: #3465a4; }
+h3 {font-size: x-large; color: #96b124;}
+h1, h2, h3 {font-weight: normal;}
+.title {font-family: Helvetica; color: #3465a4; }
+p, ul {font-size: 15px;}
+
+/* Masquer item "plus d'articles dans les listes de chercheurs" */
+.items-more h3 {color: white; line-height: 0px;}
+
+/* mise en forme Contenu type  */
+#rt-mainbody h1{border-bottom: 1px solid #d1d1d1;}
+#rt-mainbody h2 {font-size: x-large; color: #3465a4; padding-bottom: 5px; margin-bottom: 10px; margin-top: 10px; border-bottom: 1px solid #d1d1d1; font-size: 28px;}
+#rt-mainbody blockquote {margin-left: 50px; margin-bottom: 30px; margin-top: 30px;}
+
+/* bandeau Université RT-TOP 
+#rt-top {color:white; background-color: #252525; }
+#rt-top p {font-size: x-small; text-align: center; letter-spacing: 15px; margin: 0 0 0 0; padding: 0 0 0 0;}
+#rt-top .rt-block {margin: 0 0 0 0; padding: 0 0 0 0;}
+*/
+
+/* bandeau supérieur avec logo + Menu RT-HEADER */
+#rt-header {background-color: white;}
+#rt-top-surround {box-shadow: 0 0 0 0 inset;}
+#rt-header .menu-block {float: right; margin-top: 85px;}
+
+/* slideshow RT-DRAWER */
+#rt-drawer .rt-block {margin:0px; padding: 0px;}
+#rt-drawer {background-color: white;}
+#rt-drawer {box-shadow: 0 0 0 0 inset;}
+
+/* Bandeau de couleur */
+#rt-breadcrumbs {background-color: #3465a4;}
+
+/* Actu en page d'accueil */
+#rt-content-bottom .actuaccueil {padding-top: 0px;}
+#rt-content-bottom .titreactu {padding-bottom: 0px;}
+
+/* Paragraphes en page d'accueil */
+#rt-content-bottom .paragrapheactu {margin-top: inherit;}
+
+/* side bar située en haut */
+#rt-main .sidebar {
+    background: none repeat scroll 0 0 #f3f3f3;
+    border-radius: 3px;
+    color: #767676;
+    padding: 15px 15px;
+    position: relative;
+    margin-bottom: 0px;
+    
+}
+#rt-main .sidebar h3 {font-size: medium; line-height: inherit;}
+
+/* side bar ACTU située en haut page d'accueil*/
+#rt-main .sidebaractu {
+    background: none repeat scroll 0 0 #f3f3f3;
+    border-radius: 3px;
+    color: #767676;
+    padding: 15px 15px;
+    position: relative;
+    margin-bottom: 0px;
+}
+#rt-sidebar-a .mod-articles-category-title {font-size: medium;}
+#rt-sidebar-a .mod-articles-category-date {font-size: x-small;}
+
+/* side bar située en second */
+#rt-main .contact {
+    background: none repeat scroll 0 0 #f3f3f3;
+    border-radius: 3px;
+    color: #767676;
+    padding: 15px 15px;
+    margin-top: 0px;
+    position: relative;
+}
+#rt-main .contact h1,h2,h4 {color: #767676;}
+
+/* liste de logos en pied de page */
+#rt-mainbottom {border-top-color: black; border-top-style: dashed; background-color: white;}
+
+/* Pied de page */
+#rt-bottom {background-color: #252525; color: white;}
+#rt-bottom  a:hover {color: white;}
+#rt-bottom .pieddepage h2 {border-bottom: none; box-shadow: none; text-shadow: none; color: white; font-size: x-large; font-weight: lighter;}
