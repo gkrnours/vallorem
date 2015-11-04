@@ -1,122 +1,141 @@
-drop table if exists personne;
-create table personne (
-	id integer primary key autoincrement,
-	nom text not null,
-	prenom text not null,
-	mail text not null,
-	mdp text not null,
-	statut integer not null,
-	equipe integer not null,
-	date_recrutement numeric not null,
-	permanent numeric not null
+DROP TABLE IF EXISTS personne;
+CREATE TABLE personne (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	nom TEXT NOT NULL,
+	prenom TEXT NOT NULL,
+	mail TEXT NOT NULL,
+	statut INTEGER NOT NULL,
+	equipe INTEGER NOT NULL,
+	date_recrutement NUMERIC NOT NULL,
+	permanent NUMERIC NOT NULL,
+	FOREIGN KEY(statut) REFERENCES statut(id),
+	FOREIGN KEY(equipe) REFERENCES equipe(id)
 );
 
-drop table if exists statut;
-create table statut (
-	id integer primary key autoincrement,
-	description text not null
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	email TEXT NOT NULL,
+	password TEXT NOT NULL
 );
 
-drop table if exists equipe;
-create table equipe (
-	id integer primary key autoincrement,
-	nom text not null,
-	axe text not null,
-	localisation text not null
+DROP TABLE IF EXISTS statut;
+CREATE TABLE statut (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	description TEXT NOT NULL
 );
 
-drop table if exists PRV;
-create table PRV (
-	id integer primary key autoincrement,
-	description text not null,
-	annee numeric not null,
-	type integer not null
-);
-
-drop table if exists publication;
-create table publication (
-	id integer primary key autoincrement,
-	description text not null,
-	annee numeric not null,
-	type integer not null
-);
-
-drop table if exists type_publication;
-create table type_publication (
-	id integer primary key autoincrement,
-	description text not null
-);
-
-drop table if exists type_PRV;
-create table type_PRV (
-	id integer primary key autoincrement,
-	description text not null
+DROP TABLE IF EXISTS equipe;
+CREATE TABLE equipe (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	nom TEXT NOT NULL,
+	axe TEXT NOT NULL,
+	localisation TEXT NOT NULL
 );
 
 
-
-drop table if exists HIST_personne;
-create table HIST_personne (
-	id integer primary key autoincrement,
-	id_personne integer not null,
-	nom text not null,
-	prenom text not null,
-	statut integer not null,
-	equipe integer not null,
-	date_recrutement numeric not null,
-	permanent numeric not null,
-	date_modification numeric not null
+DROP TABLE IF EXISTS production;
+CREATE TABLE production (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	description TEXT NOT NULL,
+	annee NUMERIC NOT NULL,
+	type INTEGER NOT NULL,
+	FOREIGN KEY(type) REFERENCES type_production(id)
 );
 
-drop table if exists HIST_PRV;
-create table HIST_PRV (
-	id integer primary key autoincrement,
-	id_PRV integer not null,
-	description text not null,
-	annee numeric not null,
-	type integer not null,
-	date_modification numeric not null
+
+DROP TABLE IF EXISTS directeur_these;
+CREATE TABLE directeur_these (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	doctorant INTEGER NOT NULL,
+	directeur INTEGER NOT NULL,
+	FOREIGN KEY(doctorant) REFERENCES personne(id),
+	FOREIGN KEY(directeur) REFERENCES personne(id)
 );
 
-drop table if exists HIST_publication;
-create table HIST_publication (
-	id integer primary key autoincrement,
-	id_publication integer not null,
-	description text not null,
-	annee numeric not null,
-	type integer not null,
-	personne integer not null,
-	date_modification numeric not null
+DROP TABLE IF EXISTS doctorant;
+CREATE TABLE doctorant (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	personne INTEGER NOT NULL,
+	type_financement INTEGER NOT NULL,
+	sujet_these TEXT NOT NULL,
+	nombre_ia INTEGER,
+	annee_soutenance NUMERIC,
+	observation INTEGER NOT NULL,
+	FOREIGN KEY(personne) REFERENCES personne(id),
+	FOREIGN KEY(type_financement) REFERENCES type_financement(id),
+	FOREIGN KEY(observation) REFERENCES observation(id)
 );
 
-drop table if exists publication_personne;
-create table publication_personne (
-	id integer primary key autoincrement,
-	id_publication integer not null,
-	id_personne integer not null
+DROP TABLE IF EXISTS observation;
+CREATE TABLE observation (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	description TEXT NOT NULL
 );
 
-drop table if exists PRV_personne;
-create table PRV_personne (
-	id integer primary key autoincrement,
-	id_PRV integer not null,
-	id_personne integer not null
+DROP TABLE IF EXISTS type_financement;
+CREATE TABLE type_financement (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	description TEXT NOT NULL
 );
 
-drop table if exists HIST_publication_personne;
-create table HIST_publication_personne (
-	id integer primary key autoincrement,
-	id_publication_personne integer not null,
-	id_publication integer not null,
-	id_personne integer not null,
-	date_modification numeric not null
+
+DROP TABLE IF EXISTS type_production;
+CREATE TABLE type_production (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	description TEXT NOT NULL,
+	publication NUMERIC NOT NULL
 );
 
-drop table if exists HIST_PRV_personne;
-create table HIST_PRV_personne (
-	id integer primary key autoincrement,
-	id_PRV_personne integer not null,
-	id_PRV integer not null,
-	id_personne integer not null,
-	date_modification numeric not null
+DROP TABLE IF EXISTS production_personne;
+CREATE TABLE production_personne (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	production INTEGER NOT NULL,
+	personne INTEGER NOT NULL,
+	FOREIGN KEY(production) REFERENCES production(id),
+	FOREIGN KEY(personne) REFERENCES personne(id)
+);
+
+DROP TABLE IF EXISTS user_personne;
+CREATE TABLE user_personne (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user INTEGER NOT NULL,
+	personne INTEGER NOT NULL,
+	FOREIGN KEY(user) REFERENCES user(id),
+	FOREIGN KEY(personne) REFERENCES personne(id)
+);
+
+DROP TABLE IF EXISTS categorie;
+CREATE TABLE categorie (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	description TEXT NOT NULL
+);
+
+DROP TABLE IF EXISTS page;
+CREATE TABLE page (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	titre TEXT NOT NULL,
+	categorie INTEGER NOT NULL,
+	content TEXT NOT NULL,
+	FOREIGN KEY(categorie) REFERENCES categorie(id)
+);
+
+DROP TABLE IF EXISTS HIST_personne_statut;
+CREATE TABLE HIST_personne_statut (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	id_personne INTEGER NOT NULL,
+	statut INTEGER NOT NULL,
+	date_modification NUMERIC NOT NULL,
+	FOREIGN KEY(id_personne) REFERENCES personne(id),
+	FOREIGN KEY(statut) REFERENCES statut(id)
+);
+
+DROP TABLE IF EXISTS HIST_personne_equipe;
+CREATE TABLE HIST_personne_equipe (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	id_personne INTEGER NOT NULL,
+	equipe INTEGER NOT NULL,
+	date_modification NUMERIC NOT NULL,
+	FOREIGN KEY(id_personne) REFERENCES personne(id),
+	FOREIGN KEY(equipe) REFERENCES equipe(id)
 );
