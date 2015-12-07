@@ -64,7 +64,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('getall_personne'))
+            return redirect(url_for('index'))
     return render_template('login.html', error=error)
 
 
@@ -75,7 +75,21 @@ def logout():
     return redirect(url_for('show_entries'))
 
 
+@app.route('/index')
+def index():
+    return render_template('index.html')
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/config')
+def config():
+    return render_template('conf.html')
+
+@app.route('/page')
+def page():
+    return render_template('page.html')
 
 if __name__ == '__main__':
     app.run()
