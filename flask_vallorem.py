@@ -4,16 +4,15 @@ from flask import Flask, request, session, g, redirect, url_for, abort, render_t
 import click
 from contextlib import closing
 
+USERNAME="root"
+PASSWORD="root"
+DATABASE='vallorem.db'
+DEBUG=True,
+SECRET_KEY='development key'
+
 # create our little application :)
 app = Flask(__name__)
 app.config.from_object(__name__)
-
-# Load default config and override config from an environment variable
-app.config.update(dict(
-    DATABASE='vallorem.db',
-    DEBUG=True,
-    SECRET_KEY='development key'
-))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
 
