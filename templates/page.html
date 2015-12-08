@@ -1,25 +1,39 @@
 {% extends "index.html" %}
 
 {% block header %}
-<h2><i class="lg icon-layout"></i>dashboard</h2>
+
+	<div class="button-bar">
+		<a href="{{ url_for('page', action='ajout') }}" class="button">
+			<i class="icon-check"></i>Ajout</a>
+	</div>
+	<h2><span class="lg icon-sound-mix"></span>Configuration
+		<span id="part-title"></span></h2>
 {% endblock %}
 
 
 {% block body %}
 {{ super() }}
 
-<div class="panel">
-<ul>
-	<li>
-		<p>page1</p>
-	</li>
-	<li>
-		<p>page2</p>
-	</li>
-	<li>
-		<p>page3</p>
-	</li>
-</ul>
-	
+<div class="panel col-md-3">
+<table class="table table-bordered">
+	<thead>
+		<th>
+			page
+		</th>
+		<th>
+			action
+		</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>page1</td>
+			<td class="icon-cancel"></td>
+		</tr>
+	</tbody>
+
+</table>	
+
+
 </div>
+
 	{% endblock %}

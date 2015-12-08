@@ -87,9 +87,18 @@ def dashboard():
 def config():
     return render_template('conf.html')
 
-@app.route('/page')
-def page():
-    return render_template('page.html')
+@app.route('/page/')
+@app.route('/page/<action>')
+def page(action=None):
+    if(action == None):
+        return render_template('page.html')
+    elif(action == "ajout"):
+        return render_template('ajout.html')
+    elif(action == "modif"):
+        return render_template('ajout.html')
+    else:
+        return "Action non valide"
+
 
 if __name__ == '__main__':
     app.run()
