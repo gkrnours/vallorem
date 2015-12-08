@@ -1,20 +1,11 @@
 import os
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from flask import Flask, request, session, g, redirect, url_for, abort
+from flask import render_template, flash
 import click
 from contextlib import closing
 
-USERNAME="root"
-PASSWORD="root"
-DATABASE='vallorem.db'
-DEBUG=True,
-SECRET_KEY='development key'
-
-# create our little application :)
-app = Flask(__name__)
-app.config.from_object(__name__)
-app.config.from_envvar('FLASKR_SETTINGS', silent=True)
-
+from vallorem import app
 
 def connect_db():
     """Connects to the specific database."""
@@ -74,9 +65,6 @@ def logout():
     flash('You were logged out')
     return redirect(url_for('show_entries'))
 
-
-
-
-if __name__ == '__main__':
-    app.run()
-
+@app.route('/')
+def index():
+	return "hi"
