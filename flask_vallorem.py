@@ -93,12 +93,23 @@ def page(action=None):
     if(action == None):
         return render_template('page.html')
     elif(action == "ajout"):
-        return render_template('ajout.html')
+        return render_template('ajoutPage.html')
     elif(action == "modif"):
-        return render_template('ajout.html')
+        return render_template('ajoutPage.html')
     else:
         return "Action non valide"
 
+@app.route('/categorie/')
+@app.route('/categorie/<action>')
+def categorie(action=None):
+    if(action == None):
+        return render_template('categorie.html')
+    elif(action == "ajout"):
+        return render_template('ajoutCategorie.html')
+    elif(action == "modif"):
+        return render_template('ajoutCategorie.html')
+    else:
+        return "Action non valide"
 
 if __name__ == '__main__':
     app.run()
