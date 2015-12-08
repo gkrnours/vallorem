@@ -1,7 +1,7 @@
 import os
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort
-from flask import render_template, flash
+from flask import render_template, flash, redirect
 import click
 from contextlib import closing
 
@@ -55,7 +55,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('getall_personne'))
+            return redirect(url_for('index'))
     return render_template('login.html', error=error)
 
 
@@ -66,5 +66,41 @@ def logout():
     return redirect(url_for('show_entries'))
 
 @app.route('/')
+def home():
+	return redirect('index')
+
+@app.route('/index')
 def index():
-	return "hi"
+    return render_template('index.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/config')
+def config():
+    return render_template('conf.html')
+
+@app.route('/page/')
+@app.route('/page/<action>')
+def page(action=None):
+    if(action == None):
+        return render_template('page.html')
+    elif(action == "ajout"):
+        return render_template('ajoutPage.html')
+    elif(action == "modif"):
+        return render_template('ajoutPage.html')
+    else:
+        return "Action non valide"
+
+@app.route('/categorie/')
+@app.route('/categorie/<action>')
+def categorie(action=None):
+    if(action == None):
+        return render_template('categorie.html')
+    elif(action == "ajout"):
+        return render_template('ajoutCategorie.html')
+    elif(action == "modif"):
+        return render_template('ajoutCategorie.html')
+    else:
+        return "Action non valide"

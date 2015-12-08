@@ -1,0 +1,35 @@
+<!doctype html>
+<link rel=stylesheet href={{ url_for('static', filename='css/dashboard.css') }}>
+<title>Menu</title>
+
+
+
+<nav id="sidebar">
+	<header>
+		<h1><a href=/admin>Admin</a></h1>
+	</header>
+	<ul>
+		<li><a href="{{ url_for('dashboard') }}">
+			<i class="icon-layout"></i>Information</a></li>
+		<li><a href="{{ url_for('config') }}">
+			<i class="icon-sound-mix"></i>Configuration</a></li>
+		<li><a href="{{ url_for('page') }}">
+			<i class="icon-newspaper"></i>Pages</a></li>
+		<li><a href="{{ url_for('categorie') }}">
+			<i class="icon-newspaper"></i>Catégorie</a></li>
+	</ul>
+</nav>
+
+
+<header id="bann" class="primary">
+	{% block header %}
+
+	{% endblock %}
+</header>
+
+<main id="dashboard">
+
+
+    {% block body %}
+
+    {% endblock %}
