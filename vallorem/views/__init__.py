@@ -6,7 +6,8 @@ from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
 import click
 from contextlib import closing
-from form import PageForm,CategorieForm
+from vallorem.form import PageForm,CategorieForm
+
 from vallorem import app
 
 def connect_db():
@@ -45,6 +46,11 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+def has_no_empty_params(rule):
+    """return True if the rule can be used without arguments"""
+    defaults = rule.defaults if rule.defaults is not None else ()
+    arguments = rule.arguments if rule.arguments is not None else ()
+    return len(arguments) <= len(defaults)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -80,10 +86,10 @@ def dashboard():
     return render_template('dashboard.html')
 
 @app.route('/config')
-@app.route('/config/<action>')
-def config(action = None):
+def config():
     onglet = {'sys': 'selected'}
     return render_template('page/page.html', page=onglet)
+
 
 @app.route('/page/')
 def page(action=None):
@@ -125,6 +131,7 @@ def categorieAjout():
     if request.method == "POST":
     #ecrire des codes pour ajouter input dans la base de donnees
         form = CategorieForm(request.form)
+        flash('vous avez entré la description:'+form.description.data)
     return render_template('categorie/ajout.html', page=onglet, form=form)
 
 @app.route('/categorie/modif', methods=['GET', 'POST'])
@@ -135,6 +142,7 @@ def categorieModif():
     #ecrire des codes pour ajouter input dans la base de donnees
         form = CategorieForm(request.form)
     return render_template('categorie/ajout.html', page=onglet, form=form)
+
 
 @app.route('/user/')
 def user(action=None):
@@ -151,3 +159,15 @@ def userAjout():
 def userModif():
     onglet = {'user': 'selected'}
     return render_template('user/ajout.html', page=onglet)
+
+
+@app.route('/site-map')
+def site_map():
+    """ Display the list of rules reachable with a browser and without
+    parameters """
+    links = []
+    for rule in app.url_map.iter_rules():
+        if "GET" in rule.methods and has_no_empty_params(rule):
+            url = url_for(rule.endpoint, **(rule.defaults or {}))
+            links.append((url, rule.endpoint))
+    return render_template('site_map.html', urls=links)
