@@ -1,9 +1,10 @@
 {% extends "index.html" %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block header %}
 
 	<div class="button-bar">
-		<button type="submit" value="save" form="user">
+		<button type="submit" value="save" form="page">
 			<i class="icon-check"></i>Save</button>
 	</div>
 	<h2><span class="lg icon-sound-mix"></span>Configuration
@@ -12,21 +13,15 @@
 
 
 {% block body %}
-{{ super() }}
+
 	<div class="panel">
-		<h3>Page</h3>
-		<form class="form-inline" id="page">
-			<fieldset class="form-group">
-				<label for="titre">titre</label>
-				<input type="text" id="titre">
-			</fieldset>
-			<fieldset class="form-group">
-				<label for="categorie">categorie</label>
-				<input type="text" id="categorie">
-			</fieldset>
-			<fieldset class="form-group">
-				<label for="contenu">contenu</label>
-				<textarea id="contenu" rows="10" cols="50"></textarea>
-			</fieldset>
+		<h3>Page </h3>
+		<form class="form-inline" id="page" method="post">
+			
+			{{ render_field(form.title) }}
+			
+			{{ render_field(form.categorie) }}
+			
+			{{ render_field(form.contenu) }}
 		</form>
 {% endblock %}

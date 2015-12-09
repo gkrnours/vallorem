@@ -3,6 +3,7 @@ from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import click
 from contextlib import closing
+from form import PageForm,CategorieForm
 
 USERNAME="root"
 PASSWORD="root"
@@ -88,28 +89,46 @@ def config():
     return render_template('conf.html')
 
 @app.route('/page/')
-@app.route('/page/<action>')
+@app.route('/page/<action>', methods=['GET', 'POST'])
 def page(action=None):
-    if(action == None):
-        return render_template('page.html')
-    elif(action == "ajout"):
-        return render_template('ajoutPage.html')
-    elif(action == "modif"):
-        return render_template('ajoutPage.html')
-    else:
-        return "Action non valide"
+	form=PageForm()
+	
+	if(action == None):		
+		return render_template('page.html')
+	elif(action == "ajout"):
+		if request.method == "POST":
+		 #écrire des codes pour ajouter input dans la base de données
+			form = PageForm(request.form)
+		return render_template('ajoutPage.html', form=form)
+	elif(action == "modif"):
+		if request.method == "POST":
+		 #écrire des codes pour ajouter input dans la base de données
+			form = PageForm(request.form)
+		return render_template('ajoutPage.html', form=form)
+		
+	else:
+		return "Action non valide"
 
 @app.route('/categorie/')
-@app.route('/categorie/<action>')
+@app.route('/categorie/<action>', methods=['GET', 'POST'])
 def categorie(action=None):
-    if(action == None):
-        return render_template('categorie.html')
-    elif(action == "ajout"):
-        return render_template('ajoutCategorie.html')
-    elif(action == "modif"):
-        return render_template('ajoutCategorie.html')
-    else:
-        return "Action non valide"
+	form=CategorieForm()
+	
+	if(action == None):
+		return render_template('categorie.html')
+	elif(action == "ajout"):
+		if request.method == "POST":
+		 #écrire des codes pour ajouter input dans la base de données
+			form = CategorieForm(request.form)
+		return render_template('ajoutCategorie.html',form=form)
+	elif(action == "modif"):
+		if request.method == "POST":
+		 #écrire des codes pour ajouter input dans la base de données
+			form = CategorieForm(request.form)
+		return render_template('ajoutCategorie.html',form=form)
+		
+	else:
+		return "Action non valide"
 
 if __name__ == '__main__':
     app.run()
