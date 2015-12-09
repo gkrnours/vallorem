@@ -68,7 +68,7 @@ def logout():
 
 @app.route('/')
 def home():
-	return redirect('index')
+    return redirect('index')
 
 @app.route('/index')
 def index():
@@ -80,50 +80,67 @@ def dashboard():
 
 @app.route('/config')
 def config():
-    return render_template('conf.html')
+    onglet = {'sys': 'selected'}
+    return render_template('page.html', page=onglet)
 
 @app.route('/page/')
 @app.route('/page/<action>', methods=['GET', 'POST'])
 def page(action=None):
-	form=PageForm()
-	
-	if(action == None):		
-		return render_template('page.html')
-	elif(action == "ajout"):
-		if request.method == "POST":
-		 #écrire des codes pour ajouter input dans la base de données
-			form = PageForm(request.form)
-
-
-
-		return render_template('ajoutPage.html', form=form)
-	elif(action == "modif"):
-		if request.method == "POST":
-		 #écrire des codes pour ajouter input dans la base de données
-			form = PageForm(request.form)
-		return render_template('ajoutPage.html', form=form)
-		
-	else:
-		return "Action non valide"
+    form=PageForm()
+    onglet = {'sys': 'selected'}
+    
+    if(action == None):     
+        return render_template('page.html', page=onglet)
+    elif(action == "ajout"):
+        if request.method == "POST":
+         #ecrire des codes pour ajouter input dans la base de donnees
+            form = PageForm(request.form)
+        return render_template('page/ajout.html', page=onglet, form=form)
+    elif(action == "modif"):
+        if request.method == "POST":
+         #ecrire des codes pour ajouter input dans la base de donnees
+            form = PageForm(request.form)
+        return render_template('page/ajout.html', page=onglet, form=form)
+        
+    else:
+        return "Action non valide"
 
 @app.route('/categorie/')
 @app.route('/categorie/<action>', methods=['GET', 'POST'])
 def categorie(action=None):
-    form=CategorieForm()
 
+    onglet = {'categ': 'selected'}
+    form=CategorieForm()
+    
     if(action == None):
-        return render_template('categorie.html')
+        return render_template('categorie.html', page=onglet)
     elif(action == "ajout"):
         if request.method == "POST":
-            #écrire des codes pour ajouter input dans la base de données
+         #ecrire des codes pour ajouter input dans la base de donnees
             form = CategorieForm(request.form)
             flash('vous avez entré la description:'+form.description.data)
-        return render_template('ajoutCategorie.html',form=form)
+        return render_template('categorie/ajout.html', page=onglet ,form=form)
     elif(action == "modif"):
         if request.method == "POST":
-        #écrire des codes pour ajouter input dans la base de données
+         #ecrire des codes pour ajouter input dans la base de donnees
             form = CategorieForm(request.form)
-        return render_template('ajoutCategorie.html',form=form)
-
+        return render_template('categorie/ajout.html', page=onglet ,form=form)
+        
     else:
         return "Action non valide"
+
+@app.route('/user/')
+@app.route('/user/<action>')
+def user(action=None):
+    onglet = {'user': 'selected'}
+    if(action == None):
+        return render_template('user.html', page=onglet)
+    elif(action == "ajout"):
+        return render_template('user/ajout.html', page=onglet)
+    elif(action == "modif"):
+        return render_template('user/ajout.html', page=onglet)
+    else:
+        return "Action non valide"
+
+
+

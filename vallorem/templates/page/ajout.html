@@ -1,8 +1,14 @@
-{% extends "index.html" %}
+{% extends "confBase.html" %}
 {% from "_formhelpers.html" import render_field %}
 
-{% block header %}
 
+
+
+	{% block titre %}
+		Ajout d'une page
+	{% endblock %}
+
+{% block header %}
 	<div class="button-bar">
 		<button type="submit" value="save" form="page">
 			<i class="icon-check"></i>Save</button>
@@ -12,8 +18,9 @@
 {% endblock %}
 
 
-{% block body %}
 
+{% block body %}
+	 {{ super() }}
 	<div class="panel">
 		<h3>Page </h3>
 		<form class="form-inline" id="page" method="post">
