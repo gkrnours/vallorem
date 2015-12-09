@@ -1,8 +1,8 @@
-from db import db
+from vallorem.model.db import db
 
 
 class MailPersonne(db.Model):
-    id = db.Column(db.Integer, primary_key=True, sqlite_autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     id_personne = db.Column(db.Integer, db.ForeignKey('personne.id'))
     id_mail = db.Column(db.Integer, db.ForeignKey('mail.id'))
 
