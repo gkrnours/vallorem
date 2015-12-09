@@ -4,6 +4,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
 import click
 from contextlib import closing
+from vallorem.form import PageForm,CategorieForm
 
 from vallorem import app
 
@@ -84,31 +85,78 @@ def dashboard():
 
 @app.route('/config')
 def config():
-    return render_template('conf.html')
+    onglet = {'sys': 'selected'}
+    return render_template('page.html', page=onglet)
 
 @app.route('/page/')
-@app.route('/page/<action>')
 def page(action=None):
-    if(action == None):
-        return render_template('page.html')
-    elif(action == "ajout"):
-        return render_template('ajoutPage.html')
-    elif(action == "modif"):
-        return render_template('ajoutPage.html')
-    else:
-        return "Action non valide"
+    onglet = {'sys': 'selected'}
+    form=PageForm()
+    onglet = {'sys': 'selected'}   
+    return render_template('page.html', page=onglet)
+
+@app.route('/page/ajout', methods=['GET', 'POST'])
+def pageAjout():
+    onglet = {'sys': 'selected'}
+    form=PageForm()
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = PageForm(request.form)
+    return render_template('page/ajout.html', page=onglet, form=form)
+
+@app.route('/page/modif', methods=['GET', 'POST'])
+def pageModif():
+    form=PageForm()
+    onglet = {'sys': 'selected'}
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = PageForm(request.form)
+    return render_template('page/ajout.html', page=onglet, form=form)
 
 @app.route('/categorie/')
-@app.route('/categorie/<action>')
+@app.route('/categorie/<action>', methods=['GET', 'POST'])
 def categorie(action=None):
-    if(action == None):
-        return render_template('categorie.html')
-    elif(action == "ajout"):
-        return render_template('ajoutCategorie.html')
-    elif(action == "modif"):
-        return render_template('ajoutCategorie.html')
-    else:
-        return "Action non valide"
+    onglet = {'categ': 'selected'}
+    form=CategorieForm()
+    return render_template('categorie.html', page=onglet)
+
+
+@app.route('/categorie/ajout', methods=['GET', 'POST'])
+def categorieAjout():
+    form=CategorieForm()
+    onglet = {'categ': 'selected'}
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = CategorieForm(request.form)
+        flash('vous avez entré la description:'+form.description.data)
+    return render_template('categorie/ajout.html', page=onglet, form=form)
+
+@app.route('/categorie/modif', methods=['GET', 'POST'])
+def categorieModif():
+    form=CategorieForm()
+    onglet = {'categ': 'selected'}
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = CategorieForm(request.form)
+    return render_template('categorie/ajout.html', page=onglet, form=form)
+
+
+@app.route('/user/')
+def user(action=None):
+    onglet = {'user': 'selected'}
+    return render_template('user.html', page=onglet)
+
+
+@app.route('/user/ajout', methods=['GET', 'POST'])
+def userAjout():
+    onglet = {'user': 'selected'}
+    return render_template('user/ajout.html', page=onglet)
+
+@app.route('/user/modif', methods=['GET', 'POST'])
+def userModif():
+    onglet = {'user': 'selected'}
+    return render_template('user/ajout.html', page=onglet)
+
 
 @app.route('/site-map')
 def site_map():

@@ -1,39 +1,37 @@
-{% extends "index.html" %}
+{% extends "confBase.html" %}
+	{% block url %}
+		{{ url_for('pageAjout') }}
+	{% endblock %}
 
-{% block header %}
-
-	<div class="button-bar">
-		<a href="{{ url_for('page', action='ajout') }}" class="button">
-			<i class="icon-check"></i>Ajout</a>
-	</div>
-	<h2><span class="lg icon-sound-mix"></span>Configuration
-		<span id="part-title"></span></h2>
-{% endblock %}
-
+	{% block titre %}
+		Page
+	{% endblock %}
 
 {% block body %}
 {{ super() }}
 
-<div class="panel col-md-3">
-<table class="table table-bordered">
-	<thead>
-		<th>
-			page
-		</th>
-		<th>
-			action
-		</th>
-	</thead>
-	<tbody>
-		<tr>
-			<td>page1</td>
-			<td class="icon-cancel"></td>
-		</tr>
-	</tbody>
+<div class="panel">
+	<table>
+		<thead>
+			<tr>
+				<th>
+					page
+				</th>
+				<th>
+					action
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>page1</td>
+				<td class=icon><i class="icon-cancel"></i></td>
+			</tr>
+		</tbody>
 
-</table>	
+	</table>	
 
 
 </div>
 
-	{% endblock %}
+{% endblock %}

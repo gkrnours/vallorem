@@ -1,0 +1,37 @@
+{% extends "confBase.html" %}
+
+	{% block url %}
+		{{ url_for('userAjout') }}
+	{% endblock %}
+	{% block titre %}
+		User
+	{% endblock %}
+
+
+
+	{% block body %}
+	{{ super() }}
+
+	<div class="panel">
+		<table>
+			<thead>
+				<th>
+					User
+				</th>
+				<th>
+					action
+				</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>user1</td>
+					<td class="icon-cancel"></td>
+				</tr>
+			</tbody>
+
+		</table>
+		
+	</div>
+
+
+	{% endblock %}

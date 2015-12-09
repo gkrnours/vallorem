@@ -1,21 +1,17 @@
-{% extends "index.html" %}
+{% extends "confBase.html" %}
+	{% block url %}
+		{{ url_for('categorieAjout') }}
+	{% endblock %}
 
-{% block header %}
-
-	<div class="button-bar">
-		<a href="{{ url_for('categorie', action='ajout') }}" class="button">
-			<i class="icon-check"></i>Ajout</a>
-	</div>
-	<h2><span class="lg icon-sound-mix"></span>Configuration
-		<span id="part-title"></span></h2>
-{% endblock %}
-
+	{% block titre %}
+		Categorie
+	{% endblock %}
 
 {% block body %}
 {{ super() }}
 
-<div class="panel col-md-3">
-<table class="table table-bordered">
+<div class="panel">
+<table>
 	<thead>
 		<th>
 			catégorie
