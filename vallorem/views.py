@@ -4,7 +4,6 @@ from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
 import click
 from contextlib import closing
-
 from vallorem import app
 
 def connect_db():
@@ -78,29 +77,49 @@ def dashboard():
     return render_template('dashboard.html')
 
 @app.route('/config')
-def config():
-    return render_template('conf.html')
+@app.route('/config/<action>')
+def config(action = None):
+    onglet = {'sys': 'selected'}
+    if(action==None):
+        return render_template('page.html', page=onglet)
+    else:
+        return "Action non valide"
 
 @app.route('/page/')
 @app.route('/page/<action>')
 def page(action=None):
+    onglet = {'sys': 'selected'}
     if(action == None):
-        return render_template('page.html')
+        return render_template('page.html', page=onglet)
     elif(action == "ajout"):
-        return render_template('ajoutPage.html')
+        return render_template('page/ajout.html', page=onglet)
     elif(action == "modif"):
-        return render_template('ajoutPage.html')
+        return render_template('page/ajout.html', page=onglet)
     else:
         return "Action non valide"
 
 @app.route('/categorie/')
 @app.route('/categorie/<action>')
 def categorie(action=None):
+    onglet = {'categ': 'selected'}
     if(action == None):
-        return render_template('categorie.html')
+        return render_template('categorie.html', page=onglet)
     elif(action == "ajout"):
-        return render_template('ajoutCategorie.html')
+        return render_template('categorie/ajout.html', page=onglet)
     elif(action == "modif"):
-        return render_template('ajoutCategorie.html')
+        return render_template('categorie/ajout.html', page=onglet)
+    else:
+        return "Action non valide"
+
+@app.route('/user/')
+@app.route('/user/<action>')
+def user(action=None):
+    onglet = {'user': 'selected'}
+    if(action == None):
+        return render_template('user.html', page=onglet)
+    elif(action == "ajout"):
+        return render_template('categorie/ajout.html', page=onglet)
+    elif(action == "modif"):
+        return render_template('user/ajout.html', page=onglet)
     else:
         return "Action non valide"
