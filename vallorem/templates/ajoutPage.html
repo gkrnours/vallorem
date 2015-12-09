@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block header %}
+
+	<div class="button-bar">
+		<button type="submit" value="save" form="page">
+			<i class="icon-check"></i>Save</button>
+	</div>
+	<h2><span class="lg icon-sound-mix"></span>Configuration
+		<span id="part-title"></span></h2>
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="panel">
+		<h3>Page </h3>
+		<form class="form-inline" id="page" method="post">
+			
+			{{ render_field(form.title) }}
+			
+			{{ render_field(form.categorie) }}
+			
+			{{ render_field(form.contenu) }}
+		</form>
+{% endblock %}
