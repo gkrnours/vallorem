@@ -4,7 +4,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
 import click
 from contextlib import closing
-from form import PageForm,CategorieForm
+from vallorem.form import PageForm,CategorieForm
 
 from vallorem import app
 
@@ -93,6 +93,9 @@ def page(action=None):
 		if request.method == "POST":
 		 #écrire des codes pour ajouter input dans la base de données
 			form = PageForm(request.form)
+
+
+
 		return render_template('ajoutPage.html', form=form)
 	elif(action == "modif"):
 		if request.method == "POST":
@@ -106,20 +109,21 @@ def page(action=None):
 @app.route('/categorie/')
 @app.route('/categorie/<action>', methods=['GET', 'POST'])
 def categorie(action=None):
-	form=CategorieForm()
-	
-	if(action == None):
-		return render_template('categorie.html')
-	elif(action == "ajout"):
-		if request.method == "POST":
-		 #écrire des codes pour ajouter input dans la base de données
-			form = CategorieForm(request.form)
-		return render_template('ajoutCategorie.html',form=form)
-	elif(action == "modif"):
-		if request.method == "POST":
-		 #écrire des codes pour ajouter input dans la base de données
-			form = CategorieForm(request.form)
-		return render_template('ajoutCategorie.html',form=form)
-		
-	else:
-		return "Action non valide"
+    form=CategorieForm()
+
+    if(action == None):
+        return render_template('categorie.html')
+    elif(action == "ajout"):
+        if request.method == "POST":
+            #écrire des codes pour ajouter input dans la base de données
+            form = CategorieForm(request.form)
+            flash('vous avez entré la description:'+form.description.data)
+        return render_template('ajoutCategorie.html',form=form)
+    elif(action == "modif"):
+        if request.method == "POST":
+        #écrire des codes pour ajouter input dans la base de données
+            form = CategorieForm(request.form)
+        return render_template('ajoutCategorie.html',form=form)
+
+    else:
+        return "Action non valide"
