@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<title>sitemap</title>
+<link rel=stylesheet href="{{ url_for('static', filename='css/simple.css') }}">
+
+<h1>Site map</h1>
+<table>
+{% for url in urls %}
+	<tr>
+		<td>{{ url[0] }}
+		<td>{{ url[1] }}
+{% endfor %}
+</table>
