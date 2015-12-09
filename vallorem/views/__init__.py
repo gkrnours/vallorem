@@ -10,6 +10,7 @@ from vallorem.form import PageForm,CategorieForm
 
 from vallorem import app
 from vallorem.views import login
+from vallorem.views import page
 
 def connect_db():
     """Connects to the specific database."""
@@ -70,32 +71,6 @@ def dashboard():
 def config():
     onglet = {'sys': 'selected'}
     return render_template('page/page.html', page=onglet)
-
-
-@app.route('/page/')
-def page(action=None):
-    onglet = {'sys': 'selected'}
-    form=PageForm()
-    onglet = {'sys': 'selected'}   
-    return render_template('page/page.html', page=onglet)
-
-@app.route('/page/ajout', methods=['GET', 'POST'])
-def pageAjout():
-    onglet = {'sys': 'selected'}
-    form=PageForm()
-    if request.method == "POST":
-    #ecrire des codes pour ajouter input dans la base de donnees
-        form = PageForm(request.form)
-    return render_template('page/ajout.html', page=onglet, form=form)
-
-@app.route('/page/modif', methods=['GET', 'POST'])
-def pageModif():
-    form=PageForm()
-    onglet = {'sys': 'selected'}
-    if request.method == "POST":
-    #ecrire des codes pour ajouter input dans la base de donnees
-        form = PageForm(request.form)
-    return render_template('page/ajout.html', page=onglet, form=form)
 
 @app.route('/categorie/')
 @app.route('/categorie/<action>', methods=['GET', 'POST'])
