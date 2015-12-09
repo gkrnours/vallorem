@@ -6,7 +6,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
 import click
 from contextlib import closing
-from vallorem.form import PageForm,CategorieForm
+from vallorem.form import PageForm,CategorieForm,UserForm
 
 from vallorem import app
 from vallorem.views import login
@@ -49,6 +49,7 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+
 def has_no_empty_params(rule):
     """return True if the rule can be used without arguments"""
     defaults = rule.defaults if rule.defaults is not None else ()
@@ -82,8 +83,15 @@ def user(action=None):
 
 @app.route('/user/ajout', methods=['GET', 'POST'])
 def userAjout():
+    form=UserForm()
     onglet = {'user': 'selected'}
-    return render_template('user/ajout.html', page=onglet)
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = UserForm(request.form)
+        flash("vous avez entré l'email:"+form.email.data)
+        flash("vous avez entré le password:"+form.password.data)
+
+    return render_template('user/ajout.html',form=form, page=onglet)
 
 @app.route('/user/modif', methods=['GET', 'POST'])
 def userModif():
