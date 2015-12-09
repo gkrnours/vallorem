@@ -83,17 +83,14 @@ def dashboard():
 @app.route('/config/<action>')
 def config(action = None):
     onglet = {'sys': 'selected'}
-    if(action==None):
-        return render_template('page.html', page=onglet)
-    else:
-        return "Action non valide"
+    return render_template('page/page.html', page=onglet)
 
 @app.route('/page/')
 def page(action=None):
     onglet = {'sys': 'selected'}
     form=PageForm()
     onglet = {'sys': 'selected'}   
-    return render_template('page.html', page=onglet)
+    return render_template('page/page.html', page=onglet)
 
 @app.route('/page/ajout', methods=['GET', 'POST'])
 def pageAjout():
@@ -118,7 +115,7 @@ def pageModif():
 def categorie(action=None):
     onglet = {'categ': 'selected'}
     form=CategorieForm()
-    return render_template('categorie.html', page=onglet)
+    return render_template('categorie/categorie.html', page=onglet)
     
 
 @app.route('/categorie/ajout', methods=['GET', 'POST'])
@@ -142,7 +139,7 @@ def categorieModif():
 @app.route('/user/')
 def user(action=None):
     onglet = {'user': 'selected'}
-    return render_template('user.html', page=onglet)
+    return render_template('user/user.html', page=onglet)
 
 
 @app.route('/user/ajout', methods=['GET', 'POST'])
