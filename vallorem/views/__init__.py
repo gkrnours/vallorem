@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+# std python import
+from __future__ import unicode_literals
 
 import os
 from sqlite3 import dbapi2 as sqlite3
@@ -12,6 +14,7 @@ from vallorem import app
 from vallorem.views import login
 from vallorem.views import page
 from vallorem.views import categorie
+from vallorem.views import user
 
 def connect_db():
     """Connects to the specific database."""
@@ -73,31 +76,6 @@ def dashboard():
 def config():
     onglet = {'sys': 'selected'}
     return render_template('page/page.html', page=onglet)
-
-
-@app.route('/user/')
-def user(action=None):
-    onglet = {'user': 'selected'}
-    return render_template('user/user.html', page=onglet)
-
-
-@app.route('/user/ajout', methods=['GET', 'POST'])
-def userAjout():
-    form=UserForm()
-    onglet = {'user': 'selected'}
-    if request.method == "POST":
-    #ecrire des codes pour ajouter input dans la base de donnees
-        form = UserForm(request.form)
-        flash("vous avez entré l'email:"+form.email.data)
-        flash("vous avez entré le password:"+form.password.data)
-
-    return render_template('user/ajout.html',form=form, page=onglet)
-
-@app.route('/user/modif', methods=['GET', 'POST'])
-def userModif():
-    onglet = {'user': 'selected'}
-    return render_template('user/ajout.html', page=onglet)
-
 
 @app.route('/site-map')
 def site_map():
