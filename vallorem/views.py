@@ -4,6 +4,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
 import click
 from contextlib import closing
+from form import PageForm,CategorieForm
 from vallorem import app
 
 def connect_db():
@@ -66,7 +67,7 @@ def logout():
 
 @app.route('/')
 def home():
-	return redirect('index')
+    return redirect('index')
 
 @app.route('/index')
 def index():
@@ -86,28 +87,49 @@ def config(action = None):
         return "Action non valide"
 
 @app.route('/page/')
-@app.route('/page/<action>')
+@app.route('/page/<action>', methods=['GET', 'POST'])
 def page(action=None):
+
+    form=PageForm()
     onglet = {'sys': 'selected'}
-    if(action == None):
+    
+    if(action == None):     
         return render_template('page.html', page=onglet)
     elif(action == "ajout"):
-        return render_template('page/ajout.html', page=onglet)
+        if request.method == "POST":
+         #ecrire des codes pour ajouter input dans la base de donnees
+            form = PageForm(request.form)
+        return render_template('page/ajout.html', page=onglet, form=form)
     elif(action == "modif"):
-        return render_template('page/ajout.html', page=onglet)
+        if request.method == "POST":
+         #ecrire des codes pour ajouter input dans la base de donnees
+            form = PageForm(request.form)
+        return render_template('page/ajout.html', page=onglet, form=form)
+        
     else:
         return "Action non valide"
+81
 
 @app.route('/categorie/')
-@app.route('/categorie/<action>')
+@app.route('/categorie/<action>', methods=['GET', 'POST'])
 def categorie(action=None):
+
     onglet = {'categ': 'selected'}
+    form=CategorieForm()
+    
     if(action == None):
         return render_template('categorie.html', page=onglet)
     elif(action == "ajout"):
-        return render_template('categorie/ajout.html', page=onglet)
+        if request.method == "POST":
+         #ecrire des codes pour ajouter input dans la base de donnees
+            form = CategorieForm(request.form)
+        return render_template('categorie/ajout.html', page=onglet ,form=form)
     elif(action == "modif"):
-        return render_template('categorie/ajout.html', page=onglet)
+        if request.method == "POST":
+         #ecrire des codes pour ajouter input dans la base de donnees
+            form = CategorieForm(request.form)
+        return render_template('categorie/ajout.html', page=onglet ,form=form)
+        
     else:
         return "Action non valide"
 
@@ -118,8 +140,11 @@ def user(action=None):
     if(action == None):
         return render_template('user.html', page=onglet)
     elif(action == "ajout"):
-        return render_template('categorie/ajout.html', page=onglet)
+        return render_template('user/ajout.html', page=onglet)
     elif(action == "modif"):
         return render_template('user/ajout.html', page=onglet)
     else:
         return "Action non valide"
+
+
+
