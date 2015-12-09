@@ -84,63 +84,70 @@ def config():
     return render_template('page.html', page=onglet)
 
 @app.route('/page/')
-@app.route('/page/<action>', methods=['GET', 'POST'])
 def page(action=None):
+    onglet = {'sys': 'selected'}
+    form=PageForm()
+    onglet = {'sys': 'selected'}   
+    return render_template('page.html', page=onglet)
+
+@app.route('/page/ajout', methods=['GET', 'POST'])
+def pageAjout():
+    onglet = {'sys': 'selected'}
+    form=PageForm()
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = PageForm(request.form)
+    return render_template('page/ajout.html', page=onglet, form=form)
+
+@app.route('/page/modif', methods=['GET', 'POST'])
+def pageModif():
     form=PageForm()
     onglet = {'sys': 'selected'}
-    
-    if(action == None):     
-        return render_template('page.html', page=onglet)
-    elif(action == "ajout"):
-        if request.method == "POST":
-         #ecrire des codes pour ajouter input dans la base de donnees
-            form = PageForm(request.form)
-        return render_template('page/ajout.html', page=onglet, form=form)
-    elif(action == "modif"):
-        if request.method == "POST":
-         #ecrire des codes pour ajouter input dans la base de donnees
-            form = PageForm(request.form)
-        return render_template('page/ajout.html', page=onglet, form=form)
-        
-    else:
-        return "Action non valide"
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = PageForm(request.form)
+    return render_template('page/ajout.html', page=onglet, form=form)
 
 @app.route('/categorie/')
 @app.route('/categorie/<action>', methods=['GET', 'POST'])
 def categorie(action=None):
-
     onglet = {'categ': 'selected'}
     form=CategorieForm()
-    
-    if(action == None):
-        return render_template('categorie.html', page=onglet)
-    elif(action == "ajout"):
-        if request.method == "POST":
-         #ecrire des codes pour ajouter input dans la base de donnees
-            form = CategorieForm(request.form)
-            flash('vous avez entré la description:'+form.description.data)
-        return render_template('categorie/ajout.html', page=onglet ,form=form)
-    elif(action == "modif"):
-        if request.method == "POST":
-         #ecrire des codes pour ajouter input dans la base de donnees
-            form = CategorieForm(request.form)
-        return render_template('categorie/ajout.html', page=onglet ,form=form)
-        
-    else:
-        return "Action non valide"
+    return render_template('categorie.html', page=onglet)
+
+
+@app.route('/categorie/ajout', methods=['GET', 'POST'])
+def categorieAjout():
+    form=CategorieForm()
+    onglet = {'categ': 'selected'}
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = CategorieForm(request.form)
+        flash('vous avez entré la description:'+form.description.data)
+    return render_template('categorie/ajout.html', page=onglet, form=form)
+
+@app.route('/categorie/modif', methods=['GET', 'POST'])
+def categorieModif():
+    form=CategorieForm()
+    onglet = {'categ': 'selected'}
+    if request.method == "POST":
+    #ecrire des codes pour ajouter input dans la base de donnees
+        form = CategorieForm(request.form)
+    return render_template('categorie/ajout.html', page=onglet, form=form)
+
 
 @app.route('/user/')
-@app.route('/user/<action>')
 def user(action=None):
     onglet = {'user': 'selected'}
-    if(action == None):
-        return render_template('user.html', page=onglet)
-    elif(action == "ajout"):
-        return render_template('user/ajout.html', page=onglet)
-    elif(action == "modif"):
-        return render_template('user/ajout.html', page=onglet)
-    else:
-        return "Action non valide"
+    return render_template('user.html', page=onglet)
 
 
+@app.route('/user/ajout', methods=['GET', 'POST'])
+def userAjout():
+    onglet = {'user': 'selected'}
+    return render_template('user/ajout.html', page=onglet)
 
+@app.route('/user/modif', methods=['GET', 'POST'])
+def userModif():
+    onglet = {'user': 'selected'}
+    return render_template('user/ajout.html', page=onglet)
