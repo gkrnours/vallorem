@@ -9,6 +9,7 @@ from contextlib import closing
 from vallorem.form import PageForm,CategorieForm
 
 from vallorem import app
+from vallorem.views import login
 
 def connect_db():
     """Connects to the specific database."""
@@ -52,26 +53,6 @@ def has_no_empty_params(rule):
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(arguments) <= len(defaults)
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('index'))
-    return render_template('login.html', error=error)
-
-
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show_entries'))
 
 @app.route('/')
 def home():
@@ -79,7 +60,7 @@ def home():
 
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return redirect('dashboard')
 
 @app.route('/dashboard')
 def dashboard():
