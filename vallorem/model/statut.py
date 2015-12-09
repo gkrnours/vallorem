@@ -1,7 +1,7 @@
 from vallorem.model.db import db
 
 
-class Categorie(db.Model):
+class Statut(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(50))
 
