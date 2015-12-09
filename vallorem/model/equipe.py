@@ -1,8 +1,8 @@
-from db import db
+from vallorem.model.db import db
 
 
 class Equipe(db.Model):
-    id = db.Column(db.Integer, primary_key=True, sqlite_autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(50))
     axe = db.Column(db.String(50))
     localisation = db.Column(db.String(40))

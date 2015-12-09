@@ -9,9 +9,9 @@
 {% block header %}
 
 	<div class="button-bar">
-		
-<button type="submit" value="save" form="description">
-			<i class="icon-check"></i>Save</button> 
+
+		<button type="submit" value="save" form="description">
+			<i class="icon-check"></i>Save</button>
 	</div>
 	<h2><span class="lg icon-sound-mix"></span>Configuration
 		<span id="part-title"></span></h2>
@@ -19,10 +19,14 @@
 
 
 {% block body %}
-	 {{ super() }}
+		 {{ super() }}
+	{% for message in get_flashed_messages() %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
 	<div class="panel">
 		<h3>Categorie</h3>
 		<form method ='POST' action = '#' class="form-inline" id="description">
 			{{ render_field(form.description) }}
 		</form>
+	</div>
 {% endblock %}

@@ -1,8 +1,8 @@
-from db import db
+from vallorem.model.db import db
 
 
 class DatePromotion(db.Model):
-    id = db.Column(db.Integer, primary_key=True, sqlite_autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     id_personne = db.Column(db.Integer, db.ForeignKey('personne.id'))
     id_statut = db.Column(db.Integer, db.ForeignKey('statut.id'))
     date_promotion = db.Column(db.DateTime)

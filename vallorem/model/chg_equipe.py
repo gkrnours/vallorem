@@ -1,8 +1,8 @@
-from db import db
+from vallorem.model.db import db
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True, sqlite_autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     id_personne = db.Column(db.Integer, db.ForeignKey('personne.id'))
     id_equipe = db.Column(db.Integer, db.ForeignKey('equipe.id'))
     date_chg = db.Column(db.DateTime)

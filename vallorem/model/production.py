@@ -1,8 +1,8 @@
-from db import db
+from vallorem.model.db import db
 
 
 class Production(db.Model):
-    id = db.Column(db.Integer, primary_key=True, sqlite_autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     id_type = db.Column(db.Integer, db.ForeignKey('type_production.id'))
     titre = db.Column(db.String(50))
     description = db.Column(db.String(5000))
