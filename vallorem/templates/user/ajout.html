@@ -1,24 +1,32 @@
 {% extends "confBase.html" %}
-
+{% from "_formhelpers.html" import render_field %}
 
 	{% block titre %}
 		Ajout d'un user
 	{% endblock %}
 
+{% block header %}
+
+	<div class="button-bar">
+
+		<button type="submit" value="save" form="user">
+			<i class="icon-check"></i>Save</button>
+	</div>
+	<h2><span class="lg icon-sound-mix"></span>Configuration
+		<span id="part-title"></span></h2>
+{% endblock %}
+
 {% block body %}
-	 {{ super() }}
+	{% for message in get_flashed_messages() %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
 
 	<div class="panel">
 		<h3>User</h3>
-		<form class="form-inline" id="user">
-			<fieldset class="form-group">
-				<label for="name">e-mail</label>
-				<input type="email" id="name">
-			</fieldset>
-			<fieldset class="form-group">
-				<label for="email">password</label>
-				<input type="password" id="password">
-			</fieldset>
+		<form method ='POST' action = '#' class="form-inline" id="user">
+			{{ render_field(form.email) }}
+			{{ render_field(form.password) }}
 		</form>
+
 
 {% endblock %}
