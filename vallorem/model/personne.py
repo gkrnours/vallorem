@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
-from vallorem.model.db import Base
+from vallorem.model import Base
 
 class Personne(Base):
     __tablename__ = 'personne'
