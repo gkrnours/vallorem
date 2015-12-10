@@ -11,13 +11,8 @@ from contextlib import closing
 from vallorem.form import PageForm,CategorieForm,UserForm
 
 from vallorem import app
-from vallorem.views import login
-from vallorem.views import page
-from vallorem.views import categorie
-from vallorem.views import user
-from vallorem.views import config
-from vallorem.views import db
-from vallorem.views import index
+from vallorem.views import login, page, categorie
+from vallorem.views import user, config, index
 
 
 
