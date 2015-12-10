@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from vallorem.model.db import Base
+from vallorem.model import Base
 
 
 class Doctorant(Base):

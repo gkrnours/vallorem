@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from vallorem.model.db import Base
+from vallorem.model import Base
 
 
 class Production(Base):
