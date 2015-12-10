@@ -1,10 +1,12 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, ForeignKey
+from vallorem.model.db import Base
 
 
-class UserPersonne(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    id_user = db.Column(db.Integer, db.ForeignKey('user.id'))
-    id_personne = db.Column(db.Integer, db.ForeignKey('personne.id'))
+class UserPersonne(Base):
+    __tablename__ = "user_personne"
+    id = Column(Integer, primary_key=True)
+    id_user = Column(Integer, ForeignKey('user.id'))
+    id_personne = Column(Integer, ForeignKey('personne.id'))
 
     def __init__(self, id_user, id_personne):
         self.is_user = id_user

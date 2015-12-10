@@ -1,10 +1,12 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String, ForeignKey
+from vallorem.model.db import Base
 
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    id_mail = db.Column(db.Integer, db.ForeignKey('mail.id'))
-    password = db.Column(db.String(50))
+class User(Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    id_mail = Column(Integer, ForeignKey('mail.id'))
+    password = Column(String(50))
 
     def __init__(self, id_mail, password):
         self.id_mail = id_mail

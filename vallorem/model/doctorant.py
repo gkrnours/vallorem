@@ -1,14 +1,16 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from vallorem.model.db import Base
 
 
-class Doctorant(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    id_personne = db.Column(db.Integer, db.ForeignKey('personne.id'))
-    id_type_financement = db.Column(db.Integer, db.ForeignKey('type_financement.id'))
-    id_observation = db.Column(db.Integer, db.ForeignKey('observation.id'))
-    sujet_these = db.Column(db.String(500))
-    nombre_ia = db.Column(db.Integer)
-    date_soutenance = db.Column(db.DateTime)
+class Doctorant(Base):
+    __tablename__ = 'doctorant'
+    id = Column(Integer, primary_key=True)
+    id_personne = Column(Integer, ForeignKey('personne.id'))
+    id_type_financement = Column(Integer, ForeignKey('type_financement.id'))
+    id_observation = Column(Integer, ForeignKey('observation.id'))
+    sujet_these = Column(String(500))
+    nombre_ia = Column(Integer)
+    date_soutenance = Column(DateTime)
 
     def __init__(self, id_personne, id_type_financement, id_observation,
                  sujet_these, nombre_ia, date_soutenance):

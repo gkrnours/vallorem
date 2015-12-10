@@ -1,11 +1,13 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, ForeignKey, DateTime
+from vallorem.model.db import Base
 
 
-class DatePromotion(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    id_personne = db.Column(db.Integer, db.ForeignKey('personne.id'))
-    id_statut = db.Column(db.Integer, db.ForeignKey('statut.id'))
-    date_promotion = db.Column(db.DateTime)
+class DatePromotion(Base):
+    __tablename__ = 'date_promotion'
+    id = Column(Integer, primary_key=True)
+    id_personne = Column(Integer, ForeignKey('personne.id'))
+    id_statut = Column(Integer, ForeignKey('statut.id'))
+    date_promotion = Column(DateTime)
 
     def __init__(self, id_personne, id_statut, date_promotion):
         self.id_personne = id_personne

@@ -1,11 +1,13 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String, ForeignKey
+from vallorem.model.db import Base
 
 
-class Page(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    id_categorie = db.Column(db.Integer, db.ForeignKey('categorie.id'))
-    titre = db.Column(db.String(255))
-    content = db.Column(db.String())
+class Page(Base):
+    __tablename__ = 'page'
+    id = Column(Integer, primary_key=True)
+    id_categorie = Column(Integer, ForeignKey('categorie.id'))
+    titre = Column(String(255))
+    content = Column(String())
 
     def __init__(self, id_categorie,titre,content):
         self.id_categorie = id_categorie

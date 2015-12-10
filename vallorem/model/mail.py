@@ -1,9 +1,11 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String
+from vallorem.model.db import Base
 
 
-class Mail(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    mail = db.Column(db.String(50))
+class Mail(Base):
+    __tablename__ = 'mail'
+    id = Column(Integer, primary_key=True)
+    mail = Column(String(50))
 
     def __init__(self, mail):
         self.mail = mail

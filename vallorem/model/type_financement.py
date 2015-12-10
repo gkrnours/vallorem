@@ -1,9 +1,11 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String
+from vallorem.model.db import Base
 
 
-class TypeFinancement(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(50))
+class TypeFinancement(Base):
+    __tablename__ = 'type_financement'
+    id = Column(Integer, primary_key=True)
+    description = Column(String(50))
 
     def __init__(self, description):
         self.description = description

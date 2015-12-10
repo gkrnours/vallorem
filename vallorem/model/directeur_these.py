@@ -1,10 +1,12 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, ForeignKey
+from vallorem.model.db import Base
 
 
-class DirecteurThese(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    id_doctorant = db.Column(db.Integer, db.ForeignKey('personne.id'))
-    id_directeur = db.Column(db.Integer, db.ForeignKey('personne.id'))
+class DirecteurThese(Base):
+    __basename__ = 'directeur_these'
+    id = Column(Integer, primary_key=True)
+    id_doctorant = Column(Integer, ForeignKey('personne.id'))
+    id_directeur = Column(Integer, ForeignKey('personne.id'))
 
     def __init__(self, id_doctorant, id_directeur):
         self.id_doctorant = id_doctorant

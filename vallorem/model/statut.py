@@ -1,9 +1,11 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String
+from vallorem.model.db import Base
 
 
-class Statut(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(50))
+class Statut(Base):
+    __tablename__ = 'statut'
+    id = Column(Integer, primary_key=True)
+    description = Column(String(50))
 
     def __init__(self, description):
         self.description = description

@@ -1,16 +1,17 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
+from vallorem.model.db import Base
 
-
-class Personne(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    id_statut = db.Column(db.Integer, db.ForeignKey('statut.id'))
-    id_equipe = db.Column(db.Integer, db.ForeignKey('equipe.id'))
-    nom = db.Column(db.String(50))
-    nom_jf = db.Column(db.String(50))
-    prenom = db.Column(db.String(50))
-    date_naissance = db.Column(db.DateTime)
-    date_recrutement = db.Column(db.DateTime)
-    permanent = db.Column(db.Boolean)
+class Personne(Base):
+    __tablename__ = 'personne'
+    id = Column(Integer, primary_key=True)
+    id_statut = Column(Integer, ForeignKey('statut.id'))
+    id_equipe = Column(Integer, ForeignKey('equipe.id'))
+    nom = Column(String(50))
+    nom_jf = Column(String(50))
+    prenom = Column(String(50))
+    date_naissance = Column(DateTime)
+    date_recrutement = Column(DateTime)
+    permanent = Column(Boolean)
 
     def __init__(self, id_statut, id_equipe, nom, nom_jf, prenom,
                  date_naissance, date_recrutement, permanent):

@@ -1,10 +1,12 @@
-from vallorem.model.db import db
+from sqlalchemy import Column, Integer, String, Boolean
+from vallorem.model.db import Base
 
 
-class TypeProduction(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(500))
-    publication = db.Column(db.Boolean)
+class TypeProduction(Base):
+    __tablename__ = 'type_production'
+    id = Column(Integer, primary_key=True)
+    description = Column(String(500))
+    publication = Column(Boolean)
 
     def __init__(self, description, publication):
         self.description = description
