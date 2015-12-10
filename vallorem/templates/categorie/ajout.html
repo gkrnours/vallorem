@@ -1,15 +1,12 @@
 {% extends "confBase.html" %}
 {% from "_formhelpers.html" import render_field %}
 
-	{% block titre %}
-		Ajout d'une catégorie
-	{% endblock %}
-
+{% block titre %}
+	Ajout d'une catégorie
+{% endblock %}
 
 {% block header %}
-
 	<div class="button-bar">
-
 		<button type="submit" value="save" form="description">
 			<i class="icon-check"></i>Save</button>
 	</div>
@@ -17,12 +14,11 @@
 		<span id="part-title"></span></h2>
 {% endblock %}
 
-
 {% block body %}
-
+	{{ super() }}
 	<div class="panel">
 		<h3>Categorie</h3>
-		<form method ='POST' action = '#' class="form-inline" id="description">
+		<form method='POST' class="form-inline" id="description">
 			{{ render_field(form.description) }}
 		</form>
 	</div>
