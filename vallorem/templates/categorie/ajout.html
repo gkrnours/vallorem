@@ -19,7 +19,9 @@
 	<div class="panel">
 		<h3>Categorie</h3>
 		<form method='POST' class="form-inline" id="description">
-			{{ render_field(form.description) }}
+			{%  for field in form %}
+				{{ render_field(field) }}
+			{% endfor %}
 		</form>
 	</div>
 {% endblock %}

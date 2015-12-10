@@ -23,8 +23,8 @@ def pageAjout():
     #ecrire des codes pour ajouter input dans la base de donnees
         form = PageForm(request.form)
         flash('vous avez entré le title:'+form.title.data)
-        flash('vous avez entré la categorie:'+form.categorie.data)
-        flash('vous avez entré le contenu:'+form.contenu.data)
+        flash('vous avez entré la categorie:'+form.categorie.data, 'success')
+        flash('vous avez entré le contenu:'+form.contenu.data, 'info')
     return render_template('page/ajout.html', page=onglet, form=form)
 
 @app.route('/page/modif', methods=['GET', 'POST'])

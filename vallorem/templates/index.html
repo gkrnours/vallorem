@@ -24,14 +24,19 @@
 </header>
 
 <main id="dashboard">
-	{% for message in get_flashed_messages() %}
-		<div class="alert alert-info">
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	{% for category, message in messages %}
+		<div class="alert alert-{{ category  }}">
+
 			{{ message }}
-			<a type="button" class="pull-right" data-dismiss="alert" aria-label="Close">
+
+			<a class="button pull-right" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true"><i class="icon-cancel-squared"></i></span>
 			</a>
 		</div>
 	{% endfor %}
-
+	{% endif %}
+	{% endwith %}
 	{% block body %}{% endblock %}
 </main>

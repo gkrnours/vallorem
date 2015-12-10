@@ -11,6 +11,10 @@ from vallorem.model.db import engine
 from vallorem.model.categorie import Categorie
 from pprint import pprint
 from vallorem import app
+from vallorem.model import db
+from vallorem.model.categorie import Categorie
+
+from flask.ext.sqlalchemy import SQLAlchemy
 
 @app.route('/categorie/')
 @app.route('/categorie/<action>', methods=['GET', 'POST'])
@@ -28,12 +32,20 @@ def categorie(action=None):
 
 @app.route('/categorie/ajout', methods=['GET', 'POST'])
 def categorieAjout():
-    form=CategorieForm()
+    form = CategorieForm(request.form)
     onglet = {'categ': 'selected'}
-    if request.method == "POST":
+
+    if request.method == "POST" and form.validate_on_submit():
     #ecrire des codes pour ajouter input dans la base de donnees
-        form = CategorieForm(request.form)
+        cat = Categorie(description = form.description.data)
+        with db.session() as s:
+            s.add(cat)
         flash('vous avez entré la description:'+form.description.data)
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash("Field %s: %s" % (
+                    getattr(form, field).label.text, error), category='error')
     return render_template('categorie/ajout.html', page=onglet, form=form)
 
 @app.route('/categorie/modif', methods=['GET', 'POST'])
