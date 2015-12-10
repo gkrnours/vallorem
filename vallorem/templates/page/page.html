@@ -23,10 +23,15 @@
 			</tr>
 		</thead>
 		<tbody>
+
+			{% for key, value in pageData.iteritems() %}
+
 			<tr>
-				<td>page1</td>
-				<td class=icon><i class="icon-cancel"></i></td>
+			<td>{{ value }}</td>
+			<td class=icon><i class="icon-cancel"></i></td>
 			</tr>
+
+			{% endfor %}
 		</tbody>
 
 	</table>	
