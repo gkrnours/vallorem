@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -20,6 +21,19 @@ def init_db():
     you will have to import them first before calling init_db()"""
 
     Base.metadata.create_all(bind=engine)
+
+
+@contextmanager
+def session():
+    session = db_session()
+    try:
+        yield session
+        session.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
 
 
 @app.teardown_appcontext
