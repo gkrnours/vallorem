@@ -6,6 +6,11 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from vallorem import app
 from vallorem.model import Base
 from vallorem.model import categorie, page
+from vallorem.model import personne, user, user_personne, statut, date_promotion
+from vallorem.model import directeur_these, doctorant, type_financement
+from vallorem.model import mail, mail_personne
+from vallorem.model import equipe, chg_equipe
+from vallorem.model import production, production_personne, type_production, observation
 
 engine = create_engine('sqlite:///db/vallorem.db', convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
