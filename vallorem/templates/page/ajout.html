@@ -20,6 +20,7 @@
 
 
 {% block body %}
+	{{ super() }}
 	{% for message in get_flashed_messages() %}
 		<div class="alert alert-info">{{ message }}</div>
 	{% endfor %}
