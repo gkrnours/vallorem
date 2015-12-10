@@ -1,12 +1,9 @@
 {% extends "confBase.html" %}
 {% from "_formhelpers.html" import render_field %}
 
-
-
-
-	{% block titre %}
-		Ajout d'une page
-	{% endblock %}
+{% block titre %}
+	Ajout d'une page
+{% endblock %}
 
 {% block header %}
 	<div class="button-bar">
@@ -17,21 +14,14 @@
 		<span id="part-title"></span></h2>
 {% endblock %}
 
-
-
 {% block body %}
 	{{ super() }}
-	{% for message in get_flashed_messages() %}
-		<div class="alert alert-info">{{ message }}</div>
-	{% endfor %}
 	<div class="panel">
 		<h3>Page </h3>
 		<form class="form-inline" id="page" method="post">
-			
 			{{ render_field(form.title) }}
-			
 			{{ render_field(form.categorie) }}
-			
 			{{ render_field(form.contenu) }}
 		</form>
+	</div>
 {% endblock %}

@@ -1,6 +1,8 @@
 <!doctype html>
-<link rel=stylesheet href={{ url_for('static', filename='css/dashboard.css') }}>
 <meta charset="UTF-8">
+<link rel=stylesheet href={{ url_for('static', filename='css/dashboard.css') }}>
+<script language="javascript" src={{ url_for('static', filename='js/jquery.js') }}></script>
+<script language="javascript" src={{ url_for('static', filename='js/bootstrap.js') }}></script>
 <title>Menu</title>
 
 
@@ -17,16 +19,19 @@
 	</ul>
 </nav>
 
-
 <header id="bann" class="primary">
-	{% block header %}
-
-	{% endblock %}
+	{% block header %}{% endblock %}
 </header>
 
 <main id="dashboard">
+	{% for message in get_flashed_messages() %}
+		<div class="alert alert-info">
+			{{ message }}
+			<a type="button" class="pull-right" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true"><i class="icon-cancel-squared"></i></span>
+			</a>
+		</div>
+	{% endfor %}
 
-
-    {% block body %}
-
-    {% endblock %}
+	{% block body %}{% endblock %}
+</main>

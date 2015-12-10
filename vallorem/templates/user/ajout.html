@@ -1,14 +1,12 @@
 {% extends "confBase.html" %}
 {% from "_formhelpers.html" import render_field %}
 
-	{% block titre %}
-		Ajout d'un user
-	{% endblock %}
+{% block titre %}
+	Ajout d'un utilisateur
+{% endblock %}
 
 {% block header %}
-
 	<div class="button-bar">
-
 		<button type="submit" value="save" form="user">
 			<i class="icon-check"></i>Save</button>
 	</div>
@@ -18,17 +16,11 @@
 
 {% block body %}
 	{{ super() }}
-	{# super insère le menu dans la page #}
-	{% for message in get_flashed_messages() %}
-		<div class="alert alert-info">{{ message }}</div>
-	{% endfor %}
-
 	<div class="panel">
 		<h3>User</h3>
-		<form method ='POST' action = '#' class="form-inline" id="user">
+		<form method ='POST' class="form-inline" id="user">
 			{{ render_field(form.email) }}
 			{{ render_field(form.password) }}
 		</form>
-
-
+	</div>
 {% endblock %}
