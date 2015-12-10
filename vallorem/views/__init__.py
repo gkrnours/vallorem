@@ -6,7 +6,6 @@ import os
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
-import click
 from contextlib import closing
 from vallorem.form import PageForm,CategorieForm,UserForm
 
