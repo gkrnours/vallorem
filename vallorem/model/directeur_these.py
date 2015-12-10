@@ -3,7 +3,7 @@ from vallorem.model import Base
 
 
 class DirecteurThese(Base):
-    __basename__ = 'directeur_these'
+    __tablename__ = 'directeur_these'
     id = Column(Integer, primary_key=True)
     id_doctorant = Column(Integer, ForeignKey('personne.id'))
     id_directeur = Column(Integer, ForeignKey('personne.id'))
