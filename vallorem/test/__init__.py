@@ -1,1 +1,1 @@
-from vallorem.test import personne
+from vallorem.test.page import PageTest

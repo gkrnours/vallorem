@@ -1,11 +1,11 @@
 {% extends "confBase.html" %}
-	{% block url %}
-		{{ url_for('pageAjout') }}
-	{% endblock %}
+{% block url %}
+{{ url_for('pageAjout') }}
+{% endblock %}
 
-	{% block titre %}
-		Page
-	{% endblock %}
+{% block titre %}
+Page
+{% endblock %}
 
 {% block body %}
 {{ super() }}
@@ -23,10 +23,16 @@
 			</tr>
 		</thead>
 		<tbody>
+
+			{% for key, value in pageData.iteritems() %}
+
 			<tr>
-				<td>page1</td>
-				<td class=icon><i class="icon-cancel"></i></td>
+				<td>{{ value }}</td>
+				<td class=icon><a href={{ url_for('pageDelete' ,
+				 id=key ) }}><i class="icon-cancel"></i></a></td>
 			</tr>
+
+			{% endfor %}
 		</tbody>
 
 	</table>	

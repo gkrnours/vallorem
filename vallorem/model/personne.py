@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
+from sqlalchemy.orm import relationship, backref
 from vallorem.model import Base
+
 
 class Personne(Base):
     __tablename__ = 'personne'
@@ -12,6 +14,7 @@ class Personne(Base):
     date_naissance = Column(DateTime)
     date_recrutement = Column(DateTime)
     permanent = Column(Boolean)
+
 
     def __init__(self, id_statut, id_equipe, nom, nom_jf, prenom,
                  date_naissance, date_recrutement, permanent):

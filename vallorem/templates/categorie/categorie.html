@@ -21,10 +21,14 @@
 		</th>
 	</thead>
 	<tbody>
+	
+	{% for key, value in categData.iteritems() %}
 		<tr>
-			<td>catégorie1</td>
-			<td class="icon-cancel"></td>
+			<td>{{ value }}</td>
+			<td class=icon><a href={{ url_for('categorieDelete' ,
+				 id=key ) }}><i class="icon-cancel"></i></a></td>
 		</tr>
+	{% endfor %}
 	</tbody>
 
 </table>	
