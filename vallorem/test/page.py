@@ -21,4 +21,3 @@ class PageTest(unittest.TestCase):
         self.assertTrue(Page.query.filter(Page.titre == 'New titre').first() is not None)
 
 
-unittest.main()
