@@ -2,7 +2,7 @@ from flask import Flask
 
 USERNAME = "root"
 PASSWORD = "root"
-DATABASE = "vallorem.db"
+DATABASE = "sqlite:///db/vallorem.db"
 SECRET_KEY = "dev key"
 
 app = Flask(__name__)
