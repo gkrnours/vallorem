@@ -19,5 +19,5 @@ from vallorem.model.statut import Statut
 from vallorem.model.type_financement import TypeFinancement
 from vallorem.model.type_production import TypeProduction
 from vallorem.model.user import User
-from vallorem.model.user_personne import UserPersonne
+from vallorem.model.user_personne import user_personne
 
