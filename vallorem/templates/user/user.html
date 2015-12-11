@@ -24,9 +24,12 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>user1</td>
-					<td class="icon-cancel"></td>
+				{% for user in users %}
+					<td>{{ user.id }} &mdash; {{ user.password }}</td>
+					<td class=icon><a href={{ url_for('userDelete' ,
+				 id=user.id ) }}><i class="icon-cancel"></i></a></td>
 				</tr>
+				{% endfor %}
 			</tbody>
 
 		</table>
