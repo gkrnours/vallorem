@@ -2086,6 +2086,7 @@ a.bg-danger:focus, a.bg-danger:hover {
   #dashboard table tr {
     display: flex;
     padding: 0 3rem;
+    line-height: 2.5rem;
     border-bottom: 1px solid #bdd1db; }
   #dashboard table td, #dashboard table th {
     display: inline-block;
@@ -2166,7 +2167,7 @@ form input {
   height: 70px;
   padding: 0 2rem;
   margin: 1rem -2rem -1rem; }
-  .button-bar button {
+  .button-bar button, .button-bar .button {
     position: relative;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -2448,7 +2449,7 @@ body {
         letter-spacing: -1px;
         border-bottom: 3px solid #bdd1db; }
       body > #dashboard .panel a {
-        color: #5cb85c; }
+        color: #5ca1b8; }
 
 a {
   color: #cddde4; }
