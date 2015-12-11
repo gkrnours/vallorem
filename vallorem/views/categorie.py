@@ -11,8 +11,7 @@ from vallorem.model.db import engine
 from vallorem.model.categorie import Categorie
 from pprint import pprint
 from vallorem import app
-from vallorem.model import db
-from vallorem.model.categorie import Categorie
+from vallorem.model import db, Categorie
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
