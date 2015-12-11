@@ -1,10 +1,17 @@
 from flask.ext.wtf import Form
 from wtforms import TextField, BooleanField, SubmitField, TextAreaField,PasswordField, SelectField
 from wtforms.validators import DataRequired as Required
+from vallorem.model.db import engine
+from vallorem.model.categorie import Categorie
 
 class PageForm(Form):
 	title= TextField('title', validators=[Required()])
-	categorie = SelectField(u'Categorie', choices=[('1', 'test'), ('2', 'test2'), ('3', 'test3'),('3', 'test3'),('4', 'test4')])
+	categories = Categorie.query.all()
+	choices = []
+	for categ in categories:
+		choices.append((getattr(categ, "id"),getattr(categ, "description")))
+
+	categorie = SelectField(u'Categorie', choices=choices)
 	contenu=TextAreaField('contenu', validators=[Required()])
 	submit = SubmitField('Submit')
 	

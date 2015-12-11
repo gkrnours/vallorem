@@ -12,6 +12,6 @@ args = parser.parse_args()
 
 if args.initdb:
     init_db()
-    print 'La base de données a été initialisée'
+    print('La base de données a été initialisée')
 else:
     app.run(debug=True)

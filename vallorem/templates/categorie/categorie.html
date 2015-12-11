@@ -21,10 +21,13 @@
 		</th>
 	</thead>
 	<tbody>
+	
+	{% for categDescri in categ %}
 		<tr>
-			<td>catégorie1</td>
+			<td>{{ categDescri }}</td>
 			<td class="icon-cancel"></td>
 		</tr>
+	{% endfor %}
 	</tbody>
 
 </table>	
