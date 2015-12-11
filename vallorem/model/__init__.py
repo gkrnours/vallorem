@@ -1,5 +1,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 
+Base = declarative_base()
+
 from vallorem.model.categorie import Categorie
 from vallorem.model.chg_equipe import ChgEquipe
 from vallorem.model.date_promotion import DatePromotion
@@ -19,4 +21,3 @@ from vallorem.model.type_production import TypeProduction
 from vallorem.model.user import User
 from vallorem.model.user_personne import UserPersonne
 
-Base = declarative_base()
