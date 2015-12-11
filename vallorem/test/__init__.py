@@ -1,1 +1,1 @@
-
+from vallorem.test.page import PageTest

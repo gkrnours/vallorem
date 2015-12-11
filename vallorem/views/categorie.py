@@ -21,12 +21,12 @@ def categorie(action=None):
 
 
     categories = Categorie.query.all()
-    categDescri = []
+    categTab = {}
     for categ in categories:
-        categDescri.append(getattr(categ, "description"))
+        categTab.update({getattr(categ, "id") : getattr(categ, "description")})
     onglet = {'categ': 'selected'}
     form=CategorieForm()
-    return render_template('categorie/categorie.html', page=onglet, categ=categDescri)
+    return render_template('categorie/categorie.html', page=onglet, categData=categTab)
     
 
 @app.route('/categorie/ajout', methods=['GET', 'POST'])
@@ -55,3 +55,12 @@ def categorieModif():
     #ecrire des codes pour ajouter input dans la base de donnees
         form = CategorieForm(request.form)
     return render_template('categorie/ajout.html', page=onglet, form=form)
+
+
+@app.route('/categorie/delete')
+@app.route('/categorie/delete/<id>')
+def categorieDelete(id):
+
+    with db.session() as s:
+        Categorie.query.filter(Categorie.id == id).delete()
+    return redirect(url_for('categorie'))

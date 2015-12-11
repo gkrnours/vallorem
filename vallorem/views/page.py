@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# std python import
+# std python importCategorie.query.all
 from __future__ import unicode_literals
 from vallorem.model import db
 
@@ -22,10 +22,8 @@ def page(action=None):
     pageTab = {}
     for page in pages:
         pageTab.update({getattr(page, "id") : getattr(page, "titre")})
-    print(pageTab)
     onglet = {'sys': 'selected'}
-    form=PageForm()
-    onglet = {'sys': 'selected'}   
+    form=PageForm() 
     return render_template('page/page.html', page=onglet, pageData = pageTab)
 
 @app.route('/page/ajout', methods=['GET', 'POST'])
