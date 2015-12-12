@@ -11,14 +11,12 @@ from vallorem import app
 
 @app.route('/page/')
 def page(action=None):
+    ctx = {}
     with db.session() as s:
-        pages = s.query(Page).all()
-    pageTab = {}
-    for page in pages:
-        pageTab.update({getattr(page, "id") : getattr(page, "titre")})
-    onglet = {'sys': 'selected'}
-    form=PageForm() 
-    return render_template('page/page.html', page=onglet, pageData = pageTab)
+        ctx['pages'] = s.query(Page).all()
+    ctx['page'] = {'sys': 'selected'}
+    ctx['form'] = PageForm()
+    return render_template('page/page.html', **ctx)
 
 @app.route('/page/ajout', methods=['GET', 'POST'])
 def pageAjout():
