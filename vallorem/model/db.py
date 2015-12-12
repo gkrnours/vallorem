@@ -5,27 +5,31 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 from vallorem import app
 from vallorem.model import Base
-from vallorem.model import categorie, page
-from vallorem.model import personne, user, user_personne, statut, date_promotion
-from vallorem.model import directeur_these, doctorant, type_financement
-from vallorem.model import mail, mail_personne
-from vallorem.model import equipe, chg_equipe
-from vallorem.model import production, production_personne, type_production, observation
 
-engine = create_engine(app.config['DATABASE'], convert_unicode=True)
-db_session = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=False,
-                                         bind=engine))
-
-Base.query = db_session.query_property()
+db_session = None
 
 
-def init_db():
+def create():
     """import all modules here that might define models so that
     they will be registered properly on the metadata.  Otherwise
     you will have to import them first before calling init_db()"""
-
+    from vallorem.model import Categorie, Page
+    engine = init()
     Base.metadata.create_all(bind=engine)
+
+
+def init(engine=None):
+    global db_session
+    if engine is None:
+        engine = create_engine(app.config['DATABASE'], convert_unicode=True)
+    options = {
+        'autocommit': False,
+        'autoflush': False,
+        'expire_on_commit': False,
+        'bind': engine,
+    }
+    db_session = scoped_session(sessionmaker(**options))
+    return engine
 
 
 @contextmanager
