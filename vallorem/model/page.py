@@ -16,6 +16,7 @@ class Page(Base):
         self.titre = titre
         self.content = content
 
+
     def __repr__(self):
         return "<Page(titre='%s')>" % self.titre
 

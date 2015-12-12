@@ -1,20 +1,21 @@
 {% extends "layout.html" %}
 {% from "_formhelpers.html" import render_field %}
 
-{% block body %}
-<h2>Login</h2>
-{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-	{% for message in get_flashed_messages() %}
-		<div>{{ message }}</div>
-	{% endfor %}
-<form action="{{ url_for('login') }}" method=post>
+{% block main %}
 
-	{{ render_field(form.username) }}
 
-	{{ render_field(form.password) }}
+<section id=admin-login class=primary>
+	<h1>Login</h1>
+	<form method=post class=primar>
+		<fieldset>
+			{{ form.username(placeholder="Nom d'utilisateur") }}
+			{{ form.password(placeholder="Mot de passe")}}
+		</fieldset>
+		<footer class="button-bar primary">
+			<button type=submit>login</button>
+		</footer>
+	</form>
+</section>
 
-	<input type=submit value=Login>
-
-</form>
 
 {% endblock %}

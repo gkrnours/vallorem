@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from vallorem.model import Base
 
 
@@ -11,6 +12,8 @@ class Doctorant(Base):
     sujet_these = Column(String(500))
     nombre_ia = Column(Integer)
     date_soutenance = Column(DateTime)
+
+    personne = relationship("Doctorant", back_populates="doctorant")
 
     def __init__(self, id_personne, id_type_financement, id_observation,
                  sujet_these, nombre_ia, date_soutenance):
