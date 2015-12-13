@@ -9,22 +9,23 @@ from vallorem.model import Base
 db_session = None
 
 
-def create():
+def create(engine=None):
     """import all modules here that might define models so that
     they will be registered properly on the metadata.  Otherwise
     you will have to import them first before calling init_db()"""
     from vallorem.model import Categorie, Page
-    engine = init()
+    if engine is None:
+        engine = init()
     Base.metadata.create_all(bind=engine)
 
 
-def init(engine=None):
+def init(engine=None, autoflush=False):
     global db_session
     if engine is None:
         engine = create_engine(app.config['DATABASE'], convert_unicode=True)
     options = {
         'autocommit': False,
-        'autoflush': False,
+        'autoflush': autoflush,
         'expire_on_commit': False,
         'bind': engine,
     }
