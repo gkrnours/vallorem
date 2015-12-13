@@ -19,5 +19,6 @@ class TestDB(unittest.TestCase):
         db.create(engine)
 
 from vallorem.test.categorie import TestCategorie
-from vallorem.test.page import TestPage
 from vallorem.test.mail import TestMail
+from vallorem.test.page import TestPage
+from vallorem.test.user import TestUser

@@ -5,6 +5,7 @@ Base = declarative_base()
 from vallorem.model.categorie import Categorie
 from vallorem.model.mail import Mail
 from vallorem.model.page import Page
+from vallorem.model.user import User
 
 def _():
     from vallorem.model.chg_equipe import ChgEquipe
@@ -18,5 +19,4 @@ def _():
     from vallorem.model.statut import Statut
     from vallorem.model.type_financement import TypeFinancement
     from vallorem.model.type_production import TypeProduction
-    from vallorem.model.user import User
 
