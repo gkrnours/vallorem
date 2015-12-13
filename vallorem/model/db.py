@@ -7,6 +7,7 @@ from vallorem import app
 from vallorem.model import Base
 
 db_session = None
+_engine = None
 
 
 def create(engine=None):
@@ -15,23 +16,43 @@ def create(engine=None):
     you will have to import them first before calling init_db()"""
     from vallorem.model import Categorie, Page
     if engine is None:
-        engine = init()
+        if _engine is None:
+            engine = init()
+        else:
+            engine = _engine
     Base.metadata.create_all(bind=engine)
+
+"""
+def clean(engine=None):
+    if engine is None:
+        if _engine is None:
+            engine = init()
+        else:
+            engine = _engine
+        engine = init()
+    Base.metadata.drop_all(
+"""
 
 
 def init(engine=None, autoflush=False):
     global db_session
+    global _engine
     if engine is None:
         engine = create_engine(app.config['DATABASE'], convert_unicode=True)
-    options = {
-        'autocommit': False,
-        'autoflush': autoflush,
-        'expire_on_commit': False,
-        'bind': engine,
-    }
-    db_session = scoped_session(sessionmaker(**options))
+    _engine = engine
+    if db_session == None:
+        options = {
+            'autocommit': False,
+            'autoflush': autoflush,
+            'expire_on_commit': False,
+            'bind': engine,
+        }
+        db_session = scoped_session(sessionmaker(**options))
     return engine
 
+
+def get_engine():
+    return _engine
 
 @contextmanager
 def session():
