@@ -14,7 +14,7 @@ def create(engine=None):
     """import all modules here that might define models so that
     they will be registered properly on the metadata.  Otherwise
     you will have to import them first before calling init_db()"""
-    from vallorem.model import Categorie, Page
+    from vallorem.model import Categorie, Page, Mail
     if engine is None:
         if _engine is None:
             engine = init()

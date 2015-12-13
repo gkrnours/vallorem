@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 from vallorem.model.categorie import Categorie
+from vallorem.model.mail import Mail
 from vallorem.model.page import Page
 
 def _():
@@ -10,7 +11,6 @@ def _():
     from vallorem.model.date_promotion import DatePromotion
     from vallorem.model.directeur_these import DirecteurThese
     from vallorem.model.equipe import Equipe
-    from vallorem.model.mail import Mail
     from vallorem.model.observation import Observation
     from vallorem.model.personne import Personne
     from vallorem.model.production import Production

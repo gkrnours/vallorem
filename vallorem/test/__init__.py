@@ -20,3 +20,4 @@ class TestDB(unittest.TestCase):
 
 from vallorem.test.categorie import TestCategorie
 from vallorem.test.page import TestPage
+from vallorem.test.mail import TestMail
