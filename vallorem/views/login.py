@@ -7,6 +7,8 @@ from flask import render_template as render
 # local import
 from vallorem.form import LoginForm
 from vallorem import app
+from flask.ext.login import login_user, logout_user, login_required
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -15,9 +17,9 @@ def login():
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.form)
-        flash('vous avez entré le username:'+form.username.data)
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
+        flash('vous avez entré le mail:'+form.email.data)
+        if request.form['email'] != app.config['USERNAME']:
+            error = 'Invalid email'
         elif request.form['password'] != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
@@ -25,7 +27,6 @@ def login():
             flash('You were logged in')
             return redirect(url_for('index'))
     return render('login.html', error=error, form=form)
-
 
 @app.route('/logout')
 def logout():

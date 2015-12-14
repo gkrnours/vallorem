@@ -26,6 +26,6 @@ class UserForm(Form):
 
 
 class LoginForm(Form):
-	username= TextField('Username', validators=[Required()])
+	email= TextField('email', validators=[Required()])
 	password= PasswordField('Password', validators=[Required()])
 	submit = SubmitField('Submit')
