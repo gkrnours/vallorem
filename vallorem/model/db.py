@@ -15,23 +15,13 @@ def create(engine=None):
     they will be registered properly on the metadata.  Otherwise
     you will have to import them first before calling init_db()"""
     from vallorem.model import Categorie, Page, Mail
+    from vallorem.model import Personne, Statut, Equipe
     if engine is None:
         if _engine is None:
             engine = init()
         else:
             engine = _engine
     Base.metadata.create_all(bind=engine)
-
-"""
-def clean(engine=None):
-    if engine is None:
-        if _engine is None:
-            engine = init()
-        else:
-            engine = _engine
-        engine = init()
-    Base.metadata.drop_all(
-"""
 
 
 def init(engine=None, autoflush=False):

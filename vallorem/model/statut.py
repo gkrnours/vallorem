@@ -8,8 +8,5 @@ class Statut(Base):
     id = Column(Integer, primary_key=True)
     description = Column(String(50))
 
-    personnes = relationship("Personne")
-    dates_promotion = relationship("DatePromotion")
-
     def __init__(self, description):
         self.description = description
