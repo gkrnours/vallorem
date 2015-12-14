@@ -64,7 +64,6 @@ class TestPersonne(TestDB):
         self.assertIsNot(p, self.p)
         self.assertEqual(p.id, self.p.id)
         self.assertEqual(p.nom, "bob")
-        self.assertEqual(u.mail, "alice@example.com")
 
 
     def test_delete(self):

@@ -10,8 +10,6 @@ class Equipe(Base):
     axe = Column(String(50))
     localisation = Column(String(40))
 
-    personnes = relationship("Personne")
-
     def __init__(self, nom, axe, localisation):
         self.nom = nom
         self.axe = axe
