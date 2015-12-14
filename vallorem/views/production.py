@@ -6,10 +6,6 @@ from flask import Flask, request, session, redirect, url_for, flash
 from flask import render_template
 # local import
 from vallorem.form import CategorieForm
-from sqlalchemy import Table, create_engine, MetaData
-from vallorem.model.db import engine
-from vallorem.model.categorie import Categorie
-from pprint import pprint
 from vallorem import app
 from vallorem.model import db, Categorie
 
