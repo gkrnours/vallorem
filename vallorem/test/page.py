@@ -40,6 +40,11 @@ class TestPage(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(p.categorie.description, "Pokémon")
 
+    def test_without_categorie(self):
+        p = Page()
+        with db.session() as s:
+            s.add(p)
+
 
     def test_read(self):
         with db.session() as s:

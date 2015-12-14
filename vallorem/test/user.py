@@ -42,6 +42,12 @@ class TestUser(TestDB):
         self.assertEqual(u.mail, "alice@example.com")
 
 
+    def test_without_mail(self):
+        u = User()
+        with db.session() as s:
+            s.add(u)
+
+
     def test_read(self):
         with db.session() as s:
             u = s.query(User).first()
