@@ -8,7 +8,5 @@ class Mail(Base):
     id = Column(Integer, primary_key=True)
     mail = Column(String(50))
 
-    user = relationship("User", uselist=False, back_populates="mail")
-
     def __init__(self, mail):
         self.mail = mail

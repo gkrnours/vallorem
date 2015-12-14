@@ -19,6 +19,7 @@
 	<div class="panel">
 		<h3>Page </h3>
 		<form class="form-inline" id="page" method="post">
+			{{ render_field(form.csrf_token) }}
 			{{ render_field(form.title) }}
 			{{ render_field(form.categorie) }}
 			{{ render_field(form.contenu) }}

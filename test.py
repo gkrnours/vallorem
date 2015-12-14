@@ -1,7 +1,7 @@
-from vallorem import model, test
-from vallorem.test.page import PageTest
-from vallorem.model.db import engine, db_session
-from vallorem.model.page import Page
+#!/usr/bin/env python2.7
+
 import unittest
 
-unittest.main()
+from vallorem import test
+
+unittest.main(module=test)

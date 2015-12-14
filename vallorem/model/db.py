@@ -5,28 +5,54 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 from vallorem import app
 from vallorem.model import Base
-from vallorem.model import categorie, page
-from vallorem.model import personne, user, user_personne, statut, date_promotion
-from vallorem.model import directeur_these, doctorant, type_financement
-from vallorem.model import mail, mail_personne
-from vallorem.model import equipe, chg_equipe
-from vallorem.model import production, production_personne, type_production, observation
 
-engine = create_engine(app.config['DATABASE'], convert_unicode=True)
-db_session = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=False,
-                                         bind=engine))
-
-Base.query = db_session.query_property()
+db_session = None
+_engine = None
 
 
-def init_db():
+def create(engine=None):
     """import all modules here that might define models so that
     they will be registered properly on the metadata.  Otherwise
     you will have to import them first before calling init_db()"""
-
+    from vallorem.model import Categorie, Page, Mail
+    if engine is None:
+        if _engine is None:
+            engine = init()
+        else:
+            engine = _engine
     Base.metadata.create_all(bind=engine)
 
+"""
+def clean(engine=None):
+    if engine is None:
+        if _engine is None:
+            engine = init()
+        else:
+            engine = _engine
+        engine = init()
+    Base.metadata.drop_all(
+"""
+
+
+def init(engine=None, autoflush=False):
+    global db_session
+    global _engine
+    if engine is None:
+        engine = create_engine(app.config['DATABASE'], convert_unicode=True)
+    _engine = engine
+    if db_session == None:
+        options = {
+            'autocommit': False,
+            'autoflush': autoflush,
+            'expire_on_commit': False,
+            'bind': engine,
+        }
+        db_session = scoped_session(sessionmaker(**options))
+    return engine
+
+
+def get_engine():
+    return _engine
 
 @contextmanager
 def session():

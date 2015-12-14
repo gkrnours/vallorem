@@ -14,22 +14,19 @@ Page
 	<table>
 		<thead>
 			<tr>
-				<th>
-					page
-				</th>
-				<th>
-					action
-				</th>
+				<th>page</th>
+				<th>Categorie</th>
+				<th class=icon>action</th>
 			</tr>
 		</thead>
 		<tbody>
-
-			{% for key, value in pageData.items() %}
-
+			{% for page in pages %}
 			<tr>
-				<td>{{ value }}</td>
+				<td>{{ page.titre }}</td>
+				<td>{{ page.categorie.description }}</td>
 				<td class=icon><a href={{ url_for('pageDelete' ,
-				 id=key ) }}><i class="icon-cancel-squared"></i></a></td>
+				 id=page.id ) }}><i class="icon-cancel-squared"></i></a></td>
+
 			</tr>
 
 			{% endfor %}
