@@ -17,8 +17,8 @@ def user(action=None):
     with db.session() as s:
         ctx['users'] = s.query(User).all()
     ctx['page'] = {'user': 'selected'}
-    ctx['form'] = UserForm()
     return render_template('user/user.html', **ctx)
+
 
 @app.route('/user/ajout', methods=['GET', 'POST'])
 def userAjout():
