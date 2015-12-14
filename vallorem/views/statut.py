@@ -11,11 +11,11 @@ from vallorem.model import db, Categorie
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
-@app.route('/these/')
-def these(action=None):
-    onglet = {'these': 'selected'}
-    return render_template('these/these.html', page=onglet)
+@app.route('/statut/')
+def statut(action=None):
+    onglet = {'statut': 'selected'}
+    return render_template('statut/statut.html', page=onglet)
 
-@app.route('/these/ajout')
-def theseAjout(action=None):
-    return "these"
+@app.route('/statut/ajout')
+def statutAjout(action=None):
+    return "statut"
