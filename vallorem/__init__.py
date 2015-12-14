@@ -10,9 +10,18 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar("VALLOREM_SETTINGS", silent=True)
 
+
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
-import vallorem.views
+
+from vallorem import views
+from vallorem.model import db
+
+
+def start(**kwargs):
+    db.init()
+    app.run(**kwargs)
+

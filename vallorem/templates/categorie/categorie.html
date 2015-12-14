@@ -16,17 +16,17 @@
 		<th>
 			catégorie
 		</th>
-		<th>
+		<th class=icon>
 			action
 		</th>
 	</thead>
 	<tbody>
 	
-	{% for key, value in categData.iteritems() %}
+	{% for cat in categories %}
 		<tr>
-			<td>{{ value }}</td>
+			<td>{{ cat.description }}</td>
 			<td class=icon><a href={{ url_for('categorieDelete' ,
-				 id=key ) }}><i class="icon-cancel"></i></a></td>
+				id=cat.id ) }}><i class="icon-cancel"></i></a></td>
 		</tr>
 	{% endfor %}
 	</tbody>

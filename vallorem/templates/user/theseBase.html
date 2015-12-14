@@ -1,4 +1,4 @@
-{% set current = {'site':'selected'} %}
+{% set current = {'these':'selected'} %}
 {% extends "index.html" %}
 
 {% block header %}
@@ -15,10 +15,7 @@
 {% block body %}
 
 	<nav class=nav-tabs>
-		<a href="{{ url_for('page') }}" class="{{page.sys}}">Site</a>
 		<a href="{{ url_for('user') }}"
-			class="{{page.user}}">User</a>
-					<a href="{{ url_for('categorie') }}"
-			class="{{page.categ}}">Catégorie</a>
+			class="{{page.these}}">These</a>
 	</nav>
 {% endblock %}

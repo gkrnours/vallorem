@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from vallorem.model import Base
-
+from vallorem.model.user_personne import user_personne
 
 class Personne(Base):
     __tablename__ = 'personne'
@@ -14,6 +14,10 @@ class Personne(Base):
     date_naissance = Column(DateTime)
     date_recrutement = Column(DateTime)
     permanent = Column(Boolean)
+
+    dates_promotion = relationship("DatePromotion")
+    doctorant = relationship("Doctorant", uselist=False, back_populates="personne")
+    mails = relationship("Mail", secondary=user_personne)
 
 
     def __init__(self, id_statut, id_equipe, nom, nom_jf, prenom,
