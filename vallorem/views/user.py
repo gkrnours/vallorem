@@ -13,11 +13,12 @@ from vallorem import app
 
 @app.route('/user/')
 def user(action=None):
-    users = User.query.all()
-
-    onglet = {'user': 'selected'}
-    return render_template('user/user.html', page=onglet, users=users)
-
+    ctx = {}
+    with db.session() as s:
+        ctx['users'] = s.query(User).all()
+    ctx['page'] = {'user': 'selected'}
+    ctx['form'] = UserForm()
+    return render_template('user/user.html', **ctx)
 
 @app.route('/user/ajout', methods=['GET', 'POST'])
 def userAjout():
