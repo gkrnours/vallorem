@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String, Boolean
-from sqlalchemy.orm import relationship
 from vallorem.model import Base
 
 
@@ -9,8 +8,6 @@ class TypeProduction(Base):
     description = Column(String(500))
     publication = Column(Boolean)
 
-    productions = relationship("Production")
-
-    def __init__(self, description, publication):
+    def __init__(self, description, publication=True):
         self.description = description
         self.publication = publication
