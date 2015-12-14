@@ -47,5 +47,5 @@ def pageModif():
 def pageDelete(id):
 
     with db.session() as s:
-        Page.query.filter(Page.id == id).delete()
+        s.query(Page).filter(Page.id == id).delete()
     return redirect(url_for('page'))
