@@ -11,7 +11,7 @@ class User(Base,UserMixin):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     _mail = relationship("Mail", lazy='joined', uselist=False)
-    mail_id = Column(Integer, ForeignKey('mail.id'))
+    mail_id = Column(Integer, ForeignKey('mail.id'), unique=True)
     password = Column(String(50))
 
     @property

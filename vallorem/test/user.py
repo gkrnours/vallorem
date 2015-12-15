@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from sqlalchemy import inspect
+from sqlalchemy.exc import IntegrityError
 
 from vallorem.test import engine, TestDB
 from vallorem.model import db, Base, Mail, User
@@ -19,34 +20,40 @@ class TestUser(TestDB):
             s.add(u)
 
     def tearDown(self):
-        Base.metadata.drop_all(bind=TestUser.engine)
+        with db.session() as s:
+            s.query(User).delete()
+            s.query(Mail).delete()
 
-    def test_create(self):
+    def test_create_noarg(self):
         # test without argument
         u = User()
-        self.assertIsInstance(u, User)
-        u.mail = self.m
+        u.mail = Mail("bob@example.com")
         u.password = "bob"
         with db.session() as s:
             s.add(u)
         insp = inspect(u)
         self.assertFalse(insp.transient)
-        self.assertEqual(u.mail, "alice@example.com")
-        # test with argument
-        u = User(mail=self.m, password="bob")
+        self.assertEqual(u.mail, "bob@example.com")
+
+    def test_create_arg(self):
+        u = User(mail=Mail("bob@example.com"), password="bob")
         with db.session() as s:
             s.add(u)
         insp = inspect(u)
         self.assertFalse(insp.transient)
-        self.assertEqual(u.mail, "alice@example.com")
+        self.assertEqual(u.mail, "bob@example.com")
 
-
-class Foio:
 
     def test_without_mail(self):
         u = User()
         with db.session() as s:
             s.add(u)
+
+    def test_duplicate(self):
+        u = User(mail=self.m)
+        with self.assertRaises(IntegrityError) as e:
+            with db.session() as s:
+                    s.add(u)
 
     def test_read(self):
         with db.session() as s:

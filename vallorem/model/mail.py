@@ -6,7 +6,7 @@ from vallorem.model import Base
 class Mail(Base):
     __tablename__ = 'mail'
     id = Column(Integer, primary_key=True)
-    mail = Column(String(50))
+    mail = Column(String(50), unique=True)
 
     def __init__(self, mail):
         self.mail = mail
