@@ -4,10 +4,14 @@ from __future__ import unicode_literals
 
 from sqlalchemy import inspect
 
-from vallorem.test import engine, TestDB
+from vallorem.test import TestDB
 from vallorem.model import db, Base, Mail
 
 class TestMail(TestDB):
+    @classmethod
+    def setUpClass(cls):
+        pass
+
     def setUp(self):
         self.m = m = Mail("abc@example.com")
         with db.session() as s:
@@ -15,6 +19,7 @@ class TestMail(TestDB):
 
 
     def tearDown(self):
+        print(TestMail.engine)
         Base.metadata.drop_all(bind=db.get_engine())
 
 
@@ -35,6 +40,13 @@ class TestMail(TestDB):
             m = s.query(Mail).first()
         self.assertIsInstance(m, Mail)
         self.assertEqual(m.mail, "abc@example.com")
+
+class foobar:
+    def test_unique(self):
+        m = Mail("abc@example.com")
+        with db.session() as s:
+            with self.assertRaises(Exception):
+              s.add(m)
 
 
     def test_update(self):
@@ -58,3 +70,4 @@ class TestMail(TestDB):
         with db.session() as s:
             m = s.query(Mail).filter(Mail.id == self.m.id).first()
         self.assertIs(m, None)
+

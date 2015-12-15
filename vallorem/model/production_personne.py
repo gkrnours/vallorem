@@ -1,13 +1,6 @@
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Table, Column, Integer, ForeignKey
 from vallorem.model import Base
 
-
-class ProductionPersonne(Base):
-    __tablename__ = 'production_personne'
-    id = Column(Integer, primary_key=True)
-    id_production = Column(Integer, ForeignKey('production.id'))
-    id_personne = Column(Integer, ForeignKey('personne.id'))
-
-    def __init__(self, id_production, id_personne):
-        self.id_production = id_production
-        self.id_personne = id_personne
+production_personne = Table('production_personne', Base.metadata,
+                      Column('id_production', Integer, ForeignKey('production.id')),
+                      Column('id_personne', Integer, ForeignKey('personne.id')))

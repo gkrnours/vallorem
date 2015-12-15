@@ -19,6 +19,8 @@ class Personne(Base):
     date_recrutement = Column(DateTime)
     permanent = Column(Boolean)
 
+
+    doctorant = relationship("Doctorant", back_populates="personne")
     #dates_promotion = relationship("DatePromotion")
     #mails = relationship("Mail", secondary=mail_personne)
 
