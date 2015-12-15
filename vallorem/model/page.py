@@ -8,11 +8,15 @@ from vallorem.model.categorie import Categorie
 class Page(Base):
     __tablename__ = 'page'
     id = Column(Integer, primary_key=True)
-    categorie = relationship("Categorie", lazy="joined")
+    _categorie = relationship("Categorie", lazy="joined")
     categorie_id = Column(Integer, ForeignKey('categorie.id'))
     titre = Column(String(255))
     content = Column(String(5000))
 
+    @property
+    def categorie(self):
+        return self._categorie.description
 
-    def __repr__(self):
-        return "<Page(titre='%s')>" % self.titre
+    @categorie.setter
+    def categorie(self, value):
+        self._categorie = value

@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, ForeignKey, DateTime
+from sqlalchemy.orm import relationship
 from vallorem.model import Base
 
 
@@ -9,7 +10,12 @@ class DatePromotion(Base):
     id_statut = Column(Integer, ForeignKey('statut.id'))
     date_promotion = Column(DateTime)
 
-    def __init__(self, id_personne, id_statut, date_promotion):
-        self.id_personne = id_personne
-        self.id_statut = id_statut
-        self.date_promotion = date_promotion
+    _statut = relationship("Statut", lazy="joined")
+
+    @property
+    def statut(self):
+        return self._statut.description
+
+    @statut.setter
+    def statut(self, value):
+        self._statut = value
