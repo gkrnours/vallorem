@@ -20,7 +20,7 @@ class Personne(Base):
     permanent = Column(Boolean)
 
 
-    doctorant = relationship("Doctorant", back_populates="personne")
+    info_doctorant = relationship("Doctorant")
     chgs_equipe = relationship("ChgEquipe", back_populates="personne")
     dates_promotion = relationship("DatePromotion", back_populates="personne")
     #mails = relationship("Mail", secondary=mail_personne)
@@ -28,6 +28,8 @@ class Personne(Base):
 
     @property
     def statut(self):
+        if self.statut is None:
+            return None
         return self._statut.description
 
     @statut.setter

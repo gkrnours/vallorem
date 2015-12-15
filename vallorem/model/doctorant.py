@@ -15,16 +15,20 @@ class Doctorant(Base):
     nombre_ia = Column(Integer)
     date_soutenance = Column(DateTime)
 
-    personne = relationship("Personne", back_populates="doctorant")
+    personne = relationship("Personne")
     _type_financement = relationship("TypeFinancement", lazy="joined")
     _observation = relationship("Observation", lazy="joined")
 
     @property
     def type_financement(self):
+        if self.type_financement is None:
+            return None
         return self._type_financement.description
 
     @type_financement.setter
     def type_financement(self, value):
+        if isinstance(value, (str, unicode)):
+            raise TypeError("instance of %s expected, got %s" % (TypeFinancement, value))
         self._type_financement = value
 
     @property
