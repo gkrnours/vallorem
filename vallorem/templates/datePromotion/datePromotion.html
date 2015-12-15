@@ -1,0 +1,33 @@
+{% extends "personneBase.html" %}
+	{% block url %}
+		{{ url_for('datePromotionAjout') }}
+	{% endblock %}
+
+	{% block titre %}
+		Promotion
+	{% endblock %}
+
+{% block body %}
+{{ super() }}
+
+<div class="panel">
+<table>
+	<thead>
+		<th>
+			catégorie
+		</th>
+		<th class=icon>
+			action
+		</th>
+	</thead>
+	<tbody>
+	
+
+	</tbody>
+
+</table>	
+
+
+</div>
+
+	{% endblock %}

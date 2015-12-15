@@ -78,3 +78,14 @@ class DoctorantForm(Form):
         self.personne.choices = [(c.id, c.nom) for c in personnes]
 
 
+class DatePromotionForm(Form):
+
+    satut = TextField('statut', validators=[Required()])
+    datePromotion = DateField('Date de promotion', format='%Y/%m/%d')
+    personne = SelectField(u'personne', coerce=int)
+
+    def __init__(self, *args, **kwargs):
+        super(DatePromotionForm, self).__init__(*args, **kwargs)
+        with db.session() as s:
+            personnes = s.query(Personne).all()
+        self.personne.choices = [(c.id, c.nom) for c in personnes]
