@@ -8,3 +8,5 @@ class Observation(Base):
     id = Column(Integer, primary_key=True)
     description = Column(String(500))
 
+    def __init__(self, description):
+        self.description = description

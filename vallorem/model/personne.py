@@ -21,6 +21,7 @@ class Personne(Base):
 
 
     doctorant = relationship("Doctorant", back_populates="personne")
+    chgs_equipe = relationship("ChgEquipe", back_populates="personne")
     #dates_promotion = relationship("DatePromotion")
     #mails = relationship("Mail", secondary=mail_personne)
 

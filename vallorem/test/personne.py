@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from sqlalchemy import inspect
-
 from vallorem.test import engine, TestDB
 from vallorem.model import db, Base, Personne
 

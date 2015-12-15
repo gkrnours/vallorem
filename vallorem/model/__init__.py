@@ -15,8 +15,10 @@ from vallorem.model.doctorant import Doctorant
 from vallorem.model.type_financement import TypeFinancement
 from vallorem.model.observation import Observation
 
+
+from vallorem.model.chg_equipe import ChgEquipe
+
 def _():
-    from vallorem.model.chg_equipe import ChgEquipe
     from vallorem.model.date_promotion import DatePromotion
     from vallorem.model.directeur_these import DirecteurThese
 

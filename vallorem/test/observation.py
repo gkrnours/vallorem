@@ -19,24 +19,7 @@ class TestObservation(TestDB):
         Base.metadata.drop_all(bind=db.get_engine())
 
 
-    def test_create_empty(self):
-        o = Observation()
-        with db.session() as s:
-            s.add(o)
-
-
-    def test_create_noarg(self):
-        o = Observation()
-        o.description = "alice"
-        with db.session() as s:
-            s.add(o)
-        self.assertIsInstance(o, Observation)
-        insp = inspect(o)
-        self.assertFalse(insp.transient)
-        self.assertEqual(o.description, "alice")
-
-
-    def test_create_arg(self):
+    def test_create(self):
         o = Observation(description="alice")
         with db.session() as s:
             s.add(o)
