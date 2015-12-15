@@ -19,3 +19,6 @@ def doctorant(action=None):
 @app.route('/doctorant/ajout')
 def doctorantAjout(action=None):
     return "doctorant"
+
+
+    

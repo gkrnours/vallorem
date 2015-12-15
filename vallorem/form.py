@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import TextField, BooleanField, SubmitField, TextAreaField, PasswordField, SelectField
+from wtforms import TextField, BooleanField, SubmitField, TextAreaField, PasswordField, SelectField, DateField
 from wtforms.validators import DataRequired as Required
 from vallorem.model import db, Categorie
 
@@ -33,3 +33,14 @@ class LoginForm(Form):
 	password= PasswordField('Password', validators=[Required()])
 	submit = SubmitField('Submit')
 
+
+class ProductionForm(Form):
+    titre = TextField('Titre', validators=[Required()])
+    description = TextField('Description', validators=[Required()])
+    extra = TextField('Extra', validators=[Required()])
+    date = DateField('Date', format='%d/%m/%Y')
+
+class TypeProductionForm(Form):
+
+    description = TextField('Description', validators=[Required()])
+    publication = BooleanField('Publication')

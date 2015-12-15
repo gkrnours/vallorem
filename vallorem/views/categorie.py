@@ -11,13 +11,11 @@ from vallorem import app
 
 
 @app.route('/categorie/')
-@app.route('/categorie/<action>', methods=['GET', 'POST'])
 def categorie(action=None):
     ctx = {}
     with db.session() as s:
         ctx['categories'] = s.query(Categorie).all()
     ctx['page'] = {'categ': 'selected'}
-    ctx['form'] = CategorieForm()
     return render_template('categorie/categorie.html', **ctx)
 
 
