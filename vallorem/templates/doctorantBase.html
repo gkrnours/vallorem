@@ -1,4 +1,4 @@
-{% set current = {'these':'selected'} %}
+{% set current = {'production':'selected'} %}
 {% extends "index.html" %}
 
 {% block header %}
@@ -7,7 +7,7 @@
 		<a href={% block url %}{% endblock %} class="button">
 			<i class="icon-plus"></i>Ajout</a>
 	</div>
-	<h2><span class="lg icon-sound-mix"></span>these &ndash; 
+	<h2><span class="lg icon-sound-mix"></span>Production &ndash; 
 	<span id="part-title">{% block titre %}{% endblock %}</span></h2>
 
 {% endblock %}
@@ -15,7 +15,7 @@
 {% block body %}
 
 	<nav class=nav-tabs>
-		<a href="{{ url_for('these') }}" class="{{page.these}}">these</a>
+		
 		<a href="{{ url_for('doctorant') }}" class="{{page.doctorant}}">
 		Doctorant</a>
 	</nav>

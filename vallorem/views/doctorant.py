@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from flask import Flask, request, session, redirect, url_for, flash
 from flask import render_template
 # local import
-from vallorem.form import CategorieForm
+from vallorem.form import DoctorantForm
 from vallorem import app
 from vallorem.model import db, Categorie
 
@@ -16,9 +16,23 @@ def doctorant(action=None):
     onglet = {'doctorant': 'selected'}
     return render_template('doctorant/doctorant.html', page=onglet)
 
-@app.route('/doctorant/ajout')
+@app.route('/doctorant/ajout', methods=['GET', 'POST'])
 def doctorantAjout(action=None):
-    return "doctorant"
+    form = DoctorantForm(request.form)
+    onglet = {'doctorant': 'selected'}
+    print(form)
+    if request.method == "POST" and form.validate_on_submit():
+    #ecrire des codes pour ajouter input dans la base de donnees
+        doct = Doctorant(description = form.description.data)
+        with db.session() as s:
+            s.add(doct)
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash("Field %s: %s" % (
+                    getattr(form, field).label.text, error), category='error')
+    return render_template('doctorant/ajout.html', page=onglet, form=form)
+
 
 
     
