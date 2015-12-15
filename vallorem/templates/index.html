@@ -19,8 +19,6 @@
 			<i class="icon-sound-mix"></i>Site</a></li>
 		<li><a href="{{ url_for('production') }}" class="{{ current.prod }}">
 			<i class="icon-newspaper"></i>Production</a></li>
-		<li><a href="{{ url_for('doctorant') }}" class="{{ current.doctorant }}">
-			<i class="icon-layout"></i>Doctorant</a></li>
 		<li><a href="{{ url_for('personne') }}" class="{{ current.personne }}">
 			<i class="icon-vcard"></i>Personne</a></li>
 	</ul>
@@ -36,7 +34,7 @@
 	{% for category, message in messages %}
 		<div class="alert alert-{{ category  }}">
 
-			{{ message }}
+			{{ message|replace("\n", "<br>")|safe }}
 
 			<a class="button pull-right" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true"><i class="icon-cancel-squared"></i></span>

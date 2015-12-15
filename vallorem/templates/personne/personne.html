@@ -15,23 +15,31 @@
 		<table>
 			<thead>
 				<th>
-					titre
+					Nom
 				</th>
 				<th>
-					description
+					Prenom
 				</th>
 				<th>
-					extra
+					Date de naissance
 				</th>
 				<th>
-					date
+					Date de recrutement
+				</th>
+				<th>
+					Permanent
 				</th>
 			</thead>
 			<tbody>
+			{% for p in personnes %}
 				<tr>
-				<td>test</td>
-				<td>test</td>
+				<td>{{ p.nom }}</td>
+				<td>{{ p.prenom }}</td>
+				<td>{{ p.date_naissance }}</td>
+				<td>{{ p.date_recrutement }}</td>
+				<td>{{ p.permanent }}</td>
 				</tr>
+			{% endfor %}
 			</tbody>
 
 		</table>

@@ -1,5 +1,9 @@
 from flask.ext.wtf import Form
+
 from wtforms import TextField, BooleanField, SubmitField, TextAreaField, PasswordField, SelectField, DateField, IntegerField
+
+from wtforms.fields.html5 import DateField
+
 from wtforms.validators import DataRequired as Required
 from vallorem.model import db, Categorie, Observation, Personne, TypeFinancement
 
@@ -17,6 +21,16 @@ class PageForm(Form):
             self.categorie.choices = [(c.id, c.description) for c in cats]
 
 
+class PersonneForm(Form):
+    nom = TextField('Nom', validators=[Required()])
+    prenom = TextField('Prenom', validators=[Required()])
+    nom_jf = TextField('Nom de jeune fille')
+    date_naissance = DateField('Date de naissance', validators=[Required()])
+    date_recrutement = DateField('Date de recrutement', validators=[Required()])
+    statut = TextField('Statut', validators=[Required()])
+    permanent = BooleanField('Permanent')
+
+
 class CategorieForm(Form):
     description= TextField('Description', validators=[Required()])
     submit = SubmitField('Submit')
@@ -29,16 +43,17 @@ class UserForm(Form):
 
 
 class LoginForm(Form):
-	email= TextField('email', validators=[Required()])
+	email= TextField('Email', validators=[Required()])
 	password= PasswordField('Password', validators=[Required()])
 	submit = SubmitField('Submit')
+
 
 
 class ProductionForm(Form):
     titre = TextField('Titre', validators=[Required()])
     description = TextField('Description', validators=[Required()])
     extra = TextField('Extra', validators=[Required()])
-    date = DateField('Date', format='%d/%m/%Y')
+    date = DateField('Date', format='%Y/%m/%d')
 
 class TypeProductionForm(Form):
 
@@ -54,17 +69,15 @@ class DoctorantForm(Form):
     observation = TextField('Observation', validators=[Required()])
     nbInscription = IntegerField('Nombre d\'inscription administrative', validators=[Required()])
 
-    dateSoutenance = DateField('Date de soutenance', format='%d/%m/%Y')
+    dateSoutenance = DateField('Date de soutenance', format='%Y/%m/%d')
 
     def __init__(self, *args, **kwargs):
         super(DoctorantForm, self).__init__(*args, **kwargs)
         with db.session() as s:
             typeFinancements = s.query(TypeFinancement).all()
-            self.typeFinancement.choices = [(c.id, c.description) for c in typeFinancements]
-
             personnes = s.query(Personne).all()
-            self.personne.choices = [(c.id, c.description) for c in personnes]
 
-
+        self.typeFinancement.choices = [(c.id, c.description) for c in typeFinancements]
+        self.personne.choices = [(c.id, c.nom) for c in personnes]
 
 

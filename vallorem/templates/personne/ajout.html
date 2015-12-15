@@ -1,13 +1,13 @@
-{% extends "confBase.html" %}
+{% extends "personneBase.html" %}
 {% from "_formhelpers.html" import render_field %}
 
 {% block titre %}
-	Ajout d'un utilisateur
+	Ajout d'une page
 {% endblock %}
 
 {% block header %}
 	<div class="button-bar">
-		<button type="submit" value="save" form="user">
+		<button type="submit" value="save" form="personne">
 			<i class="icon-check"></i>Save</button>
 	</div>
 	<h2><span class="lg icon-sound-mix"></span>Configuration
@@ -17,8 +17,8 @@
 {% block body %}
 	{{ super() }}
 	<div class="panel">
-		<h3>User</h3>
-		<form method ='POST' class="form-inline" id="user">
+		<h3>Personne </h3>
+		<form method ='POST' class="form-inline" id="personne">
 			{% for field in form %}{{ render_field(field) }}{% endfor %}
 		</form>
 	</div>
