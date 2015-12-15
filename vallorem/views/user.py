@@ -2,9 +2,11 @@
 # std python import
 from __future__ import unicode_literals
 # 3rd party lib import
-from flask import Flask, request, session, redirect, url_for, flash
+from flask import request, session, redirect, url_for, flash
 from flask import render_template
-from vallorem.model import db
+
+from vallorem import app
+from vallorem.model import db, Mail
 
 # local import
 from vallorem.model.user import User
@@ -22,14 +24,21 @@ def user(action=None):
 
 @app.route('/user/ajout', methods=['GET', 'POST'])
 def userAjout():
-    form=UserForm()
+    form=UserForm(request.form)
     onglet = {'user': 'selected'}
-    if request.method == "POST":
-    #ecrire des codes pour ajouter input dans la base de donnees
-        form = UserForm(request.form)
-        flash("vous avez entré l'email:"+form.email.data)
-        flash("vous avez entré le password:"+form.password.data)
-
+    if request.method == "POST" and form.validate():
+        with db.session() as s:
+            mail = s.query(Mail).filter(Mail.mail == form.email.data).first()
+        if mail is None:
+            mail = Mail(mail=form.email.data)
+        user = User(mail=mail, password=form.password.data)
+        with db.session() as s:
+            s.add(mail)
+            s.add(user)
+        flash("vous avez créé un compte avec l'email: %s"%form.email.data, category='success')
+        return redirect(url_for('user'))
+    elif app.config['DEBUG'] and request.method == "POST":
+        flash('<br>'.join(form.errors), category='error')
     return render_template('user/ajout.html',form=form, page=onglet)
 
 @app.route('/user/modif', methods=['GET', 'POST'])
@@ -42,5 +51,5 @@ def userModif():
 def userDelete(id):
 
     with db.session() as s:
-        User.query.filter(User.id == id).delete()
+        s.query(User).filter(User.id == id).delete()
     return redirect(url_for('user'))

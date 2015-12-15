@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from flask.ext.login import UserMixin
 
 from vallorem import login_manager
-from vallorem.model import Base
+from vallorem.model import db, Base
 from vallorem.model.mail import Mail
 
 
@@ -25,4 +25,5 @@ class User(Base,UserMixin):
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        with db.session() as s:
+            return s.query(User).get(int(user_id))

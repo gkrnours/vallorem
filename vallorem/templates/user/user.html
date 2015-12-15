@@ -25,7 +25,7 @@
 			<tbody>
 				<tr>
 				{% for user in users %}
-					<td>{{ user.id }} &mdash; {{ user.password }}</td>
+					<td>{{ user.id }} &mdash; {{ user.mail }}</td>
 					<td class=icon><a href={{ url_for('userDelete' ,
 				 id=user.id ) }}><i class="icon-cancel"></i></a></td>
 				</tr>

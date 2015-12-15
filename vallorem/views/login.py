@@ -2,19 +2,21 @@
 # std python import
 from __future__ import unicode_literals
 # 3rd party lib import
-from flask import Flask, request, session, redirect, url_for, flash
+from flask import request, session, redirect, url_for, flash
 from flask import render_template as render
+from flask.ext.login import login_user, logout_user
 # local import
 from vallorem.form import LoginForm
+from vallorem.model import db,Mail,User
 from vallorem import app
-from flask.ext.login import login_user, logout_user, login_required
+
 
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    if request.method == "POST" and form.validate():
         with db.session() as s:
             mail = s.query(Mail).filter(Mail.mail == form.email.data).first()
             if mail is None:
@@ -23,11 +25,13 @@ def login():
         if user is not None and user.password==form.password.data:
             login_user(user)
             return redirect(request.args.get('next') or url_for('index'))
-        flash('invalide username or password')        
+        flash('invalide username or password', category="error")
+    elif request.method == "POST":
+        flash("\n".join(form.errors), category="error")
     return render('login.html',form=form)
 
 @app.route('/logout')
 def logout():
-    session.pop('logged_in', None)
+    logout_user()
     flash('You were logged out')
     return redirect(url_for('home'))

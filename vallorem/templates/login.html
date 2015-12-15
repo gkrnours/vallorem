@@ -6,8 +6,10 @@
 
 <section id=admin-login class=primary>
 	<h1>Login</h1>
+
 	<form method=post class=primar>
 		<fieldset>
+			{{ form.csrf_token }}
 			{{ form.email(placeholder="Email") }}
 			{{ form.password(placeholder="Mot de passe")}}
 		</fieldset>
@@ -15,7 +17,21 @@
 			<button type=submit>login</button>
 		</footer>
 	</form>
-</section>
 
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	{% for category, message in messages %}
+		<div class="alert alert-{{ category  }}">
+
+			{{ message }}
+{#
+			<a class="button pull-right" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true"><i class="icon-cancel-squared"></i></span>
+			</a>#}
+		</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+</section>
 
 {% endblock %}

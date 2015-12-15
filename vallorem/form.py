@@ -1,5 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms import TextField, BooleanField, SubmitField, TextAreaField, PasswordField, SelectField
+from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired as Required
 from vallorem.model import db, Categorie
 
@@ -17,6 +18,16 @@ class PageForm(Form):
             self.categorie.choices = [(c.id, c.description) for c in cats]
 
 
+class PersonneForm(Form):
+    nom = TextField('Nom', validators=[Required()])
+    prenom = TextField('Prenom', validators=[Required()])
+    nom_jf = TextField('Nom de jeune fille')
+    date_naissance = DateField('Date de naissance', validators=[Required()])
+    date_recrutement = DateField('Date de recrutement', validators=[Required()])
+    statut = TextField('Statut', validators=[Required()])
+    permanent = BooleanField('Permanent')
+
+
 class CategorieForm(Form):
     description= TextField('Description', validators=[Required()])
     submit = SubmitField('Submit')
@@ -29,7 +40,9 @@ class UserForm(Form):
 
 
 class LoginForm(Form):
-	email= TextField('email', validators=[Required()])
+	email= TextField('Email', validators=[Required()])
 	password= PasswordField('Password', validators=[Required()])
 	submit = SubmitField('Submit')
+
+
 
