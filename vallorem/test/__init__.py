@@ -28,3 +28,4 @@ from vallorem.test.doctorant import TestDoctorant
 from vallorem.test.production import TestProduction
 from vallorem.test.type_production import TestTypeProduction
 from vallorem.test.observation import TestObservation
+from vallorem.test.type_financement import TestTypeFinancement
