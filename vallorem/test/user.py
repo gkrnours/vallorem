@@ -9,6 +9,7 @@ from vallorem.model import db, Base, Mail, User
 
 #TODO test for updating email
 
+
 class TestUser(TestDB):
     def setUp(self):
         self.m = m = Mail("alice@example.com")
@@ -17,10 +18,8 @@ class TestUser(TestDB):
             s.add(m)
             s.add(u)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
+        Base.metadata.drop_all(bind=TestUser.engine)
 
     def test_create(self):
         # test without argument
@@ -42,11 +41,12 @@ class TestUser(TestDB):
         self.assertEqual(u.mail, "alice@example.com")
 
 
+class Foio:
+
     def test_without_mail(self):
         u = User()
         with db.session() as s:
             s.add(u)
-
 
     def test_read(self):
         with db.session() as s:

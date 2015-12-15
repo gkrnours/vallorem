@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from vallorem.model import Base
+from vallorem.model.type_financement import TypeFinancement
+from vallorem.model.observation import Observation
 
 
 class Doctorant(Base):
@@ -13,7 +15,7 @@ class Doctorant(Base):
     nombre_ia = Column(Integer)
     date_soutenance = Column(DateTime)
 
-    personne = relationship("Doctorant", back_populates="doctorant")
+    personne = relationship("Personne", back_populates="doctorant")
     _type_financement = relationship("TypeFinancement", lazy="joined")
     _observation = relationship("Observation", lazy="joined")
 
