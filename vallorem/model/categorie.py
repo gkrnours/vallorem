@@ -3,8 +3,6 @@ from sqlalchemy.orm import relationship
 from vallorem.model import Base
 
 
-
-
 class Categorie(Base):
     __tablename__ = 'categorie'
     id = Column(Integer, primary_key=True)

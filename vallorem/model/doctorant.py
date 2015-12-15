@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from vallorem.model import Base
+from vallorem.model.type_financement import TypeFinancement
+from vallorem.model.observation import Observation
 
 
 class Doctorant(Base):
@@ -13,14 +15,22 @@ class Doctorant(Base):
     nombre_ia = Column(Integer)
     date_soutenance = Column(DateTime)
 
-    personne = relationship("Doctorant", back_populates="doctorant")
+    personne = relationship("Personne", back_populates="doctorant")
+    _type_financement = relationship("TypeFinancement", lazy="joined")
+    _observation = relationship("Observation", lazy="joined")
 
-    def __init__(self, id_personne, id_type_financement, id_observation,
-                 sujet_these, nombre_ia, date_soutenance):
+    @property
+    def type_financement(self):
+        return self._type_financement.description
 
-        self.id_personne = id_personne
-        self.id_type_financement = id_type_financement
-        self.id_observation = id_observation
-        self.sujet_these = sujet_these
-        self.nombre_ia = nombre_ia
-        self.date_soutenance = date_soutenance
+    @type_financement.setter
+    def type_financement(self, value):
+        self._type_financement = value
+
+    @property
+    def observation(self):
+        return self._observation.description
+
+    @type_financement.setter
+    def observation(self, value):
+        self._observation = value

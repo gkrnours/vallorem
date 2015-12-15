@@ -8,7 +8,3 @@ class Observation(Base):
     id = Column(Integer, primary_key=True)
     description = Column(String(500))
 
-    doctorants = relationship("Doctorant")
-
-    def __init__(self, description):
-        self.description = description

@@ -3,11 +3,16 @@
 from __future__ import unicode_literals
 
 from sqlalchemy import inspect
+from sqlalchemy.exc import IntegrityError
 
-from vallorem.test import engine, TestDB
+from vallorem.test import TestDB
 from vallorem.model import db, Base, Mail
 
 class TestMail(TestDB):
+    @classmethod
+    def setUpClass(cls):
+        pass
+
     def setUp(self):
         self.m = m = Mail("abc@example.com")
         with db.session() as s:
@@ -15,7 +20,8 @@ class TestMail(TestDB):
 
 
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
+        with db.session() as s:
+            s.query(Mail).delete()
 
 
     def test_create(self):
@@ -36,6 +42,11 @@ class TestMail(TestDB):
         self.assertIsInstance(m, Mail)
         self.assertEqual(m.mail, "abc@example.com")
 
+    def test_unique(self):
+        m = Mail("abc@example.com")
+        with self.assertRaises(IntegrityError):
+            with db.session() as s:
+                  s.add(m)
 
     def test_update(self):
         self.assertEqual(self.m.mail, "abc@example.com")
@@ -49,7 +60,6 @@ class TestMail(TestDB):
         self.assertEqual(m.id, self.m.id)
         self.assertEqual(m.mail, "def@example.com")
 
-
     def test_delete(self):
         with db.session() as s:
             s.delete(self.m)
@@ -58,3 +68,4 @@ class TestMail(TestDB):
         with db.session() as s:
             m = s.query(Mail).filter(Mail.id == self.m.id).first()
         self.assertIs(m, None)
+

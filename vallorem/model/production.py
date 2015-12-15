@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy.orm import relationship
 from vallorem.model import Base
+from vallorem.model.type_production import TypeProduction
 
 
 class Production(Base):
@@ -11,9 +13,5 @@ class Production(Base):
     extra = Column(String(5000))
     date = Column(DateTime)
 
-    def __init__(self, id_type, titre, description, extra, date):
-        self.id_type = id_type
-        self.titre = titre
-        self.description = description
-        self.extra = extra
-        self.date = date
+    type = relationship("TypeProduction", lazy="joined")
+

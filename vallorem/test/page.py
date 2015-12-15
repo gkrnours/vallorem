@@ -31,14 +31,14 @@ class TestPage(TestDB):
             s.add(p)
         insp = inspect(p)
         self.assertFalse(insp.transient)
-        self.assertEqual(p.categorie.description, "Pokémon")
+        self.assertEqual(p.categorie, "Pokémon")
         # test with argument
         p = Page(categorie=self.c, titre="Sandslash", content="Pangolin")
         with db.session() as s:
             s.add(p)
         insp = inspect(p)
         self.assertFalse(insp.transient)
-        self.assertEqual(p.categorie.description, "Pokémon")
+        self.assertEqual(p.categorie, "Pokémon")
 
     def test_without_categorie(self):
         p = Page()
@@ -51,7 +51,7 @@ class TestPage(TestDB):
             p = s.query(Page).first()
         self.assertIsInstance(p, Page)
         self.assertEqual(p.titre, "Pikachu")
-        self.assertEqual(p.categorie.description, "Pokémon")
+        self.assertEqual(p.categorie, "Pokémon")
 
 
     def test_update(self):
