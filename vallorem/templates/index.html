@@ -12,10 +12,17 @@
 		<h1><a href=/admin>Admin</a></h1>
 	</header>
 	<ul>
-		<li><a href="{{ url_for('dashboard') }}">
+		<li><a href="{{ url_for('dashboard') }}" class="{{ current.dash }}">
 			<i class="icon-layout"></i>Information</a></li>
-		<li><a href="{{ url_for('config') }}">
-			<i class="icon-sound-mix"></i>Configuration</a></li>
+		<li><a href="{{ url_for('config') }}"
+			class="{{ current.site }}">
+			<i class="icon-sound-mix"></i>Site</a></li>
+		<li><a href="{{ url_for('production') }}" class="{{ current.prod }}">
+			<i class="icon-newspaper"></i>Production</a></li>
+		<li><a href="{{ url_for('these') }}" class="{{ current.these }}">
+			<i class="icon-layout"></i>These</a></li>
+		<li><a href="{{ url_for('personne') }}" class="{{ current.personne }}">
+			<i class="icon-vcard"></i>Personne</a></li>
 	</ul>
 </nav>
 

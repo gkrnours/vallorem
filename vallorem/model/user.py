@@ -1,11 +1,13 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+from flask.ext.login import UserMixin
 
+from vallorem import login_manager
 from vallorem.model import Base
 from vallorem.model.mail import Mail
 
 
-class User(Base):
+class User(Base,UserMixin):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     _mail = relationship("Mail", lazy='joined', uselist=False)
@@ -19,3 +21,8 @@ class User(Base):
     @mail.setter
     def mail(self, value):
         self._mail = value
+
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
