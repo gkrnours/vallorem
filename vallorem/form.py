@@ -64,20 +64,17 @@ class TypeProductionForm(Form):
 class DoctorantForm(Form):
 
     sujetThese = TextField('Sujet de these', validators=[Required()])
-    typeFinancement = SelectField(u'typeFinancement', coerce=int)
+    typeFinancement = TextField('typeFinancement', validators=[Required()])
     personne = SelectField(u'personne', coerce=int)
-    observation = TextField('Observation', validators=[Required()])
+   
     nbInscription = IntegerField('Nombre d\'inscription administrative', validators=[Required()])
-
     dateSoutenance = DateField('Date de soutenance', format='%Y/%m/%d')
+    observation = TextAreaField('Observation', validators=[Required()])
 
     def __init__(self, *args, **kwargs):
         super(DoctorantForm, self).__init__(*args, **kwargs)
         with db.session() as s:
-            typeFinancements = s.query(TypeFinancement).all()
             personnes = s.query(Personne).all()
-
-        self.typeFinancement.choices = [(c.id, c.description) for c in typeFinancements]
         self.personne.choices = [(c.id, c.nom) for c in personnes]
 
 
