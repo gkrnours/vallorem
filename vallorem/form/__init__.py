@@ -7,7 +7,7 @@ from wtforms.fields.html5 import DateField
 
 from wtforms.validators import Optional
 from wtforms.validators import DataRequired as Required
-from vallorem.model import db, Categorie, Observation, Personne, TypeFinancement
+from vallorem.model import db, Categorie, Personne
 
 
 class PageForm(Form):
