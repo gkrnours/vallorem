@@ -47,7 +47,8 @@ def doctorantAjout(action=None):
         pprint(data)
         p = Personne(**dataP)
         d = Doctorant(**data)
-
+        d.personne=p
+        d.type_financement = typeFinancement
         pprint(dataP)
         pprint(p)
 
