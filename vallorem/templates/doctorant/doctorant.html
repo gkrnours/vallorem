@@ -28,10 +28,12 @@
 				</th>
 			</thead>
 			<tbody>
+			{% for d in doctorants %}
 				<tr>
-				<td>test</td>
-				<td>test</td>
+				<td>{{ d.nombre_ia }}</td>
+				<td>{{ d.personne|pprint }}
 				</tr>
+			{% endfor %}
 			</tbody>
 
 		</table>

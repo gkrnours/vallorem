@@ -15,7 +15,7 @@ class Doctorant(Base):
     nombre_ia = Column(Integer)
     date_soutenance = Column(DateTime)
 
-    personne = relationship("Personne", back_populates="doctorant")
+    personne = relationship("Personne", back_populates="doctorant", lazy="joined")
     _type_financement = relationship("TypeFinancement", lazy="joined")
     _observation = relationship("Observation", lazy="joined")
 
