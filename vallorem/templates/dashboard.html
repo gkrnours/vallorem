@@ -2,6 +2,10 @@
 {% extends "index.html" %}
 
 {% block header %}
+	<div class="button-bar">
+		<a href="{{ url_for('build') }}" class="button">
+			<i class="icon-plus"></i>Build</a>
+	</div>
 	<h2><i class="lg icon-layout"></i>dashboard</h2>
 {% endblock %}
 

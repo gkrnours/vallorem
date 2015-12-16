@@ -49,7 +49,7 @@ ARTICLE_URL         = 'publications/{date:%Y}/{slug}'
 ARTICLE_LANG_SAVE_AS= 'publications/{date:%Y}/{slug}/{lang}/index.html'
 ARTICLE_LANG_URL    = 'publications/{date:%Y}/{slug}/{lang}'
 YEAR_ARCHIVE_SAVE_AS = 'publications/{date:%Y}/index.html'
-
+THEME = 'themes/basic'
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
