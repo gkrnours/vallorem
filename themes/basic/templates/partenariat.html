@@ -1,0 +1,23 @@
+  <link type="text/css" href="{{ SITEURL }}/theme/css/professionnel.css" rel="stylesheet"></link>
+
+{% extends "base2.html" %}
+{% block title %}{{ page.title }}{%endblock%}
+{% block partenariat %}
+    
+  
+    {% import 'translations.html' as translations with context %}
+    {{ translations.translations_for(page) }}
+
+    <div class="col-md-12">
+    	
+
+    {{ page.content }}
+
+
+    </div>
+	{% if page.modified %}
+		<p>
+		Last updated: {{ page.locale_modified }}
+		</p>
+	{% endif %}
+{% endblock %}

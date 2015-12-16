@@ -1,11 +1,9 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
+from vallorem.test import TestDB
+from vallorem.model import db, Page, Categorie
 
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, Page, Categorie
 
 class TestPage(TestDB):
     def setUp(self):
@@ -15,10 +13,9 @@ class TestPage(TestDB):
             s.add(c)
             s.add(p)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
+        with db.session() as s:
+            s.query(Page).delete()
 
     def test_create(self):
         # test without argument
@@ -45,14 +42,12 @@ class TestPage(TestDB):
         with db.session() as s:
             s.add(p)
 
-
     def test_read(self):
         with db.session() as s:
             p = s.query(Page).first()
         self.assertIsInstance(p, Page)
         self.assertEqual(p.titre, "Pikachu")
         self.assertEqual(p.categorie, "Pokémon")
-
 
     def test_update(self):
         self.assertEqual(self.p.content, "Souris éléc.")
@@ -66,7 +61,6 @@ class TestPage(TestDB):
         self.assertEqual(p.id, self.p.id)
         self.assertEqual(p.titre, "Pikachu")
         self.assertEqual(p.content, "Souris éléctrique")
-
 
     def test_delete(self):
         with db.session() as s:

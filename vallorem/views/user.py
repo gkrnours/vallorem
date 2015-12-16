@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 # 3rd party lib import
 from flask import request, session, redirect, url_for, flash
 from flask import render_template
+from sqlalchemy import inspect
+from sqlalchemy.exc import IntegrityError
 
 from vallorem import app
 from vallorem.model import db, Mail
@@ -32,13 +34,17 @@ def userAjout():
         if mail is None:
             mail = Mail(mail=form.email.data)
         user = User(mail=mail, password=form.password.data)
-        with db.session() as s:
-            s.add(mail)
-            s.add(user)
-        flash("vous avez créé un compte avec l'email: %s"%form.email.data, category='success')
+        try:
+            with db.session() as s:
+                if inspect(mail).transient:
+                    s.add(mail)
+                s.add(user)
+        except IntegrityError:
+            flash("Le mail déjà existant ", category="error")
+            return render_template('user/ajout.html',form=form, page=onglet)
+        flash("vous avez créé un compte avec l'email: %s" %form.email.data,category='success')
         return redirect(url_for('user'))
-    elif app.config['DEBUG'] and request.method == "POST":
-        flash('<br>'.join(form.errors), category='error')
+
     return render_template('user/ajout.html',form=form, page=onglet)
 
 @app.route('/user/modif', methods=['GET', 'POST'])

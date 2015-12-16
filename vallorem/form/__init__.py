@@ -77,8 +77,8 @@ class DoctorantForm(Form):
 
 class DatePromotionForm(Form):
 
-    satut = TextField('statut', validators=[Required()])
-    datePromotion = DateField('Date de promotion')
+    satut = TextField('Statut', validators=[Required()])
+    datePromotion = DateField('Date de promotion', validators=[Required()])
 
 
     def __init__(self, *args, **kwargs):

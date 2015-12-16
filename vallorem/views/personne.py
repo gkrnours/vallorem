@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 from flask import Flask, request, session, redirect, url_for, flash
 from flask import render_template
 # local import
-from vallorem.form import CategorieForm,PersonneForm
+from vallorem.form import CategorieForm,PersonneForm, DatePromotionForm
 from vallorem import app
-from vallorem.model import db, Categorie, Personne,Statut
+from vallorem.model import db, Categorie, Personne,Statut,Equipe,DatePromotion
 
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -41,3 +41,27 @@ def personneAjout(action=None):
     return render_template('personne/ajout.html',form=form, page=onglet)
 
 
+
+@app.route('/personne/info/<int:personne_id>')
+def personneInfo(personne_id):
+    onglet = {'personne': 'selected'}
+    with db.session() as s:
+        p = s.query(Personne).filter(Personne.id==personne_id).first()
+    return render_template('personne/personneInfo.html', page=onglet, personne=p)
+
+
+@app.route('/personne/modif/<int:personne_id>', methods=['GET', 'POST'])
+def personneModifier(personne_id):
+    onglet = {'personne': 'selected'}
+    form = DatePromotionForm(request.form)
+    if request.method == "POST" and form.validate():
+
+        date_promotion=form.date_promotion.data
+        with db.session() as s:
+            status=s.query(Statut).filter(Statut.description==form.statut.data).first()
+            promotion=DatePromotionForm(id_personne=personne_id, id_statut=status.id, date_promotion=date_promotion)
+            s.add(promotion)
+            flash("vous avez créé changé le status: %s , %s" %(form.statut.data, promotion), category='success')
+            return redirect(url_for('personneInfo', personne_id=personne_id))
+
+    return render_template('personne/ajoutStatus.html', form=form, page=onglet, personne_id=personne_id)

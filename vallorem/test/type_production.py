@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
-
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, TypeProduction
+from vallorem.test import TestDB
+from vallorem.model import db, TypeProduction
 
 
 class TestTypeProduction(TestDB):
@@ -14,15 +11,13 @@ class TestTypeProduction(TestDB):
         with db.session() as s:
             s.add(tp)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
+        with db.session() as s:
+            s.query(TypeProduction).delete()
 
     def test_create_empty(self):
         with self.assertRaises(TypeError):
             TypeProduction()
-
 
     def test_create_arg(self):
         tp = TypeProduction(description="alice", publication=False)
@@ -33,13 +28,11 @@ class TestTypeProduction(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(tp.description, "alice")
 
-
     def test_read(self):
         with db.session() as s:
             tp = s.query(TypeProduction).first()
         self.assertIsInstance(tp, TypeProduction)
         self.assertEqual(tp.description, "alice")
-
 
     def test_update(self):
         self.assertEqual(self.tp.description, "alice")
@@ -56,7 +49,6 @@ class TestTypeProduction(TestDB):
         self.assertEqual(tp.id, self.tp.id)
         self.assertEqual(tp.description, "bob")
         self.assertEqual(tp.publication, True)
-
 
     def test_delete(self):
         with db.session() as s:
