@@ -1,0 +1,61 @@
+<!doctype html>
+<title>{{SITENAME}}</title>
+<link rel="stylesheet" 
+	href="{{SITEURL}}/{{THEME_STATIC_DIR}}/css/bootstrap.css">
+<script src="{{SITEURL}}/{{THEME_STATIC_DIR}}/js/jquery.js"></script>
+<script src="{{SITEURL}}/{{THEME_STATIC_DIR}}/js/bootstrap.js"></script>
+<style>
+body > nav .nav-item {
+	position: relative;
+}
+</style>
+
+<header class="container">
+	<div class=col-md-3 style="background:blue;">
+	</div>
+	<nav class="navbar navbar-light bg-faded col-md-9">
+		<ul class="nav navbar-nav">
+		{% for category, list in pages|groupby('category') %}
+			<li class="nav-item">
+				<button type=button class="btn dropdown-toggle"
+					data-toggle=dropdown
+					aria-haspopup=true aria-expanded=false>
+					{{category}}
+				</button>
+				<div class=dropdown-menu>
+				{% for p in list %}
+					<a href={{SITEURL}}/{{p.url}}
+						class=dropdown-item>{{p.title}}
+					</a>
+				{% endfor %}
+				</div>	
+		{% endfor %}
+			<li class="nav-item">
+				<button type=button class="btn dropdown-toggle"
+					data-toggle=dropdown
+					aria-haspopup=true aria-expanded=false>
+					Publications
+				</button>
+				<div class=dropdown-menu>
+					<a href={{SITEURL}}/2004
+						class=dropdown-item>2004</a>
+				</div>	
+		</ul>
+	</nav>
+</header>
+
+<div class="container">
+	<main class=col-md-9>
+	</main>
+	{% block outer_sidebar %}
+	<div class=col-md-3>
+		<div class="card card-block">
+		</div>
+		
+	</div>
+	{% endblock %}
+</div>
+
+
+{% block content %}
+{% endblock %}

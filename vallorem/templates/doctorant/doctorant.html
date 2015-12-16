@@ -15,23 +15,26 @@
 		<table>
 			<thead>
 				<th>
-					titre
+					Nom
 				</th>
 				<th>
-					description
+					Prenom
 				</th>
 				<th>
-					extra
+					Nombre d'inscriptions administratives
 				</th>
 				<th>
-					date
+					Type de financement
 				</th>
 			</thead>
 			<tbody>
 			{% for d in doctorants %}
 				<tr>
+				<td>{{ d.personne.nom }}</td>
+				<td>{{ d.personne.prenom }}</td>
 				<td>{{ d.nombre_ia }}</td>
-				<td>{{ d.personne|pprint }}
+				<td>{{ d.type_financement.description }}</td>
+
 				</tr>
 			{% endfor %}
 			</tbody>
