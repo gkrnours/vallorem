@@ -1,0 +1,47 @@
+{% extends "personneBase.html" %}
+
+
+	{% block url %}
+		{{ url_for('personneModifier', personne_id=personne_id) }}
+	{% endblock %}
+
+	{% block button %}
+		Modifier
+	{% endblock %}
+
+	{% block titre %}
+		Personne
+	{% endblock %}
+
+{% block header %}
+	<div class="button-bar">
+		<button type="submit" value="save" form="status">
+			<i class="icon-check"></i></button>
+	</div>
+	<h2><span class="lg icon-sound-mix"></span>Configuration
+		<span id="part-title"></span></h2>
+{% endblock %}
+
+
+	{% block body %}
+	<nav class=nav-tabs>
+		<a href="{{ url_for('personne') }}"
+			class="{{page.personne}}">Personne</a>
+		<a href="{{ url_for('personne') }}"
+			class="{{page.personne}}">Status</a>
+
+
+	</nav>
+	<div class="panel">
+	<h3>Status </h3>
+		<form method ='POST' class="form-inline" id="status">
+			{% for field in form %}
+			{{ render_field(form.csrf_token) }}
+			{{ render_field(form.statut) }}
+			{{ render_field(form.date_promotion) }}
+			{% endfor %}
+		</form>
+
+	</div>
+
+	{% endblock %}

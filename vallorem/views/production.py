@@ -31,4 +31,4 @@ def productionAjout(action=None):
             for error in errors:
                 flash("Field %s: %s" % (
                     getattr(form, field).label.text, error), category='error')
- 	return render_template('production/ajout.html', page=onglet, form=form)
+    return render_template('production/ajout.html', page=onglet, form=form)

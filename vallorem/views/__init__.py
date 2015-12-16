@@ -11,7 +11,10 @@ from vallorem.form import PageForm,CategorieForm,UserForm
 
 from vallorem import app
 from vallorem.views import login, page, categorie
-from vallorem.views import user, config, index, production, typeProduction, these, doctorant, typeFinancement, personne, statut, datePromotion
+from vallorem.views import user, config, index, production, typeProduction
+from vallorem.views import these, doctorant, typeFinancement, personne, statut
+from vallorem.views import datePromotion
+
 
 
 @app.template_filter('wc')
@@ -20,13 +23,3 @@ def compteMot(string):
 	return len(l)
 
 
-@app.route('/site-map')
-def site_map():
-    """ Display the list of rules reachable with a browser and without
-    parameters """
-    links = []
-    for rule in app.url_map.iter_rules():
-        if "GET" in rule.methods and has_no_empty_params(rule):
-            url = url_for(rule.endpoint, **(rule.defaults or {}))
-            links.append((url, rule.endpoint))
-    return render_template('site_map.html', urls=links)
