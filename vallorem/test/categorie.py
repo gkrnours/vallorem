@@ -1,22 +1,33 @@
 # -*- encoding: utf-8 -*-
-
+from __future__ import unicode_literals
 from sqlalchemy import inspect
-
 from vallorem.test import TestDB
 from vallorem.model import db, Categorie
 
+
 class TestCategorie(TestDB):
 
-    def test_create(self):
-        # check that creation without arg fail
-        with self.assertRaises(TypeError):
-            Categorie()
-        # check creation and insert in db
-        c = Categorie("O'Maley")
+    def setUp(self):
+        self.c = c = Categorie(description="O'Maley")
         with db.session() as s:
             s.add(c)
+
+    def tearDown(self):
+        with db.session() as s:
+            s.query(Categorie).delete()
+
+    def test_create_empty(self):
+        with self.assertRaises(TypeError):
+            c = Categorie()
+
+    def test_create_arg(self):
+        c = Categorie(description="O'Maley")
+        with db.session() as s:
+            s.add(c)
+        self.assertIsInstance(c, Categorie)
         insp = inspect(c)
         self.assertFalse(insp.transient)
+        self.assertEqual(c.description, "O'Maley")
 
     def test_read(self):
         # check read
@@ -30,21 +41,21 @@ class TestCategorie(TestDB):
             c = s.query(Categorie).first()
         self.assertIsInstance(c, Categorie)
         self.assertEqual(c.description, "O'Maley")
-        c.description = u"Pokémon"
+        c.description = "Pokémon"
         with db.session() as s:
             s.add(c)
         del c
         with db.session() as s:
             c = s.query(Categorie).first()
         self.assertIsInstance(c, Categorie)
-        self.assertEqual(c.description, u"Pokémon")
+        self.assertEqual(c.description, "Pokémon")
 
     def test_delete(self):
         # get from db
         with db.session() as s:
             c = s.query(Categorie).first()
         self.assertIsInstance(c, Categorie)
-        self.assertEqual(c.description, u"O'Maley")
+        self.assertEqual(c.description, "O'Maley")
         # delete
         with db.session() as s:
             s.delete(c)

@@ -5,6 +5,7 @@ from flask.ext.login import UserMixin
 from vallorem import login_manager
 from vallorem.model import db, Base
 from vallorem.model.mail import Mail
+from vallorem.model.user_personne import user_personne
 
 
 class User(Base,UserMixin):
@@ -13,6 +14,8 @@ class User(Base,UserMixin):
     _mail = relationship("Mail", lazy='joined', uselist=False)
     mail_id = Column(Integer, ForeignKey('mail.id'), unique=True)
     password = Column(String(50))
+
+    personnes = relationship("Personne", secondary=user_personne, back_populates="users")
 
     @property
     def mail(self):

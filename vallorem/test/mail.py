@@ -1,12 +1,9 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
-
 from vallorem.test import TestDB
-from vallorem.model import db, Base, Mail
+from vallorem.model import db, Mail
 
 class TestMail(TestDB):
     @classmethod
@@ -24,11 +21,11 @@ class TestMail(TestDB):
             s.query(Mail).delete()
 
 
-    def test_create(self):
-        # test without argument
+    def test_create_noarg(self):
         with self.assertRaises(TypeError):
             Mail()
-        # test with argument
+
+    def test_create_arg(self):
         m = Mail("def@example.com")
         with db.session() as s:
             s.add(m)

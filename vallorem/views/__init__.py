@@ -11,7 +11,7 @@ from vallorem.form import PageForm,CategorieForm,UserForm
 
 from vallorem import app
 from vallorem.views import login, page, categorie
-from vallorem.views import user, config, index, production, typeProduction, these, doctorant, typeFinancement, personne, statut
+from vallorem.views import user, config, index, production, typeProduction, these, doctorant, typeFinancement, personne, statut, datePromotion
 
 
 @app.template_filter('wc')

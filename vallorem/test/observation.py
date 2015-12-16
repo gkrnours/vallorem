@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
-
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, Observation
+from vallorem.test import TestDB
+from vallorem.model import db, Observation
 
 
 class TestObservation(TestDB):
@@ -14,29 +11,11 @@ class TestObservation(TestDB):
         with db.session() as s:
             s.add(o)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
-
-    def test_create_empty(self):
-        o = Observation()
         with db.session() as s:
-            s.add(o)
+            s.query(Observation).delete()
 
-
-    def test_create_noarg(self):
-        o = Observation()
-        o.description = "alice"
-        with db.session() as s:
-            s.add(o)
-        self.assertIsInstance(o, Observation)
-        insp = inspect(o)
-        self.assertFalse(insp.transient)
-        self.assertEqual(o.description, "alice")
-
-
-    def test_create_arg(self):
+    def test_create(self):
         o = Observation(description="alice")
         with db.session() as s:
             s.add(o)
@@ -45,13 +24,11 @@ class TestObservation(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(o.description, "alice")
 
-
     def test_read(self):
         with db.session() as s:
             o = s.query(Observation).first()
         self.assertIsInstance(o, Observation)
         self.assertEqual(o.description, "alice")
-
 
     def test_update(self):
         self.assertEqual(self.o.description, "alice")
@@ -64,7 +41,6 @@ class TestObservation(TestDB):
         self.assertIsNot(o, self.o)
         self.assertEqual(o.id, self.o.id)
         self.assertEqual(o.description, "bob")
-
 
     def test_delete(self):
         with db.session() as s:

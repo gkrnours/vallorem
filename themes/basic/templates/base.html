@@ -1,0 +1,43 @@
+{% extends "base2.html" %}
+
+{% block subheader %}
+<!-- carrousel -->
+
+
+<div class="container-fluid">
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+	  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="{{ SITEURL }}/theme/img/banniere-orleans.jpg" alt="baniere">
+		<div class="carousel-caption">
+        Laboratoire de recherche en Management
+        Site d'Orléans
+
+      </div>
+    </div>
+    <div class="item">
+      <img src="{{ SITEURL }}/theme/img/banniere-tours.jpg" alt="baniere">
+		    <div class="carousel-caption">
+          Laboratoire de recherche en Management
+          Site de Tours
+      </div>
+    </div>
+
+    {% for img in CAROUSEL %}
+    <div class="item">
+      <img src="{{ SITEURL }}/theme/img/{{img.0}}" alt="baniere">
+        <div class="carousel-caption">
+          {{img.1}}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<h2 class="title">
+
+    Actualités
+
+</h2>
+<ul>
+{% for article in articles %}
+    <li><a class="noDecoration" href="{{ SITEURL }}/{{ article.url }}">
+		{{ article.title }}</a></li>
+    
+    {% endfor %}
+</ul>
+

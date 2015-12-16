@@ -1,4 +1,4 @@
-{% extends "theseBase.html" %}
+{% extends "personneBase.html" %}
 
 	{% block url %}
 		{{ url_for('doctorantAjout') }}
@@ -15,23 +15,28 @@
 		<table>
 			<thead>
 				<th>
-					titre
+					Nom
 				</th>
 				<th>
-					description
+					Prenom
 				</th>
 				<th>
-					extra
+					Nombre d'inscriptions administratives
 				</th>
 				<th>
-					date
+					Type de financement
 				</th>
 			</thead>
 			<tbody>
+			{% for d in doctorants %}
 				<tr>
-				<td>test</td>
-				<td>test</td>
+				<td>{{ d.personne.nom }}</td>
+				<td>{{ d.personne.prenom }}</td>
+				<td>{{ d.nombre_ia }}</td>
+				<td>{{ d.type_financement.description }}</td>
+
 				</tr>
+			{% endfor %}
 			</tbody>
 
 		</table>
