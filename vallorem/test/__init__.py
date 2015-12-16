@@ -31,3 +31,4 @@ from vallorem.test.observation import TestObservation
 from vallorem.test.type_financement import TestTypeFinancement
 from vallorem.test.chg_equipe import TestChgEquipe
 from vallorem.test.date_promotion import TestDatePromotion
+from vallorem.test.directeur_these import TestDirecteurThese

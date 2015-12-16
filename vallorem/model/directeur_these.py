@@ -11,7 +11,5 @@ class DirecteurThese(Base):
     id_doctorant = Column(Integer, ForeignKey('personne.id'))
     id_directeur = Column(Integer, ForeignKey('personne.id'))
 
-
-    directeur = relationship("Personne", lazy="joined")
-    doctorant = relationship("Personne", lazy="joined")
-    info_doctorant = relationship("Doctorant", lazy="joined")
+    directeur = relationship("Personne", foreign_keys=id_directeur, lazy="joined")
+    doctorant = relationship("Personne", foreign_keys=id_doctorant, lazy="joined")
