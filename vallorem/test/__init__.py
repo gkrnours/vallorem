@@ -1,10 +1,9 @@
 import unittest
-
 import sqlalchemy
-
 from vallorem.model import db
 
 engine = None
+
 
 class TestDB(unittest.TestCase):
     """ Setup a temporary database for test """
@@ -13,9 +12,10 @@ class TestDB(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """ init the db """
-        cls.engine = engine =  sqlalchemy.create_engine('sqlite://')
+        cls.engine = engine = sqlalchemy.create_engine('sqlite://')
         engine = db.init(engine=engine, autoflush=True)
         db.create(engine)
+
 
 from vallorem.test.categorie import TestCategorie
 from vallorem.test.equipe import TestEquipe

@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
-
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, Doctorant
+from vallorem.test import TestDB
+from vallorem.model import db, Doctorant
 
 
 class TestDoctorant(TestDB):
@@ -14,16 +11,14 @@ class TestDoctorant(TestDB):
         with db.session() as s:
             s.add(d)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
+        with db.session() as s:
+            s.query(Doctorant).delete()
 
     def test_create_empty(self):
         d = Doctorant()
         with db.session() as s:
             s.add(d)
-
 
     def test_create_noarg(self):
         d = Doctorant()
@@ -35,7 +30,6 @@ class TestDoctorant(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(d.sujet_these, "alice")
 
-
     def test_create_arg(self):
         d = Doctorant(sujet_these="alice")
         with db.session() as s:
@@ -45,13 +39,11 @@ class TestDoctorant(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(d.sujet_these, "alice")
 
-
     def test_read(self):
         with db.session() as s:
             d = s.query(Doctorant).first()
         self.assertIsInstance(d, Doctorant)
         self.assertEqual(d.sujet_these, "alice")
-
 
     def test_update(self):
         self.assertEqual(self.d.sujet_these, "alice")
@@ -64,7 +56,6 @@ class TestDoctorant(TestDB):
         self.assertIsNot(d, self.d)
         self.assertEqual(d.id, self.d.id)
         self.assertEqual(d.sujet_these, "bob")
-
 
     def test_delete(self):
         with db.session() as s:

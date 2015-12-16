@@ -1,12 +1,9 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
-
 from vallorem.test import TestDB
-from vallorem.model import db, Base, Mail
+from vallorem.model import db, Mail
 
 class TestMail(TestDB):
     @classmethod
