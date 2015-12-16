@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
-
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, Production
+from vallorem.test import TestDB
+from vallorem.model import db, Production
 
 
 class TestProduction(TestDB):
@@ -15,7 +12,8 @@ class TestProduction(TestDB):
             s.add(p)
 
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
+        with db.session() as s:
+            s.query(Production).delete()
 
     def test_create_empty(self):
         p = Production()

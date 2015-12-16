@@ -11,6 +11,7 @@ class DatePromotion(Base):
     date_promotion = Column(DateTime)
 
     _statut = relationship("Statut", lazy="joined")
+    personne = relationship("Personne", back_populates="dates_promotion")
 
     @property
     def statut(self):

@@ -1,9 +1,6 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
-
 from vallorem.test import engine, TestDB
 from vallorem.model import db, Base, Statut
 
@@ -14,15 +11,13 @@ class TestStatut(TestDB):
         with db.session() as s:
             s.add(st)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
+        with db.session() as s:
+            s.query(Statut).delete()
 
     def test_create_empty(self):
         with self.assertRaises(TypeError):
             st = Statut()
-
 
     def test_create_arg(self):
         st = Statut(description="dev")
@@ -33,13 +28,11 @@ class TestStatut(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(st.description, "dev")
 
-
     def test_read(self):
         with db.session() as s:
             st = s.query(Statut).first()
         self.assertIsInstance(st, Statut)
         self.assertEqual(st.description, "dev")
-
 
     def test_update(self):
         self.assertEqual(self.st.description, "dev")
@@ -52,7 +45,6 @@ class TestStatut(TestDB):
         self.assertIsNot(st, self.st)
         self.assertEqual(st.id, self.st.id)
         self.assertEqual(st.description, "user")
-
 
     def test_delete(self):
         with db.session() as s:

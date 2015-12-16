@@ -2,8 +2,11 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 
 from vallorem.model import Base
+from vallorem.model.mail_personne import mail_personne
+from vallorem.model.user_personne import user_personne
 from vallorem.model.statut import Statut
 from vallorem.model.equipe import Equipe
+
 
 class Personne(Base):
     __tablename__ = 'personne'
@@ -19,14 +22,16 @@ class Personne(Base):
     date_recrutement = Column(DateTime)
     permanent = Column(Boolean)
 
-
-    doctorant = relationship("Doctorant", back_populates="personne")
-    #dates_promotion = relationship("DatePromotion")
-    #mails = relationship("Mail", secondary=mail_personne)
-
+    info_doctorant = relationship("Doctorant")
+    chgs_equipe = relationship("ChgEquipe", back_populates="personne")
+    dates_promotion = relationship("DatePromotion", back_populates="personne")
+    mails = relationship("Mail", secondary=mail_personne, back_populates="personnes")
+    users = relationship("User", secondary=user_personne, back_populates="personnes")
 
     @property
     def statut(self):
+        if self.statut is None:
+            return None
         return self._statut.description
 
     @statut.setter

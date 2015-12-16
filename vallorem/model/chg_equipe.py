@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from vallorem.model import Base
+from vallorem.model.equipe import Equipe
 
 
 class ChgEquipe(Base):
@@ -9,7 +11,7 @@ class ChgEquipe(Base):
     id_equipe = Column(Integer, ForeignKey('equipe.id'))
     date_chg = Column(DateTime)
 
-    def __init__(self, id_personne, id_equipe, date_chg):
-        self.id_personne = id_personne
-        self.id_equipe = id_equipe
-        self.date_chg = date_chg
+
+    personne = relationship("Personne", back_populates="chgs_equipe")
+    equipe = relationship("Equipe")
+

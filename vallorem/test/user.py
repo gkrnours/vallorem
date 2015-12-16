@@ -1,14 +1,9 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
 from sqlalchemy.exc import IntegrityError
-
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, Mail, User
-
-#TODO test for updating email
+from vallorem.test import TestDB
+from vallorem.model import db, Mail, User
 
 
 class TestUser(TestDB):
@@ -43,7 +38,6 @@ class TestUser(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(u.mail, "bob@example.com")
 
-
     def test_without_mail(self):
         u = User()
         with db.session() as s:
@@ -53,7 +47,7 @@ class TestUser(TestDB):
         u = User(mail=self.m)
         with self.assertRaises(IntegrityError) as e:
             with db.session() as s:
-                    s.add(u)
+                s.add(u)
 
     def test_read(self):
         with db.session() as s:
@@ -61,7 +55,6 @@ class TestUser(TestDB):
         self.assertIsInstance(u, User)
         self.assertEqual(u.mail, "alice@example.com")
         self.assertEqual(u.password, "alice")
-
 
     def test_update(self):
         self.assertEqual(self.u.password, "alice")
@@ -75,7 +68,6 @@ class TestUser(TestDB):
         self.assertEqual(u.id, self.u.id)
         self.assertEqual(u.password, "bob")
         self.assertEqual(u.mail, "alice@example.com")
-
 
     def test_delete(self):
         with db.session() as s:
