@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+
+{% block main %}
+
+<div>
+	<h2 class="title"> <img src="{{ SITEURL }}/theme/img/icon-webdesign.png" alt="logo" style="margin-right: 15px;"> Présentation du laboratoire de recherche</h2>
+	<p>Le laboratoire de recherche VALLOREM est une équipe d'accueil créée en 2011. Il rassemble des enseignants-chercheurs et des doctorants sur l'ensemble des thématiques de gestion des organisations. Venez nous rejoindre et participez à nos travaux....</p>
+</div>
+<div>
+	<h2 class="title"> <img src="{{ SITEURL }}/theme/img/icon-seo.png" alt="logo" style="margin-right: 15px;"> Quelques chiffres clés</h2>
+	<p>VALLOREM s'organise en trois axes :</p>
+	
+	<ul>
+		<li>le management stratégique des hommes et des projets;</li>
+		<li>  la compréhension des comportements de consommation;</li>
+		<li>le pilotage des organisations.</li>
+	</ul>
+
+
+
+<p>VALLOREM c'est 52 enseignants-chercheurs permanents ; 4 professeurs associés.</p>
+<p>VALLOREM c'est plus de 50 doctorants.</p>
+<p>VALLOREM c'est une équipe administrative de 3 personnes.</p>
+</div>
+
+{% endblock %}
+
+{% block article %}
+	{% include 'actualite.html' %}
+{% endblock %}
