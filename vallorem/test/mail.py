@@ -21,11 +21,11 @@ class TestMail(TestDB):
             s.query(Mail).delete()
 
 
-    def test_create(self):
-        # test without argument
+    def test_create_noarg(self):
         with self.assertRaises(TypeError):
             Mail()
-        # test with argument
+
+    def test_create_arg(self):
         m = Mail("def@example.com")
         with db.session() as s:
             s.add(m)

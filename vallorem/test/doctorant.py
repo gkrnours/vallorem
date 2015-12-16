@@ -1,29 +1,30 @@
 # -*- encoding: utf-8 -*-
 from __future__ import unicode_literals
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy import inspect
 from vallorem.test import TestDB
-from vallorem.model import db, Doctorant
+from vallorem.model import db, Doctorant, Personne
 
 
 class TestDoctorant(TestDB):
     def setUp(self):
-        self.d = d = Doctorant(sujet_these="alice")
+        self.p = p = Personne(nom="Doctorant")
+        self.d = d = Doctorant(sujet_these="alice", personne=p)
         with db.session() as s:
+            s.add(p)
             s.add(d)
 
     def tearDown(self):
         with db.session() as s:
             s.query(Doctorant).delete()
-
-    def test_create_empty(self):
-        d = Doctorant()
-        with db.session() as s:
-            s.add(d)
+            s.query(Personne).delete()
 
     def test_create_noarg(self):
         d = Doctorant()
         d.sujet_these = "alice"
+        d.personne = p = Personne(nom="alice")
         with db.session() as s:
+            s.add(p)
             s.add(d)
         self.assertIsInstance(d, Doctorant)
         insp = inspect(d)
@@ -31,13 +32,27 @@ class TestDoctorant(TestDB):
         self.assertEqual(d.sujet_these, "alice")
 
     def test_create_arg(self):
-        d = Doctorant(sujet_these="alice")
+        p = Personne(nom="alice")
+        d = Doctorant(personne=p, sujet_these="alice")
         with db.session() as s:
             s.add(d)
         self.assertIsInstance(d, Doctorant)
         insp = inspect(d)
         self.assertFalse(insp.transient)
         self.assertEqual(d.sujet_these, "alice")
+
+    def test_insert_empty(self):
+        # test with argument
+        d = Doctorant()
+        with self.assertRaises(IntegrityError):
+            with db.session() as s:
+                s.add(d)
+
+    def test_unique(self):
+        d = Doctorant(personne=self.p, sujet_these="alice")
+        with self.assertRaises(IntegrityError):
+            with db.session() as s:
+                s.add(d)
 
     def test_read(self):
         with db.session() as s:
