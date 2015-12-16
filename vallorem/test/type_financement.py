@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
-
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, TypeFinancement
+from vallorem.test import TestDB
+from vallorem.model import db, TypeFinancement
 
 
 class TestTypeFinancement(TestDB):
@@ -14,15 +11,13 @@ class TestTypeFinancement(TestDB):
         with db.session() as s:
             s.add(tf)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
+        with db.session() as s:
+            s.query(TypeFinancement).delete()
 
     def test_create_empty(self):
         with self.assertRaises(TypeError):
             TypeFinancement()
-
 
     def test_create_arg(self):
         tf = TypeFinancement(description="alice")
@@ -33,13 +28,11 @@ class TestTypeFinancement(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(tf.description, "alice")
 
-
     def test_read(self):
         with db.session() as s:
             tf = s.query(TypeFinancement).first()
         self.assertIsInstance(tf, TypeFinancement)
         self.assertEqual(tf.description, "alice")
-
 
     def test_update(self):
         self.assertEqual(self.tf.description, "alice")
@@ -52,7 +45,6 @@ class TestTypeFinancement(TestDB):
         self.assertIsNot(tf, self.tf)
         self.assertEqual(tf.id, self.tf.id)
         self.assertEqual(tf.description, "bob")
-
 
     def test_delete(self):
         with db.session() as s:

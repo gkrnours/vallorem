@@ -1,11 +1,8 @@
 # -*- encoding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from sqlalchemy import inspect
-
-from vallorem.test import engine, TestDB
-from vallorem.model import db, Base, Personne
+from vallorem.test import TestDB
+from vallorem.model import db, Personne
 
 
 class TestPersonne(TestDB):
@@ -14,16 +11,14 @@ class TestPersonne(TestDB):
         with db.session() as s:
             s.add(p)
 
-
     def tearDown(self):
-        Base.metadata.drop_all(bind=db.get_engine())
-
+        with db.session() as s:
+            s.query(Personne).delete()
 
     def test_create_empty(self):
         p = Personne()
         with db.session() as s:
             s.add(p)
-
 
     def test_create_noarg(self):
         p = Personne()
@@ -35,7 +30,6 @@ class TestPersonne(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(p.nom, "alice")
 
-
     def test_create_arg(self):
         p = Personne(nom="alice")
         with db.session() as s:
@@ -45,13 +39,11 @@ class TestPersonne(TestDB):
         self.assertFalse(insp.transient)
         self.assertEqual(p.nom, "alice")
 
-
     def test_read(self):
         with db.session() as s:
             p = s.query(Personne).first()
         self.assertIsInstance(p, Personne)
         self.assertEqual(p.nom, "alice")
-
 
     def test_update(self):
         self.assertEqual(self.p.nom, "alice")
@@ -64,7 +56,6 @@ class TestPersonne(TestDB):
         self.assertIsNot(p, self.p)
         self.assertEqual(p.id, self.p.id)
         self.assertEqual(p.nom, "bob")
-
 
     def test_delete(self):
         with db.session() as s:
