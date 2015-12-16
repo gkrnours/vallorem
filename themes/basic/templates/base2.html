@@ -68,19 +68,33 @@
 					</div>
 					<div class="rt-grid-8 rt-omega">
 						<div class="rt-block menu-block">
-							<div style="margin: 0px; position: static; overflow: hidden; height: 0px; display: none;"><div style="margin: 0px; overflow: hidden;" class="gf-menu-device-container responsive-type-selectbox"><select><option selected="selected" value="/"> Accueil</option><option value="/accueil/actualites">- Actualités</option><option value="javascript:void(0);"> Présentation</option><option value="/presentation/le-mot-des-directeurs">- Le mot des directeurs</option><option value="javascript:void(0);">- Le laboratoire</option><option value="/presentation/le-laboratoire/politique-generale">-- Politique générale</option><option value="/presentation/le-laboratoire/gouvernance">-- Gouvernance</option><option value="/presentation/le-laboratoire/statuts-et-reglement-interieur">-- Statuts et Règlement intérieur</option><option value="javascript:void(0);">- Pôles de recherche</option><option value="/presentation/poles-de-recherche/rh-et-projets">-- Management Stratégique des Hommes et des Projets</option><option value="/presentation/poles-de-recherche/marketing">-- Compréhension des comportements de consommation</option><option value="/presentation/poles-de-recherche/pilotage-organisation">-- Pilotage des organisations</option><option value="javascript:void(0);">- Equipe de recherche</option><option value="/presentation/equipe-de-recherche/chercheurs-permanents">-- Chercheurs permanents</option><option value="/presentation/equipe-de-recherche/autres-chercheurs">-- Autres chercheurs</option><option value="/presentation/equipe-de-recherche/doctorants">-- Doctorants</option><option value="/presentation/equipe-de-recherche/administration">-- Administration</option><option value="javascript:void(0);"> Publications</option><option value="javascript:void(0);">- Revues à comité de lecture</option><option value="/publications/articles-revues-a-comite-de-lecture/revues-2014">-- Revues 2014</option><option value="/publications/articles-revues-a-comite-de-lecture/revues-2013">-- Revues 2013</option><option value="/publications/articles-revues-a-comite-de-lecture/revues-2012">-- Revues 2012</option><option value="/publications/articles-revues-a-comite-de-lecture/revues-2011">-- Revues 2011</option><option value="/publications/communications-dans-les-colloques">- Communications dans les colloques</option><option value="/publications/ouvrages">- Ouvrages et chapitres</option><option value="/publications/theses-et-hdr">- Thèses et HDR</option><option value="javascript:void(0);"> Partenariats</option><option value="/partenariats-et-soutiens/academiques">- Académiques</option><option value="/partenariats-et-soutiens/professionnels">- Professionnels</option><option value="javascript:void(0);"> Infos pratiques</option><option value="/infos-pratiques/contacts">- Contacts</option><option value="/infos-pratiques/documents-utiles">- Documents utiles</option><option value="/infos-pratiques/mentions-legales">- Mentions légales</option></select></div></div>
+							
 								<ul style="display: inherit;" class="gf-menu l1 ">
-									
-												{% for category, list in pages|groupby('category') %}
 									<li class="item165 parent last">
-										<a class="item" href="http://www.vallorem.fr/">{{ category }}<span class="border-fixer"></span></a>
+									<a class="item" href="#">Actualité<span class="border-fixer"></span></a>
 										<div class="dropdown columns-1 " style="width:180px;">
 											<div class="column col1" style="width:180px;">
 												<ul class="l2">
-													{% for p in list %}
-													<li class="item236">
+													{% for article in articles %}
+   														 <li class="item236"><a class="item" href="{{ SITEURL }}/{{ article.url }}">
+													{{ article.title }}</a></li>
+    
+   													 {% endfor %}
+												</ul>
+											</div>
+										</div>
+									</li>
+								{% for category, list in pages|groupby('category') %}
+									<li class="item165 parent last">
+										<a class="item" href="#">{{ category }}<span class="border-fixer"></span></a>
+										<div class="dropdown columns-1 " style="width:180px;">
+											<div class="column col1" style="width:180px;">
+												<ul class="l2">
+												{% for p in list %}
+													<li class="item236"> 
 														<a href={{SITEURL}}/{{p.url}}
 															class="item">{{p.title}}
+
 														</a>
 													</li>
 													{% endfor %}
@@ -140,11 +154,17 @@
 		
 		{% endblock %}
 	</div>
-	
+
 	<!--right nav -->
 	<div id="rightnav" class="col-md-3">
 	{% block article %}
 	
+	{% endblock %}
+	</div>
+
+		<div class="col-md-12 ">
+	{% block partenariat %}
+
 	{% endblock %}
 	</div>
 </div>
