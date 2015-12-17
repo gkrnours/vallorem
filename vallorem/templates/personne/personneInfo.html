@@ -3,28 +3,52 @@
 
 {% extends "personneBase.html" %}
 
-	{% block titre %}
-		Personne
-	{% endblock %}
+{% block titre %}
+	{{ personne.nom }} &nbsp;{{ personne.prenom }}
+{% endblock %}
 
-	{% block body %}
+{% block body %}
 	<nav class=nav-tabs>
-		<a href="{{ url_for('personne') }}"
-			class="{{page.personne}}">Personne</a>
-
-
+		<a class="selected" href="{{ url_for('personneInfo', personne_id=personne_id) }}"
+		   class="{{ page.personne }}">Personne</a>
+		<a href="{{ url_for('personneModifierStatus', personne_id=personne_id) }}">Status</a>
+		<a href="{{ url_for('personneModifierEquipe', personne_id=personne_id) }}">Equipe</a>
 	</nav>
 	<div class="panel">
 		<table>
-			<tr><th>Nom</th><td>{{ personne.nom }}</td></tr>
-			<tr><th>Prenom</th><td>{{ personne.prenom }}</td></tr>
-			<tr><th>Nom de jeune fille</th><td>{{ personne.nom_jf }}</td></tr>
-			<tr><th>Date de naissance</th><td>{{ personne.date_naissance }}</td></tr>
-			<tr><th>Date de recrutement</th><td>{{ personne.date_recrutement }}</td></tr>
-			{#  <tr><th>Status</th><td>{{ personne.statut }}</td></tr> #}
-			<tr><th>Equipe</th><td>{{ personne.equipe.nom }}</td></tr>
-			<tr><th>Permanent</th><td>{{ personne.permanent }}</td></tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ personne.nom }}</td>
+			</tr>
+			<tr>
+				<th>Prenom</th>
+				<td>{{ personne.prenom }}</td>
+			</tr>
+			<tr>
+				<th>Nom de jeune fille</th>
+				<td>{{ personne.nom_jf }}</td>
+			</tr>
+			<tr>
+				<th>Date de naissance</th>
+				<td>{{ personne.date_naissance }}</td>
+			</tr>
+			<tr>
+				<th>Date de recrutement</th>
+				<td>{{ personne.date_recrutement }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>{{ personne.statut }}</td>
+			</tr>
+			<tr>
+				<th>Equipe</th>
+				<td>{{ personne.equipe.nom }}</td>
+			</tr>
+			<tr>
+				<th>Permanent</th>
+				<td>{{ personne.permanent }}</td>
+			</tr>
 		</table>
 	</div>
 
-	{% endblock %}
+{% endblock %}

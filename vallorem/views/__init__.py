@@ -10,10 +10,6 @@ from vallorem.form import PageForm, CategorieForm, UserForm
 from vallorem import app
 from vallorem.views import login, page, categorie
 from vallorem.views import user, config, index, production, typeProduction
-<<<<<<< HEAD
-
-=======
->>>>>>> 5ffbde04c65d0bc7551047ba96e600a610211c26
 from vallorem.views import doctorant, typeFinancement, personne
 from vallorem.views import datePromotion, build
 

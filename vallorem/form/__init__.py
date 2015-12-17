@@ -83,3 +83,7 @@ class DatePromotionForm(Form):
     statut = TextField('Statut', validators=[Required()])
     datePromotion = DateField('Date de promotion', validators=[Required()])
 
+
+class ChgEquipeForm(Form):
+    equipe = TextField('Equipe', validators=[Required()])
+    dateChgEquipe = DateField("Date de changement d'equipe", validators=[Required()])

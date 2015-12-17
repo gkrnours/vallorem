@@ -3,16 +3,13 @@
 {% from "_formhelpers.html" import render_field %}
 
 
-
-{% block titre %}Personne{% endblock %}
+{% block titre %}{{ personne.nom }} &nbsp;{{ personne.prenom }}{% endblock %}
 
 
 {% block header %}
 	{{ super() }}
 
 {% endblock %}
-
-
 
 
 {% block body %}
@@ -22,9 +19,9 @@
 		<a class="selected"
 				href="{{ url_for('personneModifierStatus', personne_id=personne_id) }}"
 		   class="{{ page.personne }}">Status</a>
-
-
+		<a href="{{ url_for('personneModifierEquipe', personne_id=personne_id) }}">Equipe</a>
 	</nav>
+
 	<div class="panel">
 		<h3>Status </h3>
 
