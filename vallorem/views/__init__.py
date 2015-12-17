@@ -12,8 +12,7 @@ from vallorem.form import PageForm,CategorieForm,UserForm
 from vallorem import app
 from vallorem.views import login, page, categorie
 from vallorem.views import user, config, index, production, typeProduction
-from vallorem.views import these, doctorant, typeFinancement, personne, statut
-from vallorem.views import datePromotion
+from vallorem.views import doctorant, typeFinancement, personne, datePromotion
 
 
 
