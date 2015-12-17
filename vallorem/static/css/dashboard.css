@@ -2099,15 +2099,60 @@ form fieldset {
   padding: 0rem 3rem; }
 form label:first-of-type {
   width: 30%; }
-form input {
+form input, form select {
   width: 60%;
   padding: 0.425rem 0.425rem;
   border-radius: 0.1875rem;
   line-height: 1.7; }
-  form input[type=text], form input[type=password], form input[type=email], form input[type=date] {
+  form input[type=text], form input[type=password], form input[type=email], form input[type=date], form select[type=text], form select[type=password], form select[type=email], form select[type=date] {
     width: 60%;
     border: 1px solid #acc6d2;
     background: #eef4f6; }
+  form input[type=checkbox], form select[type=checkbox] {
+    display: none; }
+    form input[type=checkbox] + label, form select[type=checkbox] + label {
+      line-height: 1.7; }
+      form input[type=checkbox] + label::before, form select[type=checkbox] + label::before {
+        content: "On";
+        transition: all .3s;
+        padding: 0.4rem 1.2rem;
+        background: #eef4f6;
+        color: inherit;
+        border: 1px solid #acc6d2;
+        border-right: 0;
+        border-radius: 0.1875rem; }
+      form input[type=checkbox] + label::after, form select[type=checkbox] + label::after {
+        content: "Off";
+        transition: all .3s;
+        padding: 0.5rem 1.2rem;
+        background: #666666;
+        color: #eef4f6;
+        border: 1px solid #acc6d2;
+        border-radius: 0.3rem; }
+    form input[type=checkbox]:checked + label::before, form select[type=checkbox]:checked + label::before {
+      padding: 0.5rem 1.2rem;
+      background: #339988;
+      color: #eef4f6;
+      border: 1px solid #acc6d2;
+      border-radius: 0.3rem; }
+    form input[type=checkbox]:checked + label::after, form select[type=checkbox]:checked + label::after {
+      padding: 0.4rem 1.2rem;
+      background: #eef4f6;
+      color: inherit;
+      border: 1px solid #acc6d2;
+      border-left: 0;
+      border-radius: 0.1875rem; }
+form select {
+  width: 60%;
+  height: 47px;
+  border: 1px solid #acc6d2;
+  background: #eef4f6; }
+form textarea {
+  width: 100%;
+  border: 1px solid #acc6d2;
+  border-bottom-width: 4px;
+  border-radius: 0.1875rem;
+  background: #eef4f6; }
 
 .nav-tabs {
   background-color: #22353f; }
