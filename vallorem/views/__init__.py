@@ -1,26 +1,24 @@
 # -*- encoding: utf-8 -*-
 # std python import
 from __future__ import unicode_literals
-
 import os
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort
 from flask import render_template, flash, redirect
 from contextlib import closing
-from vallorem.form import PageForm,CategorieForm,UserForm
-
+from vallorem.form import PageForm, CategorieForm, UserForm
 from vallorem import app
 from vallorem.views import login, page, categorie
 from vallorem.views import user, config, index, production, typeProduction
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5ffbde04c65d0bc7551047ba96e600a610211c26
 from vallorem.views import doctorant, typeFinancement, personne
 from vallorem.views import datePromotion, build
 
 
-
 @app.template_filter('wc')
 def compteMot(string):
-	l = string.split()
-	return len(l)
-
-
+    l = string.split()
+    return len(l)

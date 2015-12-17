@@ -22,7 +22,7 @@ class Doctorant(Base):
 
     @property
     def type_financement(self):
-        if self.type_financement is None:
+        if self._type_financement is None:
             return None
         return self._type_financement.description
 
@@ -34,6 +34,8 @@ class Doctorant(Base):
 
     @property
     def observation(self):
+        if self._observation is None:
+            return None
         return self._observation.description
 
     @type_financement.setter

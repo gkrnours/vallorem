@@ -19,6 +19,8 @@ class User(Base,UserMixin):
 
     @property
     def mail(self):
+        if self._mail is None:
+            return None
         return self._mail.mail
 
     @mail.setter

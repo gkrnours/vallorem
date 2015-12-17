@@ -30,7 +30,7 @@ class Personne(Base):
 
     @property
     def statut(self):
-        if self.statut is None:
+        if self._statut is None:
             return None
         return self._statut.description
 

@@ -1,10 +1,11 @@
 <!doctype html>
 <meta charset="UTF-8">
 <link rel=stylesheet href={{ url_for('static', filename='css/dashboard.css') }}>
-<script language="javascript" src={{ url_for('static', filename='js/jquery.js') }}></script>
-<script language="javascript" src={{ url_for('static', filename='js/bootstrap.js') }}></script>
+<script language="javascript"
+		src={{ url_for('static', filename='js/jquery.js') }}></script>
+<script language="javascript"
+		src={{ url_for('static', filename='js/bootstrap.js') }}></script>
 <title>Menu</title>
-
 
 
 <nav id="sidebar">
@@ -15,7 +16,7 @@
 		<li><a href="{{ url_for('dashboard') }}" class="{{ current.dash }}">
 			<i class="icon-layout"></i>Information</a></li>
 		<li><a href="{{ url_for('config') }}"
-			class="{{ current.site }}">
+			   class="{{ current.site }}">
 			<i class="icon-sound-mix"></i>Site</a></li>
 		<li><a href="{{ url_for('production') }}" class="{{ current.prod }}">
 			<i class="icon-newspaper"></i>Production</a></li>
@@ -30,18 +31,20 @@
 
 <main id="dashboard">
 	{% with messages = get_flashed_messages(with_categories=true) %}
-	{% if messages %}
-	{% for category, message in messages %}
-		<div class="alert alert-{{ category  }}">
+		{% if messages %}
+			{% for category, message in messages %}
+				<div class="alert alert-{{ category }}">
 
-			{{ message|replace("\n", "<br>")|safe }}
+					{{ message|replace("\n", "<br>")|safe }}
 
-			<a class="button pull-right" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true"><i class="icon-cancel-squared"></i></span>
-			</a>
-		</div>
-	{% endfor %}
-	{% endif %}
+					<a class="button pull-right" data-dismiss="alert"
+					   aria-label="Close">
+						<span aria-hidden="true"><i
+								class="icon-cancel-squared"></i></span>
+					</a>
+				</div>
+			{% endfor %}
+		{% endif %}
 	{% endwith %}
 	{% block body %}{% endblock %}
 </main>

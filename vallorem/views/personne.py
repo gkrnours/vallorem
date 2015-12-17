@@ -47,21 +47,27 @@ def personneInfo(personne_id):
     onglet = {'personne': 'selected'}
     with db.session() as s:
         p = s.query(Personne).filter(Personne.id==personne_id).first()
-    return render_template('personne/personneInfo.html', page=onglet, personne=p)
+    return render_template('personne/personneInfo.html', page=onglet, personne=p, personne_id=personne_id)
 
 
 @app.route('/personne/modif/<int:personne_id>', methods=['GET', 'POST'])
-def personneModifier(personne_id):
-    onglet = {'personne': 'selected'}
+def personneModifierStatus(personne_id):
+    onglet = {'status': 'selected'}
     form = DatePromotionForm(request.form)
-    if request.method == "POST" and form.validate():
 
-        date_promotion=form.date_promotion.data
+    if request.method == "POST" and form.validate():
         with db.session() as s:
             status=s.query(Statut).filter(Statut.description==form.statut.data).first()
-            promotion=DatePromotionForm(id_personne=personne_id, id_statut=status.id, date_promotion=date_promotion)
+            if status is None:
+                status=Statut(description=form.statut.data)
+                s.add(status)
+            promotion=DatePromotion(id_personne=personne_id, id_statut=status.id, date_promotion=form.datePromotion.data)
             s.add(promotion)
-            flash("vous avez créé changé le status: %s , %s" %(form.statut.data, promotion), category='success')
+            flash("vous avez changé le status: %s , %s" %(form.statut.data, promotion), category='success')
             return redirect(url_for('personneInfo', personne_id=personne_id))
+    elif app.config['DEBUG'] and request.method == "POST":
+        flash('\n'.join(form.errors), category='error')
+    else:
+        flash(request.method)
 
     return render_template('personne/ajoutStatus.html', form=form, page=onglet, personne_id=personne_id)

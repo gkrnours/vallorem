@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from sqlalchemy import inspect
 from vallorem.test import TestDB
-from vallorem.model import db, Personne
+from vallorem.model import db, Personne, Statut
 
 
 class TestPersonne(TestDB):
@@ -19,6 +19,10 @@ class TestPersonne(TestDB):
         p = Personne()
         with db.session() as s:
             s.add(p)
+
+    def test_getter(self):
+        p = Personne()
+        self.assertIsNone(p.statut)
 
     def test_create_noarg(self):
         p = Personne()

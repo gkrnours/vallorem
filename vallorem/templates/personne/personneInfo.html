@@ -1,20 +1,11 @@
+{% set url = url_for('personneModifierStatus', personne_id=personne_id) %}
+{% set link_text = "Modifier" %}
+
 {% extends "personneBase.html" %}
-
-
-
-	{% block url %}
-		{{ url_for('personneAjout') }}
-	{% endblock %}
-
-	{% block button %}
-		Modifier
-	{% endblock %}
 
 	{% block titre %}
 		Personne
 	{% endblock %}
-
-
 
 	{% block body %}
 	<nav class=nav-tabs>
@@ -30,7 +21,7 @@
 			<tr><th>Nom de jeune fille</th><td>{{ personne.nom_jf }}</td></tr>
 			<tr><th>Date de naissance</th><td>{{ personne.date_naissance }}</td></tr>
 			<tr><th>Date de recrutement</th><td>{{ personne.date_recrutement }}</td></tr>
-			<tr><th>Status</th><td>{{ personne.status }}</td></tr>
+			{#  <tr><th>Status</th><td>{{ personne.statut }}</td></tr> #}
 			<tr><th>Equipe</th><td>{{ personne.equipe.nom }}</td></tr>
 			<tr><th>Permanent</th><td>{{ personne.permanent }}</td></tr>
 		</table>

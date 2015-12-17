@@ -1,0 +1,41 @@
+{% set form_id = "status" %}
+{% extends "personneBase.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+
+
+{% block titre %}Personne{% endblock %}
+
+
+{% block header %}
+	{{ super() }}
+
+{% endblock %}
+
+
+
+
+{% block body %}
+	<nav class=nav-tabs>
+		<a href="{{ url_for('personne') }}"
+		   class="{{ page.personne }}">Personne</a>
+		<a class="selected"
+				href="{{ url_for('personneModifierStatus', personne_id=personne_id) }}"
+		   class="{{ page.personne }}">Status</a>
+
+
+	</nav>
+	<div class="panel">
+		<h3>Status </h3>
+
+		<form method='POST' class="form-inline" id="status">
+
+			{{ render_field(form.csrf_token) }}
+			{{ render_field(form.statut) }}
+			{{ render_field(form.datePromotion) }}
+
+		</form>
+
+	</div>
+
+{% endblock %}

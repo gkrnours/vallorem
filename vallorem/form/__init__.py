@@ -28,9 +28,9 @@ class PersonneForm(Form):
     prenom = TextField('Prenom', validators=[Required()])
     nom_jf = TextField('Nom de jeune fille')
     date_naissance = DateField('Date de naissance',
-                               format='%d/%m/%y', validators=[Required()])
+                                validators=[Optional()])
     date_recrutement = DateField('Date de recrutement',
-            format='%d/%m/%y', validators=[Required()])
+             validators=[Optional()])
     statut = AutoFillField('Statut', validators=[Required()])
     permanent = ToggleField('Permanent')
 
