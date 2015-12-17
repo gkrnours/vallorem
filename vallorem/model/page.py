@@ -15,6 +15,8 @@ class Page(Base):
 
     @property
     def categorie(self):
+        if self._categorie is None:
+            return None
         return self._categorie.description
 
     @categorie.setter
