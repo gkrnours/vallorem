@@ -15,6 +15,8 @@ class DatePromotion(Base):
 
     @property
     def statut(self):
+        if self._statut is None:
+            return None
         return self._statut.description
 
     @statut.setter
