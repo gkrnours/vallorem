@@ -1,0 +1,15 @@
+blockquote{
+
+	float: left;
+	margin-right: 160px;
+	width: 300px !important;
+	height: 600px;
+}
+
+blockquote:last-child{
+
+	float: left;
+	margin-right: 160px;
+	width: 300px !important;
+	height: 600px;
+}
