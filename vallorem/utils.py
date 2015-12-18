@@ -1,6 +1,6 @@
 import sys
 from functools import wraps
-from StringIO import StringIO
+from io import StringIO
 
 from flask import request, render_template
 

@@ -1,0 +1,35 @@
+{% set form_id = "equipe" %}
+{% extends "personneBase.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block titre %}{{ personne.nom }} &nbsp;{{ personne.prenom }}{% endblock %}
+
+
+{% block header %}
+	{{ super() }}
+
+{% endblock %}
+
+
+{% block body %}
+		<nav class=nav-tabs>
+		<a href="{{ url_for('personneInfo', personne_id=personne_id) }}">Personne</a>
+		<a href="{{ url_for('personneModifierStatus', personne_id=personne_id) }}">Status</a>
+		<a class="selected" href="{{ url_for('personneModifierEquipe', personne_id=personne_id) }}" class="{{ page.personne }}">Equipe</a>
+	</nav>
+
+	<div class="panel">
+		<h3>Equipe </h3>
+
+		<form method='POST' class="form-inline" id="equipe">
+
+			{{ render_field(form.csrf_token) }}
+			{{ render_field(form.equipe) }}
+			{{ render_field(form.dateChgEquipe) }}
+
+		</form>
+
+	</div>
+
+{% endblock %}

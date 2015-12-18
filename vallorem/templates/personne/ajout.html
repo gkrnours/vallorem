@@ -1,18 +1,14 @@
+
+{% set form_id = "personne" %}
+
+
 {% extends "personneBase.html" %}
 {% from "_formhelpers.html" import render_field %}
 
 {% block titre %}
-	Ajout d'une page
+	Personne
 {% endblock %}
 
-{% block header %}
-	<div class="button-bar">
-		<button type="submit" value="save" form="personne">
-			<i class="icon-check"></i>Save</button>
-	</div>
-	<h2><span class="lg icon-sound-mix"></span>Configuration
-		<span id="part-title"></span></h2>
-{% endblock %}
 
 {% block body %}
 	{{ super() }}

@@ -7,12 +7,12 @@ from flask import render_template
 # local import
 from vallorem import app
 from vallorem.form import DatePromotionForm
-from vallorem.model import db, Categorie
+from vallorem.model import db, DatePromotion
 
 @app.route('/datePromotion/')
 def datePromotion(action=None):
-	onglet = {'datePromotion': 'selected'}
-	return render_template('datePromotion/datePromotion.html', page=onglet)
+    onglet = {'datePromotion': 'selected'}
+    return render_template('datePromotion/datePromotion.html', page=onglet)
 
 @app.route('/datePromotion/ajout', methods=['GET', 'POST'])
 def datePromotionAjout(action=None):
@@ -30,4 +30,4 @@ def datePromotionAjout(action=None):
             for error in errors:
                 flash("Field %s: %s" % (
                     getattr(form, field).label.text, error), category='error')
- 	return render_template('datePromotion/ajout.html', page=onglet, form=form)
+    return render_template('datePromotion/ajout.html', page=onglet, form=form)

@@ -1,8 +1,9 @@
+
+{% set url = url_for('personneAjout') %}
+{% set link_text = "Ajout" %}
+
 {% extends "personneBase.html" %}
 
-	{% block url %}
-		{{ url_for('personneAjout') }}
-	{% endblock %}
 	{% block titre %}
 		Personne
 	{% endblock %}
