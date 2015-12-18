@@ -2,16 +2,18 @@
 # -*- encoding: utf-8 -*-
 
 import argparse
+from subprocess import Popen
 
-from vallorem import start
-from vallorem.model import db
+import vallorem, preview
 
 parser = argparse.ArgumentParser(description="Vallorem")
 parser.add_argument("--initdb", dest='initdb', action="store_true")
 args = parser.parse_args()
 
 if args.initdb:
-    db.create()
+    vallorem.model.db.create()
     print('La base de données a été initialisée')
 else:
-    start(debug=True)
+    server = Popen(['darkhttpd', 'output', '--port', '2500'])
+    vallorem.start(debug=True)
+    server.terminate()
