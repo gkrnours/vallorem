@@ -54,6 +54,14 @@ class TestDoctorant(TestDB):
             with db.session() as s:
                 s.add(d)
 
+    def test_getter_tf(self):
+        d = Doctorant()
+        self.assertIsNone(d.type_financement)
+
+    def test_getter_obs(self):
+        d = Doctorant()
+        self.assertIsNone(d.observation)
+
     def test_read(self):
         with db.session() as s:
             d = s.query(Doctorant).first()
