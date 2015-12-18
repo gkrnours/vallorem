@@ -8,13 +8,16 @@ from zipfile import ZipFile
 from flask import flash, make_response
 
 from vallorem import app
-from vallorem.model import db, User, Production, Personne
-
+from vallorem.model import db, Production, Personne, ChgEquipe, DatePromotion, Doctorant, Equipe
+from vallorem.model import Mail, Observation, Statut, TypeFinancement, TypeProduction
+from vallorem.model.mail_personne import mail_personne
+from vallorem.model.production_personne import production_personne
 
 @app.route('/export/')
 def export():
-    objs = [User, Production, Personne]
+    objs = [Production, Personne, ChgEquipe, DatePromotion, Doctorant, Equipe, Mail, Observation, Statut, TypeFinancement, TypeProduction]
     tables = [(x, [f.name for f in x.__table__.columns]) for x in objs]
+    tables += [(x, [f.name for f in x.columns]) for x in [mail_personne, production_personne]]
     fichier = StringIO()
     zip = ZipFile(fichier, 'w')
 
@@ -26,7 +29,7 @@ def export():
         writer.writerow(head)
         for element in lst:
             writer.writerow([getattr(element, at) for at in head])
-        zip.writestr("%s.csv" % obj.__name__, output.getvalue())
+        zip.writestr("%s.csv" % getattr(obj, '__name__', unicode(obj)), output.getvalue())
 
     zip.close()
     response = make_response(fichier.getvalue())

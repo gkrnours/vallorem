@@ -25,8 +25,6 @@ class User(Base, UserMixin):
 
     @mail.setter
     def mail(self, value):
-        if self._mail is None:
-                return None
         self._mail = value
 
 

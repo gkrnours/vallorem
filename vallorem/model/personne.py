@@ -6,6 +6,7 @@ from vallorem.model.mail_personne import mail_personne
 from vallorem.model.user_personne import user_personne
 from vallorem.model.statut import Statut
 from vallorem.model.equipe import Equipe
+from vallorem.model.production_personne import production_personne
 
 
 class Personne(Base):
@@ -26,6 +27,7 @@ class Personne(Base):
     chgs_equipe = relationship("ChgEquipe", back_populates="personne")
     dates_promotion = relationship("DatePromotion", back_populates="personne")
     mails = relationship("Mail", secondary=mail_personne, back_populates="personnes")
+    productions = relationship("Production", secondary=production_personne, back_populates="personnes")
     users = relationship("User", secondary=user_personne, back_populates="personnes")
 
     @property
