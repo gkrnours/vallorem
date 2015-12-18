@@ -23,7 +23,7 @@ Page
 			{% for page in pages %}
 			<tr>
 				<td>{{ page.titre }}</td>
-				<td>{{ page.categorie.description }}</td>
+				<td>{{ page.categorie}}</td>
 				<td class=icon><a href={{ url_for('pageDelete' ,
 				 id=page.id ) }}><i class="icon-cancel-squared"></i></a></td>
 
