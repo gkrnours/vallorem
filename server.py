@@ -4,7 +4,7 @@
 import argparse
 from subprocess import Popen
 
-import vallorem, preview
+import vallorem
 
 parser = argparse.ArgumentParser(description="Vallorem")
 parser.add_argument("--initdb", dest='initdb', action="store_true")
