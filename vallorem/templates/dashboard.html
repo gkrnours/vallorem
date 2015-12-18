@@ -3,6 +3,10 @@
 
 {% block header %}
 	<div class="button-bar">
+        <div class="button-bar">
+		<a href="{{ url_for('export') }}" class="button" target="_blank">
+			<i class="icon-plus"></i>Export</a>
+	    </div>
 		<a href="{{ url_for('build') }}" class="button">
 			<i class="icon-plus"></i>Build</a>
 	</div>
