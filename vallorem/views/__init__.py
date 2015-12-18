@@ -12,6 +12,8 @@ from vallorem.views import login, page, categorie
 from vallorem.views import user, config, index, production, typeProduction
 from vallorem.views import doctorant, typeFinancement, personne,equipe
 from vallorem.views import datePromotion, build
+from vallorem.views import preview
+from vallorem.views import export
 
 
 @app.template_filter('wc')

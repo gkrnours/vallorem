@@ -8,7 +8,7 @@ from vallorem.model.mail import Mail
 from vallorem.model.user_personne import user_personne
 
 
-class User(Base,UserMixin):
+class User(Base, UserMixin):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     _mail = relationship("Mail", lazy='joined', uselist=False)
