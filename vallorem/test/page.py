@@ -17,6 +17,10 @@ class TestPage(TestDB):
         with db.session() as s:
             s.query(Page).delete()
 
+    def test_getter_tf(self):
+        p = Page()
+        self.assertIsNone(p.categorie)
+
     def test_create(self):
         # test without argument
         p = Page()

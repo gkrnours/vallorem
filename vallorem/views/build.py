@@ -18,4 +18,7 @@ def build():
         pelican.main()
     if output[0].startswith("Done"):
         flash(output[0], category="success")
+    if False:
+	    for l in output:
+    		flash(l)
     return redirect(url_for('dashboard'))
