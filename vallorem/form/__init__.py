@@ -60,7 +60,7 @@ class LoginForm(Form):
 
 class ProductionForm(Form):
     titre = TextField('Titre', validators=[Required()])
-    description = TextField('Description', validators=[Required()])
+    description = TextAreaField('Description', validators=[Required()])
     extra = TextField('Extra', validators=[Required()])
     date = DateField('Date', format='%Y/%m/%d')
 
