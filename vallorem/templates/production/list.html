@@ -1,0 +1,32 @@
+{% set page = {"prod":"selected"} %}
+{% extends "production/base.html" %}
+
+{% block url %}
+	{{ url_for('production.create') }}
+{% endblock %}
+
+{% block main %}
+	<div class="panel">
+		<table>
+			<thead>
+				<th>Titre</th>
+				<th>Date</th>
+				<th class=icon>Action</th>
+			</thead>
+			<tbody>
+				 {% for prod in list %}
+				<tr>
+					<td>{{ prod.titre }}</td>
+					<td>{{ prod.date.strftime("%d/%m/%Y") }}</td>
+					<td class=icon>
+						<a href="{{ url_for('production.delete',
+							id=prod.id, name=prod) }}">
+							<i class="icon-cancel-squared"></i></a>
+						<a href="{{ url_for('production.update',
+							id=prod.id) }}">modifier</a>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

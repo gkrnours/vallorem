@@ -1,0 +1,19 @@
+{% set form_id = "equipe" %}
+{% set page = {"equipe":"selected"} %}
+{% extends "personnel/base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block body %}
+	{{ super() }}
+
+	<div class="panel">
+		<h3>Équipe</h3>
+		<form method='POST' class="form-inline" id="equipe">
+			{{ render_field(form.csrf_token) }}
+			{{ render_field(form.nom) }}
+			{{ render_field(form.axe) }}
+			{{ render_field(form.localisation) }}
+		</form>
+	</div>
+{% endblock %}

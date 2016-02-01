@@ -1,4 +1,5 @@
-{% extends "productionBase.html" %}
+{% set page = {"prod":"selected"} %}
+{% extends "production/base.html" %}
 {% from "_formhelpers.html" import render_field %}
 
 {% block titre %}

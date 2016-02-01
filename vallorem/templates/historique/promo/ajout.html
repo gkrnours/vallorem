@@ -1,0 +1,30 @@
+{% set form_id = "description" %}
+{% extends "historique/promo/base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block titre %}
+	Ajout d'un doctorant
+{% endblock %}
+
+{% block header %}
+	<div class="button-bar">
+		<button type="submit" value="save" form="description">
+			<i class="icon-check"></i>Save</button>
+	</div>
+	<h2><span class="lg icon-sound-mix"></span>doctorant
+		<span id="part-title"></span></h2>
+{% endblock %}
+
+{% block body %}
+	{{ super() }}
+	<div class="panel">
+		<h3>Doctorant</h3>
+		<form method='POST' class="form-inline" id="description">
+			{%  for field in form %}
+				{{ render_field(field) }}
+			{% endfor %}
+		</form>
+	</div>
+
+
+{% endblock %}

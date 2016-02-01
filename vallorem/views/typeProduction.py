@@ -4,31 +4,33 @@ from __future__ import unicode_literals
 # 3rd party lib import
 from flask import request, session, redirect, url_for, flash
 from flask import render_template
+from sqlalchemy import exc
 # local import
 from vallorem import app
 from vallorem.form import TypeProductionForm
-from vallorem.model import db, Categorie#, TypeProduction
+from vallorem.model import db, TypeProduction
+from vallorem.views import utils
 
-
-@app.route('/typeProduction/')
-def typeProduction(action=None):
-	onglet = {'typeProd': 'selected'}
-	return render_template('typeProduction/typeProduction.html', page=onglet)
-
-@app.route('/typeProduction/ajout', methods=['GET', 'POST'])
-def typeProductionAjout(action=None):
-    form = TypeProductionForm(request.form)
-    onglet = {'typeProduction': 'selected'}
-
-    if request.method == "POST" and form.validate_on_submit():
-    #ecrire des codes pour ajouter input dans la base de donnees
-        typeprod = TypeProduction(description = form.typeProduction.data)
+def insert(form):
+    typeProd = TypeProduction(form.description.data, form.publication.data)
+    try:
         with db.session() as s:
-            s.add(typeprod)
-        #flash('vous avez entré la description:'+form.production.data)
-    else:
-        for field, errors in form.errors.items():
-            for error in errors:
-                flash("Field %s: %s" % (
-                    getattr(form, field).label.text, error), category='error')
-    return render_template('production/ajout.html', page=onglet, form=form)
+            s.add(typeProd)
+        flash('Le type de production «%s» a été ajouté.' % typeProd)
+        return True
+    except exc.IntegrityError:
+        flash('Les données saisies sont invalide.')
+        return False
+
+utils.make_crud(
+    app, TypeProduction, TypeProductionForm,
+    {'name':'prod.type','path':'/typeproduction/','tpl':'production/type/'},
+    insert,
+    msg = {
+        'delete': 'Le type de production «%s» a été supprimé.',
+        'update': {
+            'success': 'Le type de production «%s» a été modifié.',
+            'failure': 'Les données saisies sont invalide.',
+        }
+    }
+)

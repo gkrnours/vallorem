@@ -32,3 +32,6 @@ class User(Base, UserMixin):
     def load_user(user_id):
         with db.session() as s:
             return s.query(User).get(int(user_id))
+
+    def __str__(self):
+        return self.mail

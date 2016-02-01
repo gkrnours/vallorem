@@ -1,4 +1,6 @@
-{% extends "personneBase.html" %}
+{% set page = {"doctorant":"selected"} %}
+{% set form_id = "description" %}
+{% extends "personnel/base.html" %}
 {% from "_formhelpers.html" import render_field %}
 
 {% block titre %}
@@ -22,11 +24,6 @@
 			{%  for field in form %}
 				{{ render_field(field) }}
 			{% endfor %}
-		
-		<h3>Personne</h3>
-		{%  for field in formP %}
-			{{ render_field(field) }}
-		{% endfor %}
 		</form>
 	</div>
 

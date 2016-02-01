@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from vallorem.model import Base
+from vallorem.model import Base, db
 from vallorem.model.type_financement import TypeFinancement
 from vallorem.model.observation import Observation
 
@@ -15,10 +15,15 @@ class Doctorant(Base):
     nombre_ia = Column(Integer)
     date_soutenance = Column(DateTime)
 
-    personne = relationship("Personne", lazy="joined")
+    personne = relationship("Personne", lazy="immediate")
     _type_financement = relationship("TypeFinancement", lazy="joined")
     _observation = relationship("Observation", lazy="joined")
 
+    def __str__(self):
+        with db.session() as s:
+            me = s.query(Doctorant).get(self.id)
+            name = str(me.personne)
+        return "Doctorant %s" % name
 
     @property
     def type_financement(self):
@@ -29,7 +34,9 @@ class Doctorant(Base):
     @type_financement.setter
     def type_financement(self, value):
         if isinstance(value, (str, unicode)):
-            raise TypeError("instance of %s expected, got %s" % (TypeFinancement, value))
+            if self.type_financement == value:
+                return
+            value = TypeFinancement.get_or_create(value)
         self._type_financement = value
 
     @property
@@ -40,4 +47,8 @@ class Doctorant(Base):
 
     @type_financement.setter
     def observation(self, value):
+        if isinstance(value, (str, unicode)):
+            if value == self.observation:
+                return
+            value = Observation(value)
         self._observation = value

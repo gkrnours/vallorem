@@ -1,5 +1,48 @@
 <!doctype html>
-<title></title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/dashboard.css') }}">
-{% block main %}
-{% endblock main %}
+<meta charset="UTF-8">
+<link rel=stylesheet href={{ url_for('static', filename='css/dashboard.css') }}>
+<script language="javascript"
+		src={{ url_for('static', filename='js/jquery.js') }}></script>
+<script language="javascript"
+		src={{ url_for('static', filename='js/bootstrap.js') }}></script>
+<title>Menu</title>
+
+
+<nav id="sidebar">
+	<header>
+		<h1><a href=/admin>Admin</a></h1>
+	</header>
+	<ul>
+		<li><a href="{{ url_for('dashboard') }}" class="{{ current.dash }}">
+			<i class="icon-layout"></i>Information</a></li>
+		<li><a href="{{ url_for('config') }}" class="{{ current.site }}">
+			<i class="icon-sound-mix"></i>Site</a></li>
+		<li><a href="{{ url_for('production') }}" class="{{ current.prod }}">
+			<i class="icon-newspaper"></i>Production</a></li>
+		<li><a href="{{ url_for('personne') }}" class="{{ current.personne }}">
+			<i class="icon-vcard"></i>Personne</a></li>
+		<li><a href="{{ url_for('promotion') }}" class="{{ current.hist }}">
+			<i class="icon-minus-squared"></i>Historique</a></li>
+	</ul>
+</nav>
+
+<header id="bann" class="primary">
+	{% block header %}{% endblock %}
+</header>
+
+<main id="dashboard">
+	{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+			{% for category, message in messages %}
+				<div class="alert alert-{{ category }} alert-dismissable">
+					{{ message|replace("\n", "<br>") }}
+					<a class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">
+							<i class="icon-cancel-squared"></i></span>
+					</a>
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+	{% block body %}{% endblock %}
+</main>

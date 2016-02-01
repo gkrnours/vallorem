@@ -1,0 +1,46 @@
+{% extends "site/page/base.html" %}
+
+{% block url %}
+{{ url_for('page.create') }}
+{% endblock %}
+
+{% block titre %}
+Page
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+
+<div class="panel">
+	<table>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Categorie</th>
+				<th class=icon>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for page in list %}
+			<tr>
+				<td>{{ page.titre }}</td>
+				<td>{{ page.categorie}}</td>
+				<td class=icon>
+					<a href={{ url_for('page.delete',
+						id=page.id, name=page.titre ) }}>
+						<i class="icon-cancel-squared"></i></a>
+					<a href={{ url_for('page.update', id=page.id) }}>
+						modifier</a>
+				</td>
+
+			</tr>
+
+			{% endfor %}
+		</tbody>
+
+	</table>	
+
+
+</div>
+
+{% endblock %}

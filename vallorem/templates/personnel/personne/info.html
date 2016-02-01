@@ -1,0 +1,47 @@
+{% set url = url_for('personne.update', id=personne.id) %}
+{% set link_text = "Modifier" %}
+{% set page = {"personne":"selected"} %}
+
+{% extends "personnel/base.html" %}
+
+
+{% block body %}
+	{{ super() }}
+	<div class="panel">
+		<table>
+			<tr>
+				<th>Nom</th>
+				<td>{{ personne.nom }}</td>
+			</tr>
+			<tr>
+				<th>Prenom</th>
+				<td>{{ personne.prenom }}</td>
+			</tr>
+			<tr>
+				<th>Nom de jeune fille</th>
+				<td>{{ personne.nom_jf }}</td>
+			</tr>
+			<tr>
+				<th>Date de naissance</th>
+				<td>{{ personne.date_naissance }}</td>
+			</tr>
+			<tr>
+				<th>Date de recrutement</th>
+				<td>{{ personne.date_recrutement }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>{{ personne.statut }}</td>
+			</tr>
+			<tr>
+				<th>Equipe</th>
+				<td>{{ personne.equipe.nom }}</td>
+			</tr>
+			<tr>
+				<th>Permanent</th>
+				<td>{{ personne.permanent }}</td>
+			</tr>
+		</table>
+	</div>
+
+{% endblock %}

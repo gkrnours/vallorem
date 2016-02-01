@@ -26,9 +26,12 @@ class Personne(Base):
     info_doctorant = relationship("Doctorant")
     chgs_equipe = relationship("ChgEquipe", back_populates="personne")
     dates_promotion = relationship("DatePromotion", back_populates="personne")
-    mails = relationship("Mail", secondary=mail_personne, back_populates="personnes")
-    productions = relationship("Production", secondary=production_personne, back_populates="personnes")
-    users = relationship("User", secondary=user_personne, back_populates="personnes")
+    mails = relationship("Mail", secondary=mail_personne,
+        back_populates="personnes")
+    productions = relationship("Production", secondary=production_personne,
+        back_populates="personnes")
+    users = relationship("User", secondary=user_personne,
+        back_populates="personnes")
 
     @property
     def statut(self):
@@ -38,4 +41,9 @@ class Personne(Base):
 
     @statut.setter
     def statut(self, value):
+        if isinstance(value, (str, unicode)):
+            value = Statut.get_or_create(value)
         self._statut = value
+
+    def __str__(self):
+        return "%s %s" % (self.nom, self.prenom)

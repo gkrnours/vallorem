@@ -22,3 +22,6 @@ class Page(Base):
     @categorie.setter
     def categorie(self, value):
         self._categorie = value
+
+    def __str__(self):
+        return self.titre

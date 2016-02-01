@@ -1,0 +1,25 @@
+{% extends "site/user/base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block titre %}
+	Ajout d'un utilisateur
+{% endblock %}
+
+{% block header %}
+	<div class="button-bar">
+		<button type="submit" value="save" form="user">
+			<i class="icon-check"></i>Save</button>
+	</div>
+	<h2><span class="lg icon-sound-mix"></span>Configuration
+		<span id="part-title"></span></h2>
+{% endblock %}
+
+{% block body %}
+	{{ super() }}
+	<div class="panel">
+		<h3>User</h3>
+		<form method ='POST' class="form-inline" id="user">
+			{% for field in form %}{{ render_field(field) }}{% endfor %}
+		</form>
+	</div>
+{% endblock %}

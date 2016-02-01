@@ -11,3 +11,6 @@ class TypeProduction(Base):
     def __init__(self, description, publication=True):
         self.description = description
         self.publication = publication
+
+    def __str__(self):
+        return self.description

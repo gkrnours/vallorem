@@ -1,46 +1,32 @@
-{% extends "personneBase.html" %}
+{% set url = url_for('doctorantAjout') %}
+{% extends "doctorant/base.html" %}
 
-	{% block url %}
-		{{ url_for('doctorantAjout') }}
-	{% endblock %}
-	{% block titre %}
-		Doctorant
-	{% endblock %}
+{% block titre %}
+	Doctorant
+{% endblock %}
 
 
-
-	{% block body %}
+{% block body %}
 	{{ super() }}
 	<div class="panel">
 		<table>
 			<thead>
-				<th>
-					Nom
-				</th>
-				<th>
-					Prenom
-				</th>
-				<th>
-					Nombre d'inscriptions administratives
-				</th>
-				<th>
-					Type de financement
-				</th>
+				<th>Nom</th>
+				<th>Inscriptions</th>
+				<th>Financement</th>
+				<th class=icon>Action</th>
 			</thead>
 			<tbody>
-			{% for d in doctorants %}
+			{% for d in list %}
 				<tr>
-				<td>{{ d.personne.nom }}</td>
-				<td>{{ d.personne.prenom }}</td>
-				<td>{{ d.nombre_ia }}</td>
-				<td>{{ d.type_financement.description }}</td>
-
+					<td>{{ d.personne.nom }}</td>
+					<td>{{ d.personne.prenom }}</td>
+					<td>{{ d.nombre_ia }}</td>
+					<td>{{ d.type_financement.description }}</td>
 				</tr>
 			{% endfor %}
 			</tbody>
-
 		</table>
-		
 	</div>
 
 

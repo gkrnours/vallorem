@@ -1,0 +1,44 @@
+{% set url = url_for("equipe.create") %}
+{% set link_text = "Ajout" %}
+{% set page = {"equipe":"selected"} %}
+{% extends "personnel/base.html" %}
+
+	{% block titre %}
+		Équipe
+	{% endblock %}
+
+
+
+	{% block body %}
+	{{ super() }}
+	<div class="panel">
+		<table>
+			<thead>
+				<th>Nom</th>
+				<th>Axe</th>
+				<th>Loc.</th>
+				<th class=icon>Action</th>
+			</thead>
+			<tbody>
+			{% for e in list %}
+				<tr>
+					<td>{{ e.nom }}</td>
+					<td>{{ e.axe }}</td>
+					<td>{{ e.localisation }}</td>
+					<td class=icon>
+						<a href="{{ url_for('equipe.delete',
+							id=e.id, name=e) }}">
+							<i class=icon-cancel-squared></i></a>
+						<a href="{{ url_for('equipe.update', id=e.id) }}">
+							modifier</a>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+
+		</table>
+		
+	</div>
+
+
+	{% endblock %}

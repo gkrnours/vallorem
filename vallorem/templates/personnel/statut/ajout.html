@@ -1,0 +1,22 @@
+{% set form_id = "status" %}
+{% set page = {"statut":"selected"} %}
+{% extends "personnel/base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block body %}
+	{{ super() }}
+
+	<div class="panel">
+		<h3>Status </h3>
+
+		<form method='POST' class="form-inline" id="status">
+
+			{{ render_field(form.csrf_token) }}
+			{{ render_field(form.description) }}
+
+		</form>
+
+	</div>
+
+{% endblock %}

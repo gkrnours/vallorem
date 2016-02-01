@@ -11,3 +11,6 @@ class Equipe(Base):
     localisation = Column(String(40))
 
     personnes = relationship("Personne")
+
+    def __str__(self):
+        return self.nom

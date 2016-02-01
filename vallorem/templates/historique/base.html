@@ -1,0 +1,25 @@
+{% set current = {"hist":"selected"} %}
+{% extends "layout.html" %}
+
+{% block header %}
+	<div class="button-bar">
+	{% if url|default(False) %}
+		<a href="{{ url }}" class="button">
+			<i class="icon-{{ icon|default('plus') }}"></i>
+			{{ link_text|default('Ajout') }}</a>
+	{% elif form_id|default(False) %}
+		<button type="submit" value="save" form="{{ form_id }}">
+			<i class="icon-{{ icon|default('check') }}"></i>Save</button>
+	{% endif %}
+	</div>
+
+	<h2><span class="lg icon-vcard"></span>Historique &ndash;
+		<span id="part-title">{% block titre %}{% endblock %}</span></h2>
+{% endblock %}
+
+{% block body %}
+	<nav class=nav-tabs>
+		<a href="{{ url_for('promotion') }}"
+		   class="{{ page.promotion }}">Promotion</a>
+	</nav>
+{% endblock %}

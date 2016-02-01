@@ -1,0 +1,40 @@
+{% set page = {"typeProd":"selected"} %}
+{% extends "production/base.html" %}
+
+	{% block url %}
+		{{ url_for('prod.type.create') }}
+	{% endblock %}
+	{% block titre %}
+		Type
+	{% endblock %}
+
+
+
+	{% block body %}
+	{{ super() }}
+	<div class="panel">
+		<table>
+			<thead>
+				<th>Description</th>
+				<th>Publication ?</th>
+				<th class=icon>Action</th>
+			</thead>
+			<tbody>
+			{% for type in list %}
+				<tr>
+					<td>{{ type.description }}</td>
+					<td>{% if type.publication %}Publication
+						{% else %}&mdash;{% endif %}</td>
+					<td class=icon>
+						<a href="{{ url_for('prod.type.delete',
+							id=type.id, name=type) }}">
+							<i class="icon-cancel-squared"></i></a>
+						<a href="{{ url_for('prod.type.update',
+							id=type.id) }}">
+							modifier</a>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock %}

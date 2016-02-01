@@ -1,0 +1,39 @@
+{% set url = url_for('promotion.create') %}
+{% extends "historique/promo/base.html" %}
+
+{% block titre %}
+	Promotion
+{% endblock %}
+
+
+{% block body %}
+	{{ super() }}
+	<div class="panel">
+		<table>
+			<thead>
+				<th>Personne</th>
+				<th>Nouveau Statut</th>
+				<th>Date</th>
+				<th class=icon>Action</th>
+			</thead>
+			<tbody>
+			{% for pr in list %}
+				<tr>
+					<td>{{ pr.personne}}</td>
+					<td>{{ pr.statut }}</td>
+					<td>{{ pr.date_promotion }}</td>
+					<td class=icon>
+						<a href="{{ url_for('promotion.delete',
+							id=pr.id, name=pr) }}">
+							<i class="icon-cancel-squared"></i></a>
+						<a href="{{ url_for('promotion.update', id=pr.id) }}">
+							modifier</a>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	{% endblock %}

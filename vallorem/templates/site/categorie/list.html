@@ -1,0 +1,40 @@
+{% extends "site/categorie/base.html" %}
+
+{% block url %}
+	{{ url_for('categorie.create') }}
+{% endblock %}
+
+{% block titre %}
+	Categorie
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+
+<div class="panel">
+<table>
+	<thead>
+		<th>Catégorie</th>
+		<th class=icon>Action</th>
+	</thead>
+	<tbody>
+	
+	{% for cat in list %}
+		<tr>
+			<td>{{ cat.description }}</td>
+			<td class=icon>
+				<a href={{ url_for('categorie.delete', id=cat.id, name=cat) }}>
+					<i class="icon-cancel-squared"></i></a>
+				<a href={{ url_for('categorie.update', id=cat.id) }}>
+					modifier</a>
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+
+</table>
+
+
+</div>
+
+	{% endblock %}

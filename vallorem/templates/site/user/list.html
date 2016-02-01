@@ -1,0 +1,43 @@
+{% extends "site/user/base.html" %}
+
+	{% block url %}
+		{{ url_for('user.create') }}
+	{% endblock %}
+	{% block titre %}
+		User
+	{% endblock %}
+
+
+
+	{% block body %}
+	{{ super() }}
+
+	<div class="panel">
+		<table>
+			<thead>
+				<tr>
+					<th>Email</th>
+					<th class=icon>action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				{% for user in list %}
+					<td>{{ user.mail }}</td>
+					<td class=icon>
+						<a href={{ url_for('user.delete', 
+							id=user.id, name=user) }}>
+							<i class="icon-cancel-squared"></i></a>
+						<a href={{ url_for('user.update', id=user.id ) }}>
+							modifier</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+
+		</table>
+		
+	</div>
+
+
+	{% endblock %}

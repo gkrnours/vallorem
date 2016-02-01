@@ -17,3 +17,5 @@ class Production(Base):
     type = relationship("TypeProduction", lazy="joined")
     personnes = relationship("Personne", secondary=production_personne, back_populates="productions")
 
+    def __str__(self):
+        return self.titre

@@ -16,10 +16,8 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
-
 from vallorem import views
 from vallorem.model import db
-
 
 def start(**kwargs):
     db.init()
