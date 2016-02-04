@@ -1,8 +1,9 @@
-{% extends "layout.html" %}
 {% from "_formhelpers.html" import render_field %}
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel=stylesheet href="{{url_for('static', filename='css/dashboard.css')}}">
 
-{% block main %}
-
+<title>Vallorem &ndash; Backoffice</title>
 
 <section id=admin-login class=primary>
 	<h1>Login</h1>
@@ -33,5 +34,3 @@
 	{% endif %}
 	{% endwith %}
 </section>
-
-{% endblock %}
