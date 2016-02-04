@@ -60,7 +60,7 @@ class EquipeForm(Form):
 
 class UserForm(Form):
     mail = TextField('Email', validators=[Required()])
-    passwd = PasswordField('Password', validators=[Optional()])
+    passwd = PasswordField('Mot de passe', validators=[Optional()])
     submit = SubmitField('Submit')
 
 
